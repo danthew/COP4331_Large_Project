@@ -10,5 +10,8 @@
         "firebase-debug.*.log"
       ]
     }
-  ]
+  ],
+  "hosting": {
+    "public":"public"
+  }
 }
