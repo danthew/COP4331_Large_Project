@@ -1,9 +1,11 @@
+// Setting up access to certain directories
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 
 const app = require('express')();
 admin.initializeApp();
 
+// Config information (may move to a private file)
 const firebaseConfig = {
     apiKey: "AIzaSyCLxtVg_Ad5YNVGQHuecjYdIYXyzm4RrUg",
     authDomain: "recipeasy-ec759.firebaseapp.com",
@@ -15,6 +17,7 @@ const firebaseConfig = {
     measurementId: "G-9X7Z2ZH6V7"
 };
 
+
 const fb = require('firebase/app');
 fb.initializeApp(firebaseConfig);
 
@@ -24,12 +27,16 @@ const auth = fbauth.getAuth();
 
 const db = admin.firestore();
 
+// Tester to make sure that the api is working
 app.get('/goodbyeWorld', (req, res) => {
     res.send("Goodbye World ); !")
 });
 
 // If token is desired instead of userId, refer to Full Stack Video #5
 
+// Api endpoint for registering users
+// Request should include email, password, username, name, and dob
+// It returns the userId
 app.post('/register', (req, res) => {
     let userInfo = JSON.parse(req.body);
 
@@ -40,9 +47,8 @@ app.post('/register', (req, res) => {
         name: userInfo.name,
         dob: userInfo.dob
     };
-
     let tk, userId;
-
+    // Getting the information from the database
     db.doc(`/users/${newUser.username}`).get()
         .then(doc => {
             if(doc.exists) {
@@ -78,6 +84,8 @@ app.post('/register', (req, res) => {
         });
 });
 
+// Api endpoint that allows for login, takes an email and a password
+// Returns the userId
 app.post('/login', (req, res) => {
     let userInfo = JSON.parse(req.body);
 
