@@ -1,12 +1,12 @@
 import React from 'react';
 
-import HomeTitle from '../components/HomeTitle';
+import Home from '../components/Home';
 
 const HomePage = () =>
 {
     return(
         <div>
-            <HomeTitle />
+            <Home />
         </div>
     );
 };
