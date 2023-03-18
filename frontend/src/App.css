@@ -1,3 +1,10 @@
+/* Remove the white space that was above the top div */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .background {
   height: 100vh;
   background-color: #FFDAB9;
@@ -9,6 +16,31 @@
 
 .title-bar {
   background-color: #a9a9a9;
-  height: 150px;
-  width: 150px;
+  height: auto;
+  overflow: auto;
+}
+
+.setting-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* Div that contains the pantry/grocery div and the recipe div */
+.content {
+  height: 100%;
+}
+
+.pan-gro {
+  background-color: aqua;
+  height: 100%;
+  width: 40%;
+  float: left;
+}
+
+.recipe {
+  height: 100%;
+  width: 60%;
+  float: right;
+  background-color: aquamarine;
 }

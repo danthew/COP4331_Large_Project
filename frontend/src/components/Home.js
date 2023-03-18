@@ -11,15 +11,19 @@ function HomeTitle()
 
     return(
         <div class="background">
-            <div class="title-Bar">
+            <div class="title-bar">
                 <h1 id='title'>RECIPEASY</h1>
-                <button onClick={Click} class="text">Click Me</button>
+                <div class="setting-button">
+                    <button onClick={Click} class="text">SETTING BUTTON</button>
+                </div>
             </div>
-            <div class="pan-gro">
-                <h1 id='title'>Howdy</h1>
-            </div>
-            <div class="recipe-List">
-                <h1 id='title'>Partner</h1>
+            <div class="content">
+                <div class="pan-gro">
+
+                </div>
+                <div class="recipe">
+                    
+                </div>
             </div>
         </div>
     );
