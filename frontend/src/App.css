@@ -16,7 +16,7 @@
 
 .title-bar {
   background-color: #a9a9a9;
-  height: auto;
+  height: 7.5%;
   overflow: auto;
 }
 
@@ -34,13 +34,56 @@
 .pan-gro {
   background-color: aqua;
   height: 100%;
-  width: 40%;
+  width: 33%;
   float: left;
 }
 
 .recipe {
   height: 100%;
-  width: 60%;
+  width: 67%;
   float: right;
   background-color: aquamarine;
+}
+
+.pan-gro-ui {
+  background-color: brown;
+  height: 85%;
+  width: 85%;
+  margin-left: 7.5%;
+  margin-top: 50px;
+}
+
+.pan-button {
+  background-color: cadetblue;
+  float: left;
+  height: 10%;
+  width: 50%;
+}
+
+.gro-button {
+  background-color: crimson;
+  float: right;
+  height: 10%;
+  width: 50%;
+}
+
+.pan-gro-item {
+  background-color: darkseagreen;
+}
+
+.recipe-ui {
+  background-color: darkslategrey;
+  height: 85%;
+  width: 85%;
+  margin-left: 7.5%;
+  margin-top: 50px;
+}
+
+.recipe-header {
+  background-color: darkgreen;
+  height: 10%;
+}
+
+.recipe-item {
+  background-color: darkgoldenrod;
 }
