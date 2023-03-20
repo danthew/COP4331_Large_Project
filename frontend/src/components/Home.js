@@ -9,6 +9,20 @@ function HomeTitle()
         alert('settings()');
     };
 
+    const panButton = async event =>
+    {
+        event.preventDefault();
+
+        alert('pantry()');
+    }
+
+    const groButton = async event =>
+    {
+        event.preventDefault();
+
+        alert('grocery()');
+    }
+
     //pan = pantry
     //gro = grocery
 
@@ -23,14 +37,14 @@ function HomeTitle()
             <div class="content"> 
                 <div class="pan-gro">
                     <div class="pan-gro-ui">
-                        <div class="pan-button">
+                        <div class="pan-button" onClick={panButton}>
                             <h1 class='title'>PANTRY</h1>
                         </div>
-                        <div class="gro-button">
+                        <div class="gro-button" onClick={groButton}>
                             <h1 class='title'>GROCERY</h1>
                         </div>
                         <div class="pan-gro-item">
-
+                            <h1 class='title'>ITMES</h1>
                         </div>
                     </div>
                 </div>
