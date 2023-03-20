@@ -12,15 +12,19 @@ function HomeTitle()
     const panButton = async event =>
     {
         event.preventDefault();
+        document.getElementById("pan-item").style.display = "block";
+        document.getElementById("gro-item").style.display = "none";
 
-        alert('pantry()');
+        //alert('pantry()');
     }
 
     const groButton = async event =>
     {
         event.preventDefault();
+        document.getElementById("pan-item").style.display = "none";
+        document.getElementById("gro-item").style.display = "block";
 
-        alert('grocery()');
+        //alert('grocery()');
     }
 
     //pan = pantry
@@ -43,8 +47,16 @@ function HomeTitle()
                         <div class="gro-button" onClick={groButton}>
                             <h1 class='title'>GROCERY</h1>
                         </div>
+                        <div class="search">
+                            <input type="text" id="search" placeholder="SEARCH"/><br />
+                        </div>
                         <div class="pan-gro-item">
-                            <h1 class='title'>ITMES</h1>
+                            <div class="pan-item" id="pan-item">
+                                <h1 class='title'>butt</h1>
+                            </div>
+                            <div class="gro-item" id="gro-item">
+                                <h1 class='title'>hole</h1>
+                            </div>
                         </div>
                     </div>
                 </div>

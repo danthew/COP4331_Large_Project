@@ -30,18 +30,13 @@
   height: 100%;
 }
 
+/* Pantry/Grocery CSS */
+
 .pan-gro {
   background-color: aqua;
   height: 100%;
   width: 33%;
   float: left;
-}
-
-.recipe {
-  height: 100%;
-  width: 67%;
-  float: right;
-  background-color: aquamarine;
 }
 
 .pan-gro-ui {
@@ -71,11 +66,42 @@
   text-align: center;
 }
 
+.search {
+  height: 5%;
+  clear:left;
+}
+
 .pan-gro-item {
   background-color: darkseagreen;
-  height: 90%;
+  height: 85%;
   clear: left;
   border-radius: 0px 0px 45px 45px;
+  overflow: hidden;
+}
+
+.pan-item {
+  background-color: darkblue;
+  height: 100%;
+  width: 100%;
+  border-radius: 0px 0px 45px 45px;
+  display: none;
+}
+
+.gro-item {
+  background-color: darkmagenta;
+  height: 100%;
+  width: 100%;
+  border-radius: 0px 0px 45px 45px;
+  display: block;
+}
+
+/* RECIPE CSS */
+
+.recipe {
+  height: 100%;
+  width: 67%;
+  float: right;
+  background-color: aquamarine;
 }
 
 .recipe-ui {
