@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function HomeTitle()
 {
+    var pantrySearch = '';
+
+    const [message,setMessage] = useState('');
+    
     const Click = async event =>
     {
         event.preventDefault();
         
         alert('settings()');
+    };
+
+    const doSearch = async event =>
+    {
+        event.preventDefault();
+        
+        alert('search() ' + pantrySearch.value);
     };
 
     const panButton = async event =>
@@ -16,7 +27,7 @@ function HomeTitle()
         document.getElementById("gro-item").style.display = "none";
 
         //alert('pantry()');
-    }
+    };
 
     const groButton = async event =>
     {
@@ -25,10 +36,10 @@ function HomeTitle()
         document.getElementById("gro-item").style.display = "block";
 
         //alert('grocery()');
-    }
+    };
 
-    //pan = pantry
-    //gro = grocery
+    // pan = pantry
+    // gro = grocery
 
     return(
         <div class="background">
@@ -48,7 +59,11 @@ function HomeTitle()
                             <h1 class='title'>GROCERY</h1>
                         </div>
                         <div class="search">
-                            <input type="text" id="search" placeholder="SEARCH"/><br />
+                            <form class="search">
+                                <input class="search-bar" id="pantrySearch" placeholder="SEARCH" ref={(c) => pantrySearch = c}/>
+                                <button class="search-button" onClick={doSearch}>SEARCH</button>
+                                <span id="pantrySearch">{message}</span>
+                            </form>
                         </div>
                         <div class="pan-gro-item">
                             <div class="pan-item" id="pan-item">

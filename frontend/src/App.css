@@ -25,6 +25,26 @@
   right: 0;
 }
 
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar {
+  font-size: 100%;
+  text-align: center;
+  margin-right: 5px;
+  padding: 1%;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.search-button {
+  font-size: auto;
+  padding: 1%;
+  border-radius: 30px 30px 30px 30px;
+} 
+
 /* Div that contains the pantry/grocery div and the recipe div */
 .content {
   height: 100%;
