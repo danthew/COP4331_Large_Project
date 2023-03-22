@@ -9,7 +9,7 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "18"
+    "node": "18.x"
   },
   "main": "index.js",
   "dependencies": {
