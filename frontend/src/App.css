@@ -14,6 +14,57 @@
   color: #000000;
 }
 
+/* Login/Register screen css */
+
+.login-div {
+  background-color: lightblue;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 550px;
+  width: 440px;
+  transform: translate(-50%,-35%);
+  border-radius: 30px 30px 45px 45px;
+  overflow: hidden;
+}
+
+.login-button {
+  background-color: indianred;
+  float: left;
+  height: 10%;
+  width: 50%;
+  border-radius: 30px 0px 0px;
+  text-align: center;
+}
+
+.register-button {
+  background-color: aquamarine;
+  float: right;
+  height: 10%;
+  width: 50%;
+  border-radius: 0px 30px 0px 0px;
+  text-align: center;
+}
+
+.login {
+  background-color: darkblue;
+  height: 100%;
+  width: 100%;
+  border-radius: 0px 0px 45px 45px;
+  display: none;
+}
+
+.register {
+  background-color: darkmagenta;
+  height: 100%;
+  width: 100%;
+  border-radius: 0px 0px 45px 45px;
+  transform: translateY(10%);
+  display: block;
+}
+
+/* Home screen css */
+
 .title-bar {
   background-color: #a9a9a9;
   height: 7.5%;
