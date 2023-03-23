@@ -24,6 +24,7 @@ function Register() {
         }
 
         if(obj.name === "" || obj.username === "" || obj.password === "" || obj.dob === "" || obj.email === "") {
+
             setMessage("Please make sure the fields are not empty.");
             return;
         }
