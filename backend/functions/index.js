@@ -38,7 +38,7 @@ app.get('/goodbyeWorld', (req, res) => {
 // Request should include email, password, username, name, and dob
 // It returns the userId
 app.post('/register', (req, res) => {
-    let userInfo = JSON.parse(req.body);
+    let userInfo = req.body;
 
     const newUser = {
         email: userInfo.email,
@@ -87,7 +87,7 @@ app.post('/register', (req, res) => {
 // Api endpoint that allows for login, takes an email and a password
 // Returns the userId
 app.post('/login', (req, res) => {
-    let userInfo = JSON.parse(req.body);
+    let userInfo = req.body;
 
     const user = {
         email: userInfo.email,
