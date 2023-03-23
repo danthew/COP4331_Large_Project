@@ -23,20 +23,18 @@ function Register() {
             email: registerEmail.value
         }
 
-        if(obj.name == "" || obj.username == "" || obj.password == "" || obj.dob == "" || obj.email == "") {
+        if(obj.name === "" || obj.username === "" || obj.password === "" || obj.dob === "" || obj.email === "") {
+
             setMessage("Please make sure the fields are not empty.");
             return;
         }
         console.log(registerName.value);
 
         let js = JSON.stringify(obj);
-        const headers = {"Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*",
-                        "Access-Control-Allow-Methods": "POST, PATCH, OPTIONS" }
+        const headers = {"Content-Type": "application/json"}
 
         try {
             const response = await fetch(bp.buildPath('register'), {
-                mode: "no-cors",
                 method: "POST",
                 body: js,
                 headers: headers
