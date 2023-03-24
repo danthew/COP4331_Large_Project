@@ -61,7 +61,7 @@ function Register() {
     }
         return (
     <div id="registerDiv">
-        <div class="registerText">
+        <div className="registerText">
             <form onSubmit={doRegister}>
                 <h1 id="title">Register</h1>
                 <div id="input_text">
@@ -81,7 +81,7 @@ function Register() {
                 <div id="input_text">
                 <label id="input_label">Password</label><input type={passwordShown ? "text" : "password"} id="registerP assword" placeholder="Password" ref={(c) => registerPassword = c}/><br />               
                 </div>
-                <input type="submit" id="registerButton" class="buttons" value="Register" onClick={doRegister}/>
+                <input type="submit" id="registerButton" className="buttons" value="Register" onClick={doRegister}/>
             </form>
             <span id="registerResult"></span>
         </div>

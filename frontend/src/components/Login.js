@@ -16,38 +16,46 @@ function Login() {
                     login:loginName.value,
                     password:loginPassword.value
                 };
+    const doLogin = async (event) => {
 
-                var js = JSON.stringify(obj);
+        console.log("logging in!");
 
-                try
-                {
-                    const response = await
-                    fetch('http://localhost:5000/api/login',
-                    {
-                        method:'POST',body:js,headers:
-                        {
-                            'Content-Type':'application/json'
-                        }
-                    });
-                    var res = JSON.parse(await response.text());
+        event.preventDefault();
 
-                    if( res.id <= 0 )
-                    {
-                        setMessage('User/Password combinationincorrect');
-                    }
-                    else
-                    {
-                    var user =
-                    {
-                        firstName:res.firstName,
-                        lastName:res.lastName,
-                        id:res.id
-                    }
-                    localStorage.setItem('user_data',
-                    JSON.stringify(user));
-                    setMessage('');
-                    window.location.href = '/home';
-                }
+        let obj = {
+            login: loginName.value,
+            password: loginPassword.value
+        };
+
+        if(obj.login == "" || obj.password == "") {
+            setMessage("Please make sure the fields are not empty.");
+            return;
+        } 
+
+        let bp = require("./BuildPath.js");
+
+        let js = JSON.stringify(obj);
+
+        try {
+            const response = await fetch(bp.buildPath("login"), {
+                method: "POST",
+                body: js,
+                headers: { "Content-Type": "application/json" },
+            });
+            var res = JSON.parse(await response.text());
+            if(res.id <= 0) {
+                setMessage('There was an error with your username/password input.');
+            }
+            else {
+                var user = {
+                    firstName: res.firstName,
+                    lastName: res.lastName,
+                    id: res.id
+                };
+                localStorage.setItem('user_data', JSON.stringify(user));
+                setMessage('');
+                //window.location.href = "/recipes";
+
             }
             catch(e)
             {
@@ -57,7 +65,7 @@ function Login() {
         };
     return (
         <div id="loginDiv">
-            <div class="loginText">
+            <div className="loginText">
                 <form onSubmit={doLogin}>
                     <div id="input_text">
                     <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c} /><br />
@@ -65,7 +73,7 @@ function Login() {
 				    <div id="input_text">
                     <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
 				    </div>
-                    <input type="submit" id="loginButton" class="buttons" value="Login" onClick={doLogin}/>
+                    <input type="submit" id="loginButton" className="buttons" value="Login" onClick={doLogin}/>
                 </form>
                 <span id="loginResult">{message}</span>
             </div>

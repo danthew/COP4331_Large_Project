@@ -34,17 +34,17 @@ const LoginPage = () => {
             <div class="logo-login">
                 
             </div>
-            <div class="login-div"> 
-                <div class="login-button" id="login-button" onClick={loginButton}>
+            <div className="login-div"> 
+                <div className="login-button" id="login-button" onClick={loginButton}>
                     login
                 </div>
-                <div class="register-button" id="register-button" onClick={registerButton}>
+                <div className="register-button" id="register-button" onClick={registerButton}>
                     register
                 </div>
-                <div class="login" id="login">
+                <div className="login" id="login">
                     <Login />
                 </div>
-                <div class="register" id="register">
+                <div className="register" id="register">
                     <Register />
                 </div>
             </div>
