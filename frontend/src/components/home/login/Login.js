@@ -1,5 +1,6 @@
 //import React from 'react';
 import React, {useState} from 'react';
+import ShowablePassword from 'components/home/login/ShowablePassword';
 
 function Login() {
     
@@ -64,11 +65,9 @@ function Login() {
                     <div id="input_text">
                         <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c} /><br />
 				    </div>
-				    <div id="input_text">
-                        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
-				    </div>
-                    <div className="checkbox_password">
-                        <label><input type="checkbox"/> Show Password </label>
+                    {/* <ShowablePassword/> */}
+                    <div id="input_text">
+                        <input type="password" name="Password" toggleMask="true" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
                     </div>
                     <input type="submit" id="loginButton" className="buttons" value="Login" onClick={doLogin}/>
                     </form>
