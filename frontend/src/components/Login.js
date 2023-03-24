@@ -9,6 +9,8 @@ function Login() {
 
     const doLogin = async (event) => {
 
+        console.log("logging in!");
+
         event.preventDefault();
 
         let obj = {
@@ -16,7 +18,7 @@ function Login() {
             password: loginPassword.value
         };
 
-        if(obj.login == "" || obj.password == "") {
+        if(obj.login === "" || obj.password === "") {
             setMessage("Please make sure the fields are not empty.");
             return;
         } 
@@ -54,7 +56,7 @@ function Login() {
     }
     return (
         <div id="loginDiv">
-            <div class="loginText">
+            <div className="loginText">
                 <form onSubmit={doLogin}>
                     <div id="input_text">
 					    <label id="input_label">USERNAME</label><input type="text" id="loginName" placeholder="Username"/><br />
@@ -62,7 +64,7 @@ function Login() {
 				    <div id="input_text">
 				    	<label id="input_label">PASSWORD</label><input type={passwordShown ? "text" : "password"} id="loginPassword" placeholder="Password"/><br />
 				    </div>
-                    <input type="submit" id="loginButton" class="buttons" value="Login" onClick={doLogin}/>
+                    <input type="submit" id="loginButton" className="buttons" value="Login" onClick={doLogin}/>
                 </form>
                 <span id="loginResult"></span>
             </div>
