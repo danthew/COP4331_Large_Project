@@ -19,7 +19,7 @@ function Login() {
             password: loginPassword.value
         };
 
-        if(obj.login == "" || obj.password == "") {
+        if(obj.login === "" || obj.password === "") {
             setMessage("Please make sure the fields are not empty.");
             return;
         } 
