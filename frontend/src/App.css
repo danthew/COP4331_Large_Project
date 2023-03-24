@@ -62,7 +62,7 @@
   height: 100%;
   width: 100%;
   border-radius: 0px 0px 45px 45px;
-  display: none;
+  display: block;
 }
 
 .register {
@@ -70,7 +70,7 @@
   height: 100%;
   width: 100%;
   border-radius: 0px 0px 45px 45px;
-  display: block;
+  display: none;
 }
 
 /* Home screen css */
