@@ -24,7 +24,7 @@ function Login() {
             return;
         } 
 
-        let bp = require("./BuildPath.js");
+        let bp = require("../../BuildPath.js");
 
         let js = JSON.stringify(obj);
 
