@@ -8,14 +8,6 @@ function Login() {
     const [message, setMessage] = useState("");
     const [passwordShown, setPasswordShown] = useState(false);
 
-    const doLogin = async (event) =>
-            {
-                event.preventDefault();
-                var obj =
-                {
-                    login:loginName.value,
-                    password:loginPassword.value
-                };
     const doLogin = async (event) => {
 
         console.log("logging in!");
@@ -57,27 +49,33 @@ function Login() {
                 //window.location.href = "/recipes";
 
             }
-            catch(e)
-            {
-                alert(e.toString());
-                return;
-            }
-        };
+        }
+        catch(e)
+        {
+            alert(e.toString());
+            return;
+        }
+    };
+
     return (
         <div id="loginDiv">
             <div className="loginText">
                 <form onSubmit={doLogin}>
                     <div id="input_text">
-                    <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c} /><br />
+                        <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c} /><br />
 				    </div>
 				    <div id="input_text">
-                    <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
+                        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
 				    </div>
+                    <div className="checkbox_password">
+                        <label><input type="checkbox"/> Show Password </label>
+                    </div>
                     <input type="submit" id="loginButton" className="buttons" value="Login" onClick={doLogin}/>
-                </form>
+                    </form>
                 <span id="loginResult">{message}</span>
             </div>
         </div>
     );
 }
+
 export default Login;

@@ -41,14 +41,22 @@ const LoginPage = () => {
                 <div className="register-button" id="register-button" onClick={registerButton}>
                     register
                 </div>
-                <div className="login" id="login">
+                <div className="login" id="login" style={loginStyle}>
                     <Login />
                 </div>
-                <div className="register" id="register">
+                <div className="register" id="register" style={registerStyle}>
                     <Register />
                 </div>
             </div>
         </div>
     );
 };
+
+const loginStyle = {
+};
+
+const registerStyle = {
+
+};
+
 export default LoginPage;

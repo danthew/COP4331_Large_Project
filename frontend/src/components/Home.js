@@ -42,45 +42,45 @@ function HomeTitle()
     // gro = grocery
 
     return(
-        <div class="background">
-            <div class="title-bar"> 
+        <div className="background">
+            <div className="title-bar"> 
                 <h1 id='title'>RECIPEASY</h1>
-                <div class="setting-button">
-                    <button onClick={Click} class="text">SETTING BUTTON</button>
+                <div className="setting-button">
+                    <button onClick={Click} className="text">SETTING BUTTON</button>
                 </div>
             </div>
-            <div class="content"> 
-                <div class="pan-gro">
-                    <div class="pan-gro-ui">
-                        <div class="pan-button" onClick={panButton}>
-                            <h1 class='title'>PANTRY</h1>
+            <div className="content"> 
+                <div className="pan-gro">
+                    <div className="pan-gro-ui">
+                        <div className="pan-button" onClick={panButton}>
+                            <h1 className='title'> Pantry </h1>
                         </div>
-                        <div class="gro-button" onClick={groButton}>
-                            <h1 class='title'>GROCERY</h1>
+                        <div className="gro-button" onClick={groButton}>
+                            <h1 className='title'> Grocery List </h1>
                         </div>
-                        <div class="search">
-                            <form class="search">
-                                <input class="search-bar" id="pantrySearch" placeholder="SEARCH" ref={(c) => pantrySearch = c}/>
-                                <button class="search-button" onClick={doSearch}>SEARCH</button>
+                        <div className="search">
+                            <form className="search">
+                                <input className="search-bar" id="pantrySearch" placeholder="Search Pantry" ref={(c) => pantrySearch = c}/>
+                                <button className="search-button" onClick={doSearch}> + </button>
                                 <span id="pantrySearch">{message}</span>
                             </form>
                         </div>
-                        <div class="pan-gro-item">
-                            <div class="pan-item" id="pan-item">
-                                <h1 class='title'>butt</h1>
+                        <div className="pan-gro-item">
+                            <div className="pan-item" id="pan-item">
+                                <h1 className='title'>butt</h1>
                             </div>
-                            <div class="gro-item" id="gro-item">
-                                <h1 class='title'>hole</h1>
+                            <div className="gro-item" id="gro-item">
+                                <h1 className='title'>hole</h1>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="recipe">
-                    <div class="recipe-ui">
-                        <div class="recipe-header">
-                            <h1 class='title'>RECIPES</h1>
+                <div className="recipe">
+                    <div className="recipe-ui">
+                        <div className="recipe-header">
+                            <h1 className='title'> Recipes </h1>
                         </div>
-                        <div class="recipe-item">
+                        <div className="recipe-item">
 
                         </div>
                     </div>
