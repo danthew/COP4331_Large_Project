@@ -56,7 +56,6 @@ function Login() {
         <div id="loginDiv">
             <div class="loginText">
                 <form onSubmit={doLogin}>
-                    <h1 id="title">RECIPEASY - Login/Register Page</h1>
                     <div id="input_text">
 					    <label id="input_label">USERNAME</label><input type="text" id="loginName" placeholder="Username"/><br />
 				    </div>
