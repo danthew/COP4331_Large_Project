@@ -7,6 +7,9 @@ yarn-error.log*
 firebase-debug.log*
 firebase-debug.*.log*
 
+# Ignore swap files
+*.swp
+
 # Firebase cache
 .firebase/
 
