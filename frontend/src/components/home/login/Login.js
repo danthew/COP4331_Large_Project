@@ -15,7 +15,7 @@ function Login() {
         event.preventDefault();
 
         let obj = {
-            login: loginName.value,
+            email: loginName.value,
             password: loginPassword.value
         };
 
@@ -26,7 +26,7 @@ function Login() {
 
         let bp = require("../../BuildPath.js");
 
-        let js = JSON.stringify(obj);
+        let js = JSON(obj);
 
         try {
             const response = await fetch(bp.buildPath("login"), {
@@ -46,7 +46,7 @@ function Login() {
                 };
                 localStorage.setItem('user_data', JSON.stringify(user));
                 setMessage('');
-                //window.location.href = "/recipes";
+                window.location.href = "/home";
 
             }
         }
