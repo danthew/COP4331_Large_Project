@@ -2,9 +2,9 @@ import React from 'react';
 
 import Login from '../components/Login';
 import Register from '../components/Register';
-import Logo from '../images/logo.png';
+//import Logo from '../images/logo.png';
 
-console.log(Logo);
+//console.log(Logo);
 
 const loginButton = async event =>
     {   
@@ -27,12 +27,12 @@ const registerButton = async event =>
 
         //alert('grocery()');
     };
-
+//<img height="200px" width="200px" src={Logo} alt="RECIPEASY Logo"></img>
 const LoginPage = () => {
     return (
         <div class="background"> 
             <div class="logo-login">
-                <img height="200px" width="200px" src={Logo} alt="RECIPEASY Logo"></img>
+                
             </div>
             <div class="login-div"> 
                 <div class="login-button" id="login-button" onClick={loginButton}>
