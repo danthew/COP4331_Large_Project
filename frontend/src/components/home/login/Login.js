@@ -25,12 +25,12 @@ function Login() {
             return;
         } 
 
-        let bp = require("../../BuildPath.js");
+        //let bp = require("../../BuildPath.js");
 
-        let js = JSON(obj);
+        let js = JSON.stringify(obj);
 
         try {
-            const response = await fetch(bp.buildPath("login"), {
+            const response = await fetch('http://localhost:5000/login', {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json" },
