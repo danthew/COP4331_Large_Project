@@ -23,6 +23,7 @@ fb.initializeApp(firebaseConfig);
 
 const fbauth = require("firebase/auth");
 const { user } = require("firebase-functions/v1/auth");
+const { json } = require("express");
 const auth = fbauth.getAuth();
 
 const db = admin.firestore();
@@ -87,20 +88,27 @@ app.post('/register', (req, res) => {
 // Api endpoint that allows for login, takes an email and a password
 // Returns the userId
 app.post('/login', (req, res) => {
+    console.log("Recieved login request!");
+    console.log(req.body);
     let userInfo = req.body;
-
+    console.log(userInfo);
     const user = {
         email: userInfo.email,
         password: userInfo.password
     };
-
+    console.log(user);
     fbauth.signInWithEmailAndPassword(auth, user.email, user.password)
         .then(data => {
-            return res.json({userId : data.user.uid});
+            return res.status(201).json({userId : data.user.uid});
         })
         .catch(err => {
             if(err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found')
-                return res.status(403).json({ general: "Wrong credentials"});
+                return res.status(403).json({ general: "Wrong credentials."});
+            if (err.code === 'auth/invalid-email')
+                return res.status(401).json({general: "Invalid email."});
+            if (err.code === 'aut/missing-email')
+                return ren.status(401).json({general : "Missing email."})
+                console.log(err);
             return res.status(500).json({ error : err.code });
         });
 });

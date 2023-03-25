@@ -16,8 +16,8 @@ function Login() {
         event.preventDefault();
 
         let obj = {
-            email: loginName.value,
-            password: loginPassword.value
+            email : loginName.value,
+            password : loginPassword.value
         };
 
         if(obj.login === "" || obj.password === "") {
@@ -28,22 +28,23 @@ function Login() {
         //let bp = require("../../BuildPath.js");
 
         let js = JSON.stringify(obj);
-
         try {
-            const response = await fetch('http://localhost:5000/login', {
+            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/login', {
                 method: "POST",
                 body: js,
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", 
+                            "Access-Control-Allow-Origin" : "https://localhost:5001",
+                            "Access-Control-Allow-Methods" : "POST"},
             });
-            var res = JSON.parse(await response.text());
-            if(res.id <= 0) {
+            var res = JSON.stringify(response.body);
+            if(response.status != 201) {
                 setMessage('There was an error with your username/password input.');
             }
             else {
                 var user = {
-                    firstName: res.firstName,
-                    lastName: res.lastName,
-                    id: res.id
+                    // firstName: res.firstName,
+                    // lastName: res.lastName,
+                    id: res.userId
                 };
                 localStorage.setItem('user_data', JSON.stringify(user));
                 setMessage('');
