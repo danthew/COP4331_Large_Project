@@ -28,8 +28,6 @@ const auth = fbauth.getAuth();
 
 const db = admin.firestore();
 
-app.use(cors());
-
 // Tester to make sure that the api is working
 app.get('/goodbyeWorld', (req, res) => {
     res.send("Goodbye World ); !")
