@@ -1,8 +1,10 @@
 // Setting up access to certain directories
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-
+var cors = require('cors');
 const app = require('express')();
+
+app.use(cors());
 admin.initializeApp();
 
 // Config information (may move to a private file)
