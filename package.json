@@ -3,20 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-
   "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "start": "nodemon server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
-
   "author": "",
   "license": "ISC",
-    
   "dependencies": {
+    "cors": "^2.8.5",
     "create-react-app": "^5.0.1"
   },
   "engines": {
     "node": "18.x"
-
   }
 }
