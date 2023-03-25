@@ -28,6 +28,8 @@ function Login() {
         //let bp = require("../../BuildPath.js");
 
         let js = JSON.stringify(obj);
+        console.log(JSON.stringify(obj,null,2));
+        
         try {
             const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/login', {
                 method: "POST",
