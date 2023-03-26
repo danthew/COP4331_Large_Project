@@ -55,6 +55,7 @@ function Login() {
             var res = JSON.stringify(response.body);
             if(response.status != 201) {
                 setMessage('There was an error with your username/password input.');
+		console.log(response.status);
             }
             else {
                 var user = {
