@@ -49,7 +49,7 @@ function Login() {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json", 
-                            "Access-Control-Allow-Origin" : "no-cors",
+                            "Access-Control-Allow-Origin" : "https://localhost:5001" || "https://recipeasy123.herokuapp.com",
                             "Access-Control-Allow-Methods" : "POST"},
             });
             var res = JSON.stringify(response.body);
