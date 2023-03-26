@@ -34,7 +34,7 @@ function Register() {
         const headers = {"Content-Type": "application/json"}
 
         try {
-            const response = await fetch(bp.buildPath('register'), {
+            const response = await fetch(bp.buildPath('api/register'), {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json", 
