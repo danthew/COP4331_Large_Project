@@ -45,7 +45,7 @@ function Login() {
         console.log(JSON.stringify(obj,null,2));
         
         try {
-            const response = await fetch(buildPath('login'), {
+            const response = await fetch(buildPath('api/login'), {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json", 
