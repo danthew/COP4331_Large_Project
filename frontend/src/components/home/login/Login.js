@@ -8,6 +8,20 @@ function Login() {
     var loginPassword;
     const [message, setMessage] = useState("");
     const [passwordShown, setPasswordShown] = useState(false);
+	
+	
+	const app_name = 'recipeasy123'
+	function buildPath(route)
+	{
+		if (process.env.NODE_ENV === 'production')
+		{
+		return 'https://' + app_name + '.herokuapp.com/' + route;
+		}
+		else
+		{
+		return 'http://localhost:5000/' + route;
+		}
+	}
 
     const doLogin = async (event) => {
 
@@ -31,7 +45,7 @@ function Login() {
         console.log(JSON.stringify(obj,null,2));
         
         try {
-            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/login', {
+            const response = await fetch(buildPath('login'), {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json", 
