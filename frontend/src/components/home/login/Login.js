@@ -15,7 +15,7 @@ function Login() {
 	{
 		if (process.env.NODE_ENV === 'production')
 		{
-		return 'https://' + app_name + '.herokuapp.com/' + route;
+		return 'https://us-central1-recipeasy-ec759.cloudfunctions.net/' + route;
 		}
 		else
 		{
@@ -45,16 +45,17 @@ function Login() {
         console.log(JSON.stringify(obj,null,2));
         
         try {
-            const response = await fetch(buildPath('login'), {
+            const response = await fetch(buildPath('api/login'), {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json", 
-                            "Access-Control-Allow-Origin" : "https://localhost:5001",
+                            "Access-Control-Allow-Origin" : "https://localhost:5001" || "https://recipeasy123.herokuapp.com",
                             "Access-Control-Allow-Methods" : "POST"},
             });
             var res = JSON.stringify(response.body);
             if(response.status != 201) {
                 setMessage('There was an error with your username/password input.');
+		console.log(response.status);
             }
             else {
                 var user = {
