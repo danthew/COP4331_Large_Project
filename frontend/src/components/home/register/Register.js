@@ -37,7 +37,9 @@ function Register() {
             const response = await fetch(bp.buildPath('register'), {
                 method: "POST",
                 body: js,
-                headers: headers
+                headers: { "Content-Type": "application/json", 
+                            "Access-Control-Allow-Origin" : "https://localhost:5001" || "https://us-central1-recipeasy-ec759.cloudfunctions.net/",
+                            "Access-Control-Allow-Methods" : "POST"},
             })
             var res = JSON.parse(await response.text());
             if(res.id <= 0) {
