@@ -4,7 +4,7 @@ const admin = require("firebase-admin");
 var cors = require('cors');
 const app = require('express')();
 
-app.use(cors());
+app.use(cors({origin: true}));
 admin.initializeApp();
 
 // Config information (may move to a private file)
