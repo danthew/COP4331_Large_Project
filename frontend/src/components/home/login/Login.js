@@ -45,13 +45,13 @@ function Login() {
         console.log(JSON.stringify(obj,null,2));
         
         try {
-            const response = await fetch(buildPath('api/login'), {
+            fetch("https://recipeasy123.herokuapp.com/"), {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json", 
                             "Access-Control-Allow-Origin" : "*",
                             "Access-Control-Allow-Methods" : "POST"},
-            });
+            };
             var res = JSON.stringify(response.body);
             if(response.status != 201) {
                 setMessage('There was an error with your username/password input.');
