@@ -53,6 +53,9 @@ function HomeTitle()
         <div className="background">
             <div className="title-bar"> 
                 <h1 className='title'>RECIPEASY</h1>
+                <div id="wellcome-user">
+                    
+                </div>
                 <div className="setting-button">
                     <button onClick={Click} className="text">SETTING BUTTON</button>
                 </div>
