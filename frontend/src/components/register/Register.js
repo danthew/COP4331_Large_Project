@@ -8,7 +8,7 @@ function Register() {
     let registerEmail;
     const [message, setMessage] = useState("");
 
-        let bp = require("../../BuildPath.js");
+        let bp = require("../BuildPath.js");
         const [passwordShown, setPasswordShown] = useState(false);
 
     const doRegister = async (event) => {
@@ -65,25 +65,22 @@ function Register() {
     <div id="registerDiv">
         <div className="registerText">
             <form onSubmit={doRegister}>
-                <h1 id="title">Register</h1>
                 <div id="input_text">
-                <label id="input_label">First Name</label><input type="text" id="registerName" placeholder="Name" ref={ (c) => registerName = c}/><br />               
+                    <label id="input_label">First Name</label><input type="text" id="registerName" placeholder="Name" ref={ (c) => registerName = c}/><br />               
                 </div>
                 <div id="input_text">
-                <label id="input_label">Email</label><input type="text" id="registerEmail" placeholder="Email" ref={(c) => registerEmail = c}/><br />       
+                    <label id="input_label">Email</label><input type="text" id="registerEmail" placeholder="Email" ref={(c) => registerEmail = c}/><br />       
                 </div>
                 <div id="input_text">
-                <label id="input_label">Date of Birth</label><input type="text" id="registerDOB" placeholder="Date of Birth" ref={(c) => registerDOB = c}/><br />            
+                    <label id="input_label">Date of Birth</label><input type="text" id="registerDOB" placeholder="Date of Birth" ref={(c) => registerDOB = c}/><br />            
                 </div>
                 <div id="input_text">
+                    <label id="input_label">Username</label><input type="text" id="registerUsername" placeholder="Username"   ref={(c) => registerUsername = c}/><br />             
                 </div>
                 <div id="input_text">
-                <label id="input_label">Username</label><input type="text" id="registerUsername" placeholder="Username"   ref={(c) => registerUsername = c}/><br />             
+                    <label id="input_label">Password</label><input type={passwordShown ? "text" : "password"} id="registerP assword" placeholder="Password" ref={(c) => registerPassword = c}/><br />               
                 </div>
-                <div id="input_text">
-                <label id="input_label">Password</label><input type={passwordShown ? "text" : "password"} id="registerP assword" placeholder="Password" ref={(c) => registerPassword = c}/><br />               
-                </div>
-                <input type="submit" id="registerButton" className="buttons" value="Register" onClick={doRegister}/>
+                    <input type="submit" id="registerButton" className="buttons" value="Register" onClick={doRegister}/>
             </form>
             <span id="registerResult"></span>
         </div>

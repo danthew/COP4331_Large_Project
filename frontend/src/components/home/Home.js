@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 
+let _ud = localStorage.getItem('user_data');
+let ud = JSON.parse(_ud);
+let userId = ud.id;
+let firstName = ud.firstName;
+let id = ud.id;
+
 function HomeTitle()
 {
     var pantrySearch = '';
@@ -54,7 +60,7 @@ function HomeTitle()
             <div className="title-bar"> 
                 <h1 className='title'>RECIPEASY</h1>
                 <div id="wellcome-user">
-                    
+                    <span className="welcome-User">Welcome {firstName}</span><br/>
                 </div>
                 <div className="setting-button">
                     <button onClick={Click} className="text">SETTING BUTTON</button>

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Login from 'components/home/login/Login';
-import Register from 'components/home/register/Register';
-//import Logo from 'images/logo.png';
+import Login from 'components/login/Login';
+import Register from 'components/register/Register';
+import Logo from 'images/logo.png';
 
-//console.log(Logo);
+console.log(Logo);
 
 const loginButton = async event =>
     {   
@@ -13,8 +13,6 @@ const loginButton = async event =>
         document.getElementById("login").style.display    = "block";
         document.getElementById("register-button").style.backgroundColor = "#ffffff";
         document.getElementById("login-button").style.backgroundColor = "#3590d5";
-
-        //alert('grocery()');
     };
 
 const registerButton = async event =>
@@ -24,15 +22,13 @@ const registerButton = async event =>
         document.getElementById("register").style.display = "block";
         document.getElementById("login-button").style.backgroundColor = "#ffffff";
         document.getElementById("register-button").style.backgroundColor = "#3590d5";
-
-        //alert('grocery()');
     };
-//<img height="200px" width="200px" src={Logo} alt="RECIPEASY Logo"></img>
+
 const LoginPage = () => {
     return (
         <div class="background"> 
             <div class="logo-login">
-                
+                <img height="200px" width="200px" src={Logo} alt="RECIPEASY Logo"></img>                
             </div>
             <div className="login-div"> 
                 <div className="login-button" id="login-button" onClick={loginButton}>

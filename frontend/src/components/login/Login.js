@@ -1,6 +1,6 @@
 //import React from 'react';
 import React, {useState} from 'react';
-import ShowablePassword from 'components/home/login/ShowablePassword';
+import ShowablePassword from 'components/login/ShowablePassword';
 
 function Login() {
     
@@ -59,14 +59,12 @@ function Login() {
             }
             else {
                 var user = {
-                    // firstName: res.firstName,
-                    // lastName: res.lastName,
+                    firstName: res.firstName,
                     id: res.userId
                 };
                 localStorage.setItem('user_data', JSON.stringify(user));
                 setMessage('');
                 window.location.href = "/home";
-
             }
         }
         catch(e)
