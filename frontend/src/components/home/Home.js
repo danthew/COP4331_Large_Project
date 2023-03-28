@@ -58,12 +58,14 @@ function HomeTitle()
     return(
         <div className="background">
             <div className="title-bar"> 
-                <h1 className='title'>RECIPEASY</h1>
-                <div id="wellcome-user">
+                <div className='title-logo'>
+                    <h1 className='title'>RECIPEASY</h1>
+                </div>
+                <div className="welcome-user">
                     <span className="welcome-User">Welcome {firstName}</span><br/>
                 </div>
                 <div className="setting-button">
-                    <button onClick={Click} className="text">SETTING BUTTON</button>
+                    <button onClick={Click} className="setting-drop">SETTING BUTTON</button>
                 </div>
             </div>
             <div className="content"> 
@@ -84,10 +86,10 @@ function HomeTitle()
                         </div>
                         <div className="pan-gro-item">
                             <div className="pan-item" id="pan-item">
-                                <h1 className='title'>butt</h1>
+                                <h1 className='title'>Pantry</h1>
                             </div>
                             <div className="gro-item" id="gro-item">
-                                <h1 className='title'>hole</h1>
+                                <h1 className='title'>Grocery</h1>
                             </div>
                         </div>
                     </div>
