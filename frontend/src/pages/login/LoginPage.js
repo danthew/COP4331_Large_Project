@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Login from 'components/home/login/Login';
-import Register from 'components/home/register/Register';
+import Login from 'components/login/Login';
+import Register from 'components/register/Register';
 //import Logo from 'images/logo.png';
 
 //console.log(Logo);
