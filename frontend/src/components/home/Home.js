@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 function HomeTitle()
 {
     var pantrySearch = '';
+    var recipeSearch = '';
 
     const [message,setMessage] = useState('');
     
@@ -18,6 +19,13 @@ function HomeTitle()
         event.preventDefault();
         
         alert('search() ' + pantrySearch.value);
+    };
+
+    const doSearchRecipe = async event =>
+    {
+        event.preventDefault();
+        
+        alert('searchRecipe() ' + recipeSearch.value);
     };
 
     const panButton = async event =>
@@ -44,7 +52,10 @@ function HomeTitle()
     return(
         <div className="background">
             <div className="title-bar"> 
-                <h1 id='title'>RECIPEASY</h1>
+                <h1 className='title'>RECIPEASY</h1>
+                <div id="wellcome-user">
+                    
+                </div>
                 <div className="setting-button">
                     <button onClick={Click} className="text">SETTING BUTTON</button>
                 </div>
@@ -60,8 +71,8 @@ function HomeTitle()
                         </div>
                         <div className="search">
                             <form className="search">
-                                <input className="search-bar" id="pantrySearch" placeholder="Search Pantry" ref={(c) => pantrySearch = c}/>
-                                <button className="search-button" onClick={doSearch}> + </button>
+                                <input className="search-bar" id="pantrySearch" placeholder="Search Pantry/Grocery List" ref={(c) => pantrySearch = c}/>
+                                <button className="search-button" onClick={doSearch}> Search </button>
                                 <span id="pantrySearch">{message}</span>
                             </form>
                         </div>
@@ -79,6 +90,13 @@ function HomeTitle()
                     <div className="recipe-ui">
                         <div className="recipe-header">
                             <h1 className='title'> Recipes </h1>
+                        </div>
+                        <div className="search">
+                            <form className="search">
+                                <input className="search-bar" id="recipeSearch" placeholder="Search Recipes" ref={(c) => recipeSearch = c}/>
+                                <button className="search-button" onClick={doSearchRecipe}> Search </button>
+                                <span id="recipeSearch">{message}</span>
+                            </form>
                         </div>
                         <div className="recipe-item">
 
