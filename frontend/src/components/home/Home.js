@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import Logo from 'images/logo.png';
+
+console.log(Logo);
 
 let _ud = localStorage.getItem('user_data');
 let ud = JSON.parse(_ud);
 let userId = ud.id;
 let firstName = ud.firstName;
-let id = ud.id;
 
 function HomeTitle()
 {
@@ -59,7 +61,12 @@ function HomeTitle()
         <div className="background">
             <div className="title-bar"> 
                 <div className='title-logo'>
-                    <h1 className='title'>RECIPEASY</h1>
+                    <div className='logo'>
+                        <img height="60px" width="60px" src={Logo} alt="RECIPEASY Logo"></img>                
+                    </div>
+                    <div className='title'>
+                        <h1 className='title'>RECIPEASY</h1>
+                    </div>
                 </div>
                 <div className="welcome-user">
                     <span className="welcome-User">Welcome {firstName}</span><br/>
@@ -72,10 +79,10 @@ function HomeTitle()
                 <div className="pan-gro">
                     <div className="pan-gro-ui">
                         <div className="pan-button" onClick={panButton}>
-                            <h1 className='title'> Pantry </h1>
+                            <h1 className='btnlabel'> Pantry </h1>
                         </div>
                         <div className="gro-button" onClick={groButton}>
-                            <h1 className='title'> Grocery List </h1>
+                            <h1 className='btnlabel'> Grocery List </h1>
                         </div>
                         <div className="search">
                             <form className="search">
@@ -86,10 +93,10 @@ function HomeTitle()
                         </div>
                         <div className="pan-gro-item">
                             <div className="pan-item" id="pan-item">
-                                <h1 className='title'>Pantry</h1>
+                                <h1>Pantry</h1>
                             </div>
                             <div className="gro-item" id="gro-item">
-                                <h1 className='title'>Grocery</h1>
+                                <h1>Grocery</h1>
                             </div>
                         </div>
                     </div>
@@ -97,7 +104,7 @@ function HomeTitle()
                 <div className="recipe">
                     <div className="recipe-ui">
                         <div className="recipe-header">
-                            <h1 className='title'> Recipes </h1>
+                            <h1 className='btnlabel'> Recipes </h1>
                         </div>
                         <div className="search">
                             <form className="search">
