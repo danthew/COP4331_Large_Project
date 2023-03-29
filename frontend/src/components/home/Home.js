@@ -56,6 +56,7 @@ function HomeTitle()
 
     // pan = pantry
     // gro = grocery
+    
 
     return(
         <div className="background">
@@ -71,7 +72,7 @@ function HomeTitle()
                     </div>
                 </div>
                 <div className="welcome-user">
-                    <span className="welcome-User">Welcome {firstName}</span><br/>
+                    <span className="welcome-User">Welcome {userId}</span><br/>
                 </div>
                 <div className="setting-button">
                     <button onClick={Click} className="setting-drop">SETTING BUTTON</button>

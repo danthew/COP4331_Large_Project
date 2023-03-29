@@ -38,18 +38,19 @@ function Login() {
                             "Access-Control-Allow-Origin" : "*",
                             "Access-Control-Allow-Methods" : "POST"},
             });
-            var res = JSON.stringify(response.body);
+            var res = JSON.parse(await response.text());
             if(response.status != 201) {
                 setMessage('There was an error with your username/password input.');
-		console.log(response.status);
+		        console.log(response.status);
             }
             else {
                 var user = {
-                    firstName: res.firstName,
+                    // firstName: res.firstName,
                     id: res.userId
                 };
                 localStorage.setItem('user_data', JSON.stringify(user));
                 setMessage('');
+                console.log(localStorage.getItem('user_data'));
                 window.location.href = "/home";
             }
         }
