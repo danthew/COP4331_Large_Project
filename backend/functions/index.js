@@ -131,13 +131,6 @@ app.post('/login', (req, res) => {
 app.post('/addRecipe', (req, res) => {
     let recipeInfo = req.body;
 
-    console.log(recipeInfo.name);
-    console.log(recipeInfo.cuisine);
-    console.log(recipeInfo.cookTime);
-    console.log(recipeInfo.prepTime);
-    console.log(recipeInfo.allowSubs);
-    console.log(recipeInfo.userId);
-
     const newRecipe = {
         name : recipeInfo.name,
         cuisine : recipeInfo.cuisine,
@@ -197,6 +190,38 @@ app.get('/getRecipe', (req, res) => {
 })
 
 // Edit recipe
+
+app.post('/editRecipe', (req, res) => {
+    let recipeInfo = req.body;
+
+    const newRecipe = {
+        name : recipeInfo.name,
+        cuisine : recipeInfo.cuisine,
+        cookTime : recipeInfo.cookTime,
+        prepTime : recipeInfo.prepTime,
+        allowSubs : recipeInfo.allowSubs,
+        userId : recipeInfo.userId
+    };
+
+    db.collection("recipes").doc(req.body.recipeId).get()
+        .then((doc) => {
+            if(doc.exists) {
+                db.collection("recipes").doc(req.body.recipeId).update(newRecipe)
+                    .then(() => {
+                        return res.status(200).json({ general : "Successful Update!" });
+                    })
+                    .catch((err) => {
+                        return res.status(500).json({ error : err.code });
+                    })
+            }
+            else {
+                return res.status(404).json({ general : "Recipe not Found!" });
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({ error : err.code });
+        });
+})
 
 // Add Ingredient to Recipe
 
