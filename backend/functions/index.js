@@ -25,11 +25,11 @@ const firebaseConfig = {
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization' );
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization' );
     res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PATCH, DELETE, OPTIONS');
+        'Access-Control-Allow-Methods',
+        'GET, POST, PATCH, DELETE, OPTIONS');
     next();
 });
 
@@ -90,7 +90,7 @@ app.post('/register', (req, res) => {
             return db.doc(`/users/${newUser.username}`).set(userCredentials);            
         })
         .then(() => {
-            return res.status(201).json({userId : userId});
+            return res.status(202).json({userId : userId});
         })
         .catch(err => {
             if(err.code === 'auth/email-already-in-use')
@@ -103,15 +103,11 @@ app.post('/register', (req, res) => {
 // Api endpoint that allows for login, takes an email and a password
 // Returns the userId
 app.post('/login', (req, res) => {
-    console.log("Recieved login request!");
-    console.log(req.body);
     let userInfo = req.body;
-    console.log(userInfo);
     const user = {
         email: userInfo.email,
         password: userInfo.password
     };
-    console.log(user);
     fbauth.signInWithEmailAndPassword(auth, user.email, user.password)
         .then(data => {
             return res.status(201).json({userId : data.user.uid});
@@ -127,5 +123,95 @@ app.post('/login', (req, res) => {
             return res.status(500).json({ error : err.code });
         });
 });
+
+// Verify Email
+
+// Add recipe
+
+app.post('/addRecipe', (req, res) => {
+    let recipeInfo = req.body;
+
+    console.log(recipeInfo.name);
+    console.log(recipeInfo.cuisine);
+    console.log(recipeInfo.cookTime);
+    console.log(recipeInfo.prepTime);
+    console.log(recipeInfo.allowSubs);
+    console.log(recipeInfo.userId);
+
+    const newRecipe = {
+        name : recipeInfo.name,
+        cuisine : recipeInfo.cuisine,
+        cookTime : recipeInfo.cookTime,
+        prepTime : recipeInfo.prepTime,
+        allowSubs : recipeInfo.allowSubs,
+        userId : recipeInfo.userId
+    };
+
+    db.collection("recipes").add(newRecipe)
+        .then((ref) => {
+            return res.status(201).json({ general : "Success!" });
+        })
+        .catch((err) => {
+            return res.status(500).json({ error : err.code });
+        });
+});
+
+// Remove recipe
+
+app.delete('/deleteRecipe', (req, res) => {
+    db.collection("recipes").doc(req.body.recipeId).get()
+        .then((doc) => {
+            if(doc.exists) {
+                db.collection("recipes").doc(req.body.recipeId).delete()
+                    .then(() => {
+                        return res.status(200).json({ general : "Successful Deletion!" });
+                    })
+                    .catch((err) => {
+                        return res.status(500).json({ error : err.code });
+                    })
+            }
+            else {
+                return res.status(404).json({ general : "Recipe not Found!" });
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({ error : err.code });
+        });
+})
+
+// Get recipe
+
+app.get('/getRecipe', (req, res) => {
+    db.collection("recipes").doc(req.body.recipeId).get()
+        .then((doc) => {
+            if(doc.exists) {
+                return res.status(200).json(doc.data());
+            }
+            else {
+                return res.status(404).json({general : "Recipe not Found!" });
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({ error : err.code });
+        })
+})
+
+// Edit recipe
+
+// Add Ingredient to Recipe
+
+// Add Instruction to Recipe
+
+// Add Ingredient to Pantry
+
+// Add/Remove Ingredient to List : Toggle Boolean
+
+// Remove Ingredient from Recipe
+
+// Add Ingredient to Pantry
+
+// Make Recipe : Update Pantry based off of selected recipes
+
+// List/Sort/Filter Recipes
 
 exports.api = functions.https.onRequest(app);
