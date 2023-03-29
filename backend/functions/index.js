@@ -3,12 +3,16 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 var cors = require('cors');
 const app = require('express')();
+const bodyParser = require('body-parser');
+app.use(cors());
+app.use(bodyParser.json());
 
 // app.use(cors({
 //     origin: "https://recipeasy123.herokuapp.com",
 //     methods: ["GET", "POST"],
 // }));
 admin.initializeApp();
+
 
 // Config information (may move to a private file)
 const firebaseConfig = {

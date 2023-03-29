@@ -100,11 +100,19 @@
 
 .title {
   float: right;
-  margin: 10px;
 }
 
 .logo {
   float: left;
+}
+
+.logo-home {
+  background-color: #ffffff;
+  display: flex;
+  margin-left: 20px;
+  transform: translate(-50%,0);
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .setting-button {

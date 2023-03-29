@@ -8,20 +8,6 @@ function Login() {
     var loginPassword;
     const [message, setMessage] = useState("");
     const [passwordShown, setPasswordShown] = useState(false);
-	
-	
-	const app_name = 'recipeasy123'
-	function buildPath(route)
-	{
-		if (process.env.NODE_ENV === 'production')
-		{
-		return 'https://us-central1-recipeasy-ec759.cloudfunctions.net/' + route;
-		}
-		else
-		{
-		return 'http://localhost:5000/' + route;
-		}
-	}
 
     const doLogin = async (event) => {
 
@@ -39,13 +25,13 @@ function Login() {
             return;
         } 
 
-        //let bp = require("../../BuildPath.js");
+        let bp = require("../BuildPath.js");
 
         let js = JSON.stringify(obj);
         console.log(JSON.stringify(obj,null,2));
         
         try {
-            const response = await fetch(buildPath('api/login'), {
+            const response = await fetch(bp.buildPath('api/login'), {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json", 

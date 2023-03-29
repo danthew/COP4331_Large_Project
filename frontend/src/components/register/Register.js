@@ -8,8 +8,8 @@ function Register() {
     let registerEmail;
     const [message, setMessage] = useState("");
 
-        let bp = require("../BuildPath.js");
-        const [passwordShown, setPasswordShown] = useState(false);
+    let bp = require("../BuildPath.js");
+    const [passwordShown, setPasswordShown] = useState(false);
 
     const doRegister = async (event) => {
 
@@ -28,7 +28,7 @@ function Register() {
             setMessage("Please make sure the fields are not empty.");
             return;
         }
-        console.log(registerName.value);
+        console.log(obj);
 
         let js = JSON.stringify(obj);
         const headers = {"Content-Type": "application/json"}
@@ -52,7 +52,7 @@ function Register() {
                 };
                 localStorage.setItem('user_data', JSON.stringify(user));
                 setMessage('Registered successfully');
-                window.location.href = "/login";
+                window.location.href = "/";
 
             }
         }

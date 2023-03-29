@@ -61,8 +61,10 @@ function HomeTitle()
         <div className="background">
             <div className="title-bar"> 
                 <div className='title-logo'>
-                    <div className='logo'>
-                        <img height="60px" width="60px" src={Logo} alt="RECIPEASY Logo"></img>                
+                    <div class='logo-home'>
+                        <div className='logo'>
+                            <img height="60px" width="60px" src={Logo} alt="RECIPEASY Logo"></img>                
+                        </div>
                     </div>
                     <div className='title'>
                         <h1 className='title'>RECIPEASY</h1>
