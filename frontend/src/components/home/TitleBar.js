@@ -3,10 +3,10 @@ import Logo from 'images/logo.png';
 
 console.log(Logo);
 
-let _ud = localStorage.getItem('user_data');
-let ud = JSON.parse(_ud);
-let userId = ud.id;
-//let firstName = ud.firstName;
+// let _ud = localStorage.getItem('user_data');
+// let ud = JSON.parse(_ud);
+// let userId = ud.id;
+// //let firstName = ud.firstName;
 
 function HomeTitle()
 {    
@@ -64,7 +64,7 @@ function HomeTitle()
                 </div>
             </div>
             <div className="welcome-user">
-                <span className="welcome-User">Welcome {userId}</span><br/>
+                <span className="welcome-User">Welcome </span><br/>
             </div>
             <div className="setting-button">
                 <button onClick={dropdown} className="setting-drop">SETTING BUTTON</button>
