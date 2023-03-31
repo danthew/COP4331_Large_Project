@@ -1,6 +1,6 @@
 exports.buildPath =
 function buildPath(route) {
-    if(process.env.NODE_ENV === 'production') {
+    if(process.env.PORT === 'production') {
         return 'https://recipeasy123.herokuapp.com/' + route;
     }
     else {
