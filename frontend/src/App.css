@@ -146,9 +146,12 @@
 }
 
 .search-button {
-  font-size: auto;
+  font-size: large;
   padding: 1%;
   border-radius: 30px 30px 30px 30px;
+  margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 } 
 
 /* Div that contains the pantry/grocery div and the recipe div */
@@ -220,6 +223,24 @@
   display: none;
 }
 
+.add-pan {
+  display: block;
+  border-radius: 50px;
+  font-size: x-large;
+  margin-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.add-gro {
+  display: none;
+  border-radius: 50px;
+  font-size: x-large;
+  margin-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 /* RECIPE CSS */
 
 .recipe {
@@ -249,6 +270,14 @@
   background-color: darkgoldenrod;
   height: 85%;
   border-radius: 0px 0px 45px 45px;
+}
+
+.add-Recipe {
+  border-radius: 50px;
+  font-size: x-large;
+  margin-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 /* ====================== */

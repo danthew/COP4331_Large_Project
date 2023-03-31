@@ -17,6 +17,8 @@ function PantryGrocery()
         event.preventDefault();
         document.getElementById("pan-item").style.display = "block";
         document.getElementById("gro-item").style.display = "none";
+        document.getElementById("addGro").style.display = "none";
+        document.getElementById("addPan").style.display = "block";
 
         //alert('pantry()');
     };
@@ -26,9 +28,25 @@ function PantryGrocery()
         event.preventDefault();
         document.getElementById("pan-item").style.display = "none";
         document.getElementById("gro-item").style.display = "block";
+        document.getElementById("addGro").style.display = "block";
+        document.getElementById("addPan").style.display = "none";
 
         //alert('grocery()');
     };
+
+    const addPan = async event =>
+    {
+        event.preventDefault();
+
+        alert('addPan()');
+    }
+
+    const addGro = async event =>
+    {
+        event.preventDefault();
+
+        alert('addGro()');
+    }
 
     return(
         <div className="pan-gro">
@@ -41,6 +59,8 @@ function PantryGrocery()
                 </div>
                 <div className="search">
                     <form className="search">
+                        <button className="add-pan" id='addPan' onClick={addPan}>+</button>
+                        <button className="add-gro" id='addGro' onClick={addGro}>+</button>
                         <input className="search-bar" id="pantrySearch" placeholder="Search Pantry/Grocery List" ref={(c) => pantrySearch = c}/>
                         <button className="search-button" onClick={doSearch}> Search </button>
                         <span id="pantrySearch">{message}</span>
