@@ -4,7 +4,7 @@ const admin = require("firebase-admin");
 var cors = require('cors');
 const app = require('express')();
 const bodyParser = require('body-parser');
-app.use(cors())({origin: true});
+app.use(cors());
 app.use(bodyParser.json());
 
 admin.initializeApp();
