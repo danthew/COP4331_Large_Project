@@ -22,6 +22,12 @@
   cursor: pointer;
 }
 
+.label {
+  text-align: center;
+  top: 50%;
+  transform: translateY(50%);
+}
+
 /* Login/Register screen css */
 
 .logo-login {
@@ -36,7 +42,6 @@
 }
 
 .login-div {
-  background-color: lightblue;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -158,6 +163,10 @@
   cursor: pointer;
 } 
 
+.search-button:hover {
+  background-color: lightgray;
+}
+
 /* Div that contains the pantry/grocery div and the recipe div */
 .content {
   height: fill;
@@ -166,14 +175,13 @@
 /* Pantry/Grocery CSS */
 
 .pan-gro {
-  background-color: aqua;
   height: 100%;
   width: 33%;
   float: left;
 }
 
 .pan-gro-ui {
-  background-color: brown;
+  background-color: #3590d5;
   height: 85%;
   width: 85%;
   margin-left: 7.5%;
@@ -182,7 +190,7 @@
 }
 
 .pan-button {
-  background-color: cadetblue;
+  background-color: #3590d5;
   float: left;
   height: 10%;
   width: 50%;
@@ -191,7 +199,7 @@
 }
 
 .gro-button {
-  background-color: crimson;
+  background-color: #ffffff;
   float: right;
   height: 10%;
   width: 50%;
@@ -206,7 +214,6 @@
 }
 
 .pan-gro-item {
-  background-color: darkseagreen;
   height: 85%;
   clear: left;
   border-radius: 0px 0px 45px 45px;
@@ -214,7 +221,7 @@
 }
 
 .pan-item {
-  background-color: darkblue;
+  background-color: #3590d5;
   height: 100%;
   width: 100%;
   border-radius: 0px 0px 45px 45px;
@@ -222,7 +229,7 @@
 }
 
 .gro-item {
-  background-color: darkmagenta;
+  background-color: #3590d5;
   height: 100%;
   width: 100%;
   border-radius: 0px 0px 45px 45px;
@@ -249,17 +256,20 @@
   cursor: pointer;
 }
 
+.add-gro:hover, .add-pan:hover {
+  background-color: lightgray;
+}
+
 /* RECIPE CSS */
 
 .recipe {
   height: 100%;
   width: 67%;
   float: right;
-  background-color: aquamarine;
 }
 
 .recipe-ui {
-  background-color: darkslategrey;
+  background-color: #3590d5;
   height: 85%;
   width: 85%;
   margin-left: 7.5%;
@@ -268,14 +278,14 @@
 }
 
 .recipe-header {
-  background-color: darkgreen;
+  background-color: #3590d5;
   height: 10%;
   border-radius: 30px 30px 0px 0px;
   text-align: center;
 }
 
 .recipe-item {
-  background-color: darkgoldenrod;
+  background-color: #3590d5;
   height: 85%;
   border-radius: 0px 0px 45px 45px;
 }
@@ -289,10 +299,14 @@
   cursor: pointer;
 }
 
+.add-Recipe:hover {
+  background-color: lightgray;
+}
+
 /* ====================== */
 /* Dropdown Button */
 .setting-drop {
-  background-color: #3498DB;
+  background-color: #3590d5;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -302,7 +316,7 @@
 
 /* Dropdown button on hover & focus */
 .setting-drop:hover, .setting-drop:focus {
-  background-color: #2980B9;
+  background-color: #3498DB;
 }
 
 /* The container <div> - needed to position the dropdown content */

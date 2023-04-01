@@ -23,7 +23,7 @@ function Recipe()
         <div className="recipe">
             <div className="recipe-ui">
                 <div className="recipe-header">
-                    <h1 className='btnlabel'> Recipes </h1>
+                    <h1 className='label'> Recipes </h1>
                 </div>
                 <div className="search">
                     <form className="search">
