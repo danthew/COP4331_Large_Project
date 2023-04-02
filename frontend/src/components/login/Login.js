@@ -36,7 +36,8 @@ function Login() {
                 body: js,
                 headers: { "Content-Type": "application/json", 
                             "Access-Control-Allow-Origin" : "*",
-                            "Access-Control-Allow-Methods" : "POST"},
+                            "Access-Control-Allow-Methods" : "POST",
+                            "Access-Control-Allow-Headers" : "*"},
             });
             var res = JSON.parse(await response.text());
             if(response.status != 201) {
