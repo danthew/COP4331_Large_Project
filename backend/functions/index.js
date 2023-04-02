@@ -1,9 +1,11 @@
 // Setting up access to certain directories
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-var cors = require('cors');
-const app = require('express')();
+
+const express = require('express');
 const bodyParser = require('body-parser');
+var cors = require('cors');
+const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
