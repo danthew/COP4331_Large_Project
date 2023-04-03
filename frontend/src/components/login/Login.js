@@ -37,7 +37,7 @@ function Login() {
                 headers: { "Content-Type": "application/json", 
                             "Access-Control-Allow-Origin" : "*",
                             "Access-Control-Allow-Methods" : "POST",
-                            "Access-Control-Allow-Headers" : "*"},
+                            "Access-Control-Allow-Headers" : "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"},
             });
             var res = JSON.parse(await response.text());
             if(response.status != 201) {
