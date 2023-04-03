@@ -34,6 +34,13 @@ function PantryGrocery()
         //alert('grocery()');
     };
 
+    const dropItem = async event =>
+    {
+        event.preventDefault();
+        document.getElementById("addItem-drop").classList.toggle("item");
+    }
+    
+
     const addPan = async event =>
     {
         event.preventDefault();
@@ -59,8 +66,15 @@ function PantryGrocery()
                 </div>
                 <div className="search">
                     <form className="search">
-                        <button className="add-pan" id='addPan' onClick={addPan}>+</button>
-                        <button className="add-gro" id='addGro' onClick={addGro}>+</button>
+                        <div className="addItem">
+                            <button className="dropItem" onClick={dropItem}>+</button>
+                            <div id="addItem-drop" className="addItem-drop">
+                                <input id="quantity" placeholder="Quantity" />
+                                <input id="itemName" placeholder="Name of Item" />
+                                <button id="addPan" className="add-pan" onClick={addPan}>Add</button>
+                                <button id="addGro" className="add-gro" onClick={addGro}>ADD</button>
+                            </div>
+                        </div>
                         <input className="search-bar" id="pantrySearch" placeholder="Search Pantry/Grocery List" ref={(c) => pantrySearch = c}/>
                         <button className="search-button" onClick={doSearch}> Search </button>
                         <span id="pantrySearch">{message}</span>
