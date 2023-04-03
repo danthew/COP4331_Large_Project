@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 let _ud = localStorage.getItem('user_data');
 let ud = JSON.parse(_ud);
-let userId = ud.id;
-let firstName = ud.firstName;
 
 function HomeTitle()
 {
@@ -42,6 +40,10 @@ function HomeTitle()
         //alert('pantry()');
     };
 
+    const addField = async event => {
+        window.location.href = "/addRecipe";
+    }
+
     const groButton = async event =>
     {
         event.preventDefault();
@@ -58,9 +60,6 @@ function HomeTitle()
         <div className="background">
             <div className="title-bar"> 
                         <h1 className='title'>RECIPEASY</h1>
-                <div id="wellcome-user">
-                    <span className="welcome-User">Welcome {firstName}</span><br/>
-                </div>
                 <div className="setting-button">
                     <button onClick={Click} className="setting-drop">SETTING BUTTON</button>
                 </div>
@@ -95,6 +94,9 @@ function HomeTitle()
                     <div className="recipe-ui">
                         <div className="recipe-header">
                             <h1 className='title'> Recipes </h1>
+                            <div>
+                            <button className="btn btn-add" onClick={()=>addField()}>Add Recipe</button>
+                            </div>
                         </div>
                         <div className="search">
                             <form className="search">

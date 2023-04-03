@@ -1,8 +1,10 @@
 // Setting up access to certain directories
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const express=require('express');
 var cors = require('cors');
-const app = require('express')();
+const bodyParser=require('body-parser');
+const app = express();
 
 // app.use(cors({
 //     origin: "https://recipeasy123.herokuapp.com",
@@ -21,6 +23,9 @@ const firebaseConfig = {
     appId: "1:292406285745:web:022fe474eb1ad249035990",
     measurementId: "G-9X7Z2ZH6V7"
 };
+
+app.use(cors());
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -142,7 +147,7 @@ app.post('/addRecipe', (req, res) => {
 
     db.collection("recipes").add(newRecipe)
         .then((ref) => {
-            return res.status(201).json({ general : "Success!" });
+            return res.status(201).json({ recipeId : ref.id });
         })
         .catch((err) => {
             return res.status(500).json({ error : err.code });
