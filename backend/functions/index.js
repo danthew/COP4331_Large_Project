@@ -142,7 +142,7 @@ app.post('/addRecipe', (req, res) => {
 
     db.collection("recipes").add(newRecipe)
         .then((ref) => {
-            return res.status(201).json({ general : "Success!" });
+            return res.status(201).json({ recipeId : ref.id });
         })
         .catch((err) => {
             return res.status(500).json({ error : err.code });
@@ -170,7 +170,7 @@ app.delete('/deleteRecipe', (req, res) => {
         .catch((err) => {
             return res.status(500).json({ error : err.code });
         });
-})
+});
 
 // Get recipe
 
@@ -187,7 +187,7 @@ app.get('/getRecipe', (req, res) => {
         .catch((err) => {
             return res.status(500).json({ error : err.code });
         })
-})
+});
 
 // Edit recipe
 
@@ -221,9 +221,49 @@ app.post('/editRecipe', (req, res) => {
         .catch((err) => {
             return res.status(500).json({ error : err.code });
         });
-})
+});
 
 // Add Ingredient to Recipe
+app.post('/addIngredientToRecipe', (req, res) => {
+    let ingredientInfo = req.body;
+
+    const newIngredient = {
+        name : ingredientInfo.name,
+        quantity : ingredientInfo.quantity,
+        recipeId : ingredientInfo.recipeId
+    };
+
+    db.collection("recipeIngredients").add(newIngredient)
+        .then((ref) => {
+            return res.status(201).json({ ingredientId : ref.id });
+        })
+        .catch((err) => {
+            return res.status(500).json({ error : err.code });
+        });
+});
+
+// Remove Ingredient from Recipe
+
+app.delete('/deleteIngredientFromRecipe', (req, res) => {
+    db.collection("recipeIngredients").doc(req.body.ingredientId).get()
+        .then((doc) => {
+            if(doc.exists) {
+                db.collection("recipeIngredients").doc(req.body.ingredientId).delete()
+                    .then(() => {
+                        return res.status(200).json({ general : "Successful Deletion!" });
+                    })
+                    .catch((err) => {
+                        return res.status(500).json({ error : err.code });
+                    })
+            }
+            else {
+                return res.status(404).json({ general : "Recipe not Found!" });
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({ error : err.code });
+        });
+});
 
 // Add Instruction to Recipe
 
