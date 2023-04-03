@@ -10,6 +10,10 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(cors({
+    origin: "https://recipeasy123.herokuapp.com",
+    methods: ["GET", "POST"],
+}));
 admin.initializeApp();
 
 
