@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useCookies } from 'react-cookie';
 
 function AddRecipe() {
 
     const [ingredientList, setingredientList] = useState([{ingredient:"", quantity:""}]);
     const[stepsList, setstepsList] = useState([]);
     const [message, setMessage] = useState("");
+    const [cookie, setCookie] = useCookies(['userId'])
 
     var name;
     var cookTime;
@@ -12,9 +14,11 @@ function AddRecipe() {
     var prepTime;
     var allowSubs;
 
-    //var userId = data.user.uid;
+    var _ud=localStorage.getItem('user_data');
+    var ud = JSON.parse(_ud);
+    var userId = ud.id;
 
-    //console.log(_ud);
+    console.log(userId);
 
     const app_name = 'recipeasy123'
 	function buildPath(route)
@@ -39,6 +43,7 @@ function AddRecipe() {
             cookTime: cookTime.value, 
             prepTime: prepTime.value,
             allowSubs: allowSubs.value,
+            userId: cookie.userId
         };
 
         let js = JSON.stringify(obj);

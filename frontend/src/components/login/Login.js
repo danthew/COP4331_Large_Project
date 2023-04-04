@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import ShowablePassword from 'components/login/ShowablePassword';
+import { useCookies } from 'react-cookie';
 
 function Login() {
     
@@ -7,6 +8,7 @@ function Login() {
     var loginPassword;
     const [message, setMessage] = useState("");
     const [passwordShown, setPasswordShown] = useState(false);
+    const[cookie, setCookie] = useCookies(['userId', 'email']);
 	
 	
 	const app_name = 'recipeasy123'
@@ -51,17 +53,14 @@ function Login() {
                             "Access-Control-Allow-Origin" : "*",
                             "Access-Control-Allow-Methods" : "POST"},
             });
-            var res = JSON.stringify(response.body);
             if(response.status != 201) {
                 setMessage('There was an error with your username/password input.');
 		console.log(response.status);
             }
             else {
-                var user = {
-                    firstName: res.firstName,
-                    id: res.userId
-                };
-                localStorage.setItem('user_data', JSON.stringify(user));
+                var res = JSON.parse(await response.text());
+                setCookie('userId', res.userId, {path: '/'});
+                console.log(cookie, 'data-');
                 setMessage('');
                 window.location.href = "/home";
             }
