@@ -257,7 +257,7 @@ app.delete('/deleteIngredientFromRecipe', (req, res) => {
                     })
             }
             else {
-                return res.status(404).json({ general : "Recipe not Found!" });
+                return res.status(404).json({ general : "Ingredient not Found!" });
             }
         })
         .catch((err) => {
@@ -266,6 +266,45 @@ app.delete('/deleteIngredientFromRecipe', (req, res) => {
 });
 
 // Add Instruction to Recipe
+app.post('/addInstruction', (req, res) => {
+    let instructionInfo = req.body;
+
+    const newInstruction = {
+        body : instructionInfo.body,
+        stepNumber : instructionInfo.stepNumber,
+        recipeId : instructionInfo.recipeId
+    };
+
+    db.collection("instructions").add(newInstruction)
+        .then((ref) => {
+            return res.status(201).json({ instructionId : ref.id });
+        })
+        .catch((err) => {
+            return res.status(500).json({ error : err.code });
+        });
+});
+
+// Delete Instruction from Recipe
+app.delete('/deleteInstruction', (req, res) => {
+    db.collection("instructions").doc(req.body.instructionId).get()
+        .then((doc) => {
+            if(doc.exists) {
+                db.collection("instructions").doc(req.body.instructionId).delete()
+                    .then(() => {
+                        return res.status(200).json({ general : "Successful Deletion!" });
+                    })
+                    .catch((err) => {
+                        return res.status(500).json({ error : err.code });
+                    })
+            }
+            else {
+                return res.status(404).json({ general : "Instruction not Found!" });
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({ error : err.code });
+        });
+});
 
 // Add Ingredient to Pantry
 
