@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Container } from 'react-bootstrap';
 
 function AddRecipe() {
 
@@ -11,11 +10,11 @@ function AddRecipe() {
     var cookTime;
     var cuisine;
     var prepTime;
-    var addSubs;
+    var allowSubs;
 
-    let _ud = localStorage.getItem('user_data');
-    let ud = JSON.parse(_ud);
-    let userId = ud.id;
+    //var userId = data.user.uid;
+
+    //console.log(_ud);
 
     const app_name = 'recipeasy123'
 	function buildPath(route)
@@ -39,8 +38,7 @@ function AddRecipe() {
             cuisine: cuisine.value,
             cookTime: cookTime.value, 
             prepTime: prepTime.value,
-            addSubs: addSubs.value,
-            userId: userId
+            allowSubs: allowSubs.value,
         };
 
         let js = JSON.stringify(obj);
@@ -108,13 +106,15 @@ function AddRecipe() {
         inputData[index]=e.target.value;
         setstepsList(inputData);
     }
+    const handleClick=(cb)=>{
+        console.log(cb.checked);
+    }
     //console.log(ingredientList, 'data-');
     console.log(stepsList,"data-");
 
 
 
     return (
-        <Container className="content">
         <div className="background">
         <form onSubmit={addRecipe}>
             <div className="title-bar"> 
@@ -157,7 +157,7 @@ function AddRecipe() {
             </div>
             <div class="addsubs">
                 <label>Add substitutions</label>
-                <input type='checkbox' checked='checked' id='addSubs' ref={(c) => addSubs = c}></input> 
+                <input type='checkbox' id='allowSubs' onClick={()=>handleClick(this)} ref={(c) => allowSubs = c}></input> 
             </div>
             <div class="add-delete">                       
                 {stepsList.map((data, i)=> {
@@ -177,7 +177,6 @@ function AddRecipe() {
             </form>
             <span id="addRecipeResult">{message}</span>
         </div>
-        </Container>
     )
 }
 

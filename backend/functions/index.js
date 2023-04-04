@@ -142,7 +142,6 @@ app.post('/addRecipe', (req, res) => {
         cookTime : recipeInfo.cookTime,
         prepTime : recipeInfo.prepTime,
         allowSubs : recipeInfo.allowSubs,
-        userId : recipeInfo.userId
     };
 
     db.collection("recipes").add(newRecipe)
