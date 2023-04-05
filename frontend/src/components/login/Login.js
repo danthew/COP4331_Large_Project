@@ -66,14 +66,14 @@ function Login() {
         <div id="loginDiv">
             <div className="loginText">
                 <form onSubmit={doLogin}>
-                    <div id="input_text">
-                        <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c} /><br />
+                    <div className="input-text">
+                        <input type="text" id="loginName" placeholder="Username" className="input" ref={(c) => loginName = c} /><br />
 				    </div>
                     {/* <ShowablePassword/> */}
-                    <div id="input_text">
-                        <input type="password" name="Password" toggleMask="true" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
+                    <div className="input-text">
+                        <input type="password" name="Password" toggleMask="true" id="loginPassword" className="input" placeholder="Password" ref={(c) => loginPassword = c} /><br />
                     </div>
-                    <input type="submit" id="loginButton" className="buttons" value="Login" onClick={doLogin}/>
+                    <input type="submit" id="loginButton" className="button" value="Login" onClick={doLogin}/>
                     </form>
                 <span id="loginResult">{message}</span>
             </div>

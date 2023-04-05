@@ -19,6 +19,8 @@ function PantryGrocery()
         document.getElementById("gro-item").style.display = "none";
         document.getElementById("addGro").style.display = "none";
         document.getElementById("addPan").style.display = "block";
+        document.getElementById("gro-button").style.backgroundColor = "#ffffff";
+        document.getElementById("pan-button").style.backgroundColor = "#3590d5";
 
         //alert('pantry()');
     };
@@ -30,6 +32,8 @@ function PantryGrocery()
         document.getElementById("gro-item").style.display = "block";
         document.getElementById("addGro").style.display = "block";
         document.getElementById("addPan").style.display = "none";
+        document.getElementById("pan-button").style.backgroundColor = "#ffffff";
+        document.getElementById("gro-button").style.backgroundColor = "#3590d5";
 
         //alert('grocery()');
     };
@@ -58,11 +62,11 @@ function PantryGrocery()
     return(
         <div className="pan-gro">
             <div className="pan-gro-ui">
-                <div className="pan-button" onClick={panButton}>
-                    <h1 className='btnlabel'> Pantry </h1>
+                <div className="pan-button" id="pan-button" onClick={panButton}>
+                    <h1 className='btnlabel'> PANTRY </h1>
                 </div>
-                <div className="gro-button" onClick={groButton}>
-                    <h1 className='btnlabel'> Grocery List </h1>
+                <div className="gro-button" id="gro-button" onClick={groButton}>
+                    <h1 className='btnlabel'> GROCERY </h1>
                 </div>
                 <div className="search">
                     <form className="search">
