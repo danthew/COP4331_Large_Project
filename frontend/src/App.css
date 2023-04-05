@@ -8,7 +8,9 @@
 
 .background {
   height: 100vh;
-  background-color: #FFDAB9;
+  background-image: url('../src/images/table.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .text {
