@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+<<<<<<< HEAD
+    "start": "node server.js",
     "heroku-postbuild": " NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
@@ -13,6 +14,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "create-react-app": "^5.0.1",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "firebase": "^9.18.0",
     "firebase-functions": "^4.2.1",

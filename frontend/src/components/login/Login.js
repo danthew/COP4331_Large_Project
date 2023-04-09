@@ -7,20 +7,6 @@ function Login() {
     var loginPassword;
     const [message, setMessage] = useState("");
     const [passwordShown, setPasswordShown] = useState(false);
-	
-	
-	const app_name = 'recipeasy123'
-	function buildPath(route)
-	{
-		if (process.env.NODE_ENV === 'production')
-		{
-		return 'https://us-central1-recipeasy-ec759.cloudfunctions.net/' + route;
-		}
-		else
-		{
-		return 'http://localhost:5000/' + route;
-		}
-	}
 
     const doLogin = async (event) => {
 
@@ -38,31 +24,33 @@ function Login() {
             return;
         } 
 
-        //let bp = require("../../BuildPath.js");
+        let bp = require("../BuildPath.js");
 
         let js = JSON.stringify(obj);
         console.log(JSON.stringify(obj,null,2));
         
         try {
-            const response = await fetch(buildPath('api/login'), {
+            const response = await fetch(bp.buildPath('api/login'), {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json", 
                             "Access-Control-Allow-Origin" : "*",
-                            "Access-Control-Allow-Methods" : "POST"},
+                            "Access-Control-Allow-Methods" : "POST, OPTIONS",
+                            "Access-Control-Allow-Headers" : "Authorization, Access-Control-Allow-Headers, access-control-allow-methods, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"},
             });
-            var res = JSON.stringify(response.body);
+            var res = JSON.parse(await response.text());
             if(response.status != 201) {
                 setMessage('There was an error with your username/password input.');
-		console.log(response.status);
+		        console.log(response.status);
             }
             else {
                 var user = {
-                    firstName: res.firstName,
+                    // firstName: res.firstName,
                     id: res.userId
                 };
                 localStorage.setItem('user_data', JSON.stringify(user));
                 setMessage('');
+                console.log(localStorage.getItem('user_data'));
                 window.location.href = "/home";
             }
         }
@@ -77,14 +65,14 @@ function Login() {
         <div id="loginDiv">
             <div className="loginText">
                 <form onSubmit={doLogin}>
-                    <div id="input_text">
-                        <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c} /><br />
+                    <div className="input-text">
+                        <input type="text" id="loginName" placeholder="Username" className="input" ref={(c) => loginName = c} /><br />
 				    </div>
                     {/* <ShowablePassword/> */}
-                    <div id="input_text">
-                        <input type="password" name="Password" toggleMask="true" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} /><br />
+                    <div className="input-text">
+                        <input type="password" name="Password" toggleMask="true" id="loginPassword" className="input" placeholder="Password" ref={(c) => loginPassword = c} /><br />
                     </div>
-                    <input type="submit" id="loginButton" className="buttons" value="Login" onClick={doLogin}/>
+                    <input type="submit" id="loginButton" className="button" value="Login" onClick={doLogin}/>
                     </form>
                 <span id="loginResult">{message}</span>
             </div>
