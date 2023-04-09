@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/functions/index.js",
+    "start": "firebase serve --prefix /home/jared/LargeProject/COP4331_Large_Project/backend/functions/index.js",
     "heroku-postbuild": " NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
