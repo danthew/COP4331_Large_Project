@@ -1,12 +1,18 @@
 import React from 'react';
 
-import Home from 'components/home/Home';
+import TitleBar from 'components/home/TitleBar';
+import PantryGrocery from 'components/home/PantryGrocery';
+import Recipe from 'components/home/Recipe';
 
 const HomePage = () =>
 {
     return(
-        <div>
-            <Home />
+        <div className='background'>
+            <TitleBar />
+            <div className='content'>
+                <PantryGrocery />
+                <Recipe />
+            </div>
         </div>
     );
 };

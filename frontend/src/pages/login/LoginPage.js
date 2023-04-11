@@ -32,10 +32,10 @@ const LoginPage = () => {
             </div>
             <div className="login-div"> 
                 <div className="login-button" id="login-button" onClick={loginButton}>
-                    login
+                    <h1 className='btnlabel'> LOGIN </h1>
                 </div>
                 <div className="register-button" id="register-button" onClick={registerButton}>
-                    register
+                    <h1 className='btnlabel'> REGISTER </h1>
                 </div>
                 <div className="login" id="login" style={loginStyle}>
                     <Login />

@@ -8,8 +8,8 @@ function Register() {
     let registerEmail;
     const [message, setMessage] = useState("");
 
-        let bp = require("../BuildPath.js");
-        const [passwordShown, setPasswordShown] = useState(false);
+    let bp = require("../BuildPath.js");
+    const [passwordShown, setPasswordShown] = useState(false);
 
     const doRegister = async (event) => {
 
@@ -28,7 +28,7 @@ function Register() {
             setMessage("Please make sure the fields are not empty.");
             return;
         }
-        console.log(registerName.value);
+        console.log(obj);
 
         let js = JSON.stringify(obj);
         const headers = {"Content-Type": "application/json"}
@@ -37,9 +37,7 @@ function Register() {
             const response = await fetch(bp.buildPath('api/register'), {
                 method: "POST",
                 body: js,
-                headers: { "Content-Type": "application/json", 
-                            "Access-Control-Allow-Origin" : "https://localhost:5001" || "https://us-central1-recipeasy-ec759.cloudfunctions.net/",
-                            "Access-Control-Allow-Methods" : "POST"},
+                headers: { "Content-Type": "application/json" },
             })
             var res = JSON.parse(await response.text());
             if(res.id <= 0) {
@@ -52,7 +50,7 @@ function Register() {
                 };
                 localStorage.setItem('user_data', JSON.stringify(user));
                 setMessage('Registered successfully');
-                window.location.href = "/login";
+                window.location.href = "/";
 
             }
         }
@@ -65,22 +63,22 @@ function Register() {
     <div id="registerDiv">
         <div className="registerText">
             <form onSubmit={doRegister}>
-                <div id="input_text">
-                    <label id="input_label">First Name</label><input type="text" id="registerName" placeholder="Name" ref={ (c) => registerName = c}/><br />               
+                <div className="input-text">
+                    <input type="text" id="registerName" placeholder="Name" className="input" ref={ (c) => registerName = c}/><br />               
                 </div>
-                <div id="input_text">
-                    <label id="input_label">Email</label><input type="text" id="registerEmail" placeholder="Email" ref={(c) => registerEmail = c}/><br />       
+                <div className="input-text">
+                    <input type="text" id="registerEmail" placeholder="Email" className="input" ref={(c) => registerEmail = c}/><br />       
                 </div>
-                <div id="input_text">
-                    <label id="input_label">Date of Birth</label><input type="text" id="registerDOB" placeholder="Date of Birth" ref={(c) => registerDOB = c}/><br />            
+                <div className="input-text">
+                    <input type="text" id="registerDOB" placeholder="Date of Birth" className="input" ref={(c) => registerDOB = c}/><br />            
                 </div>
-                <div id="input_text">
-                    <label id="input_label">Username</label><input type="text" id="registerUsername" placeholder="Username"   ref={(c) => registerUsername = c}/><br />             
+                <div className="input-text">
+                    <input type="text" id="registerUsername" placeholder="Username" className="input"  ref={(c) => registerUsername = c}/><br />             
                 </div>
-                <div id="input_text">
-                    <label id="input_label">Password</label><input type={passwordShown ? "text" : "password"} id="registerP assword" placeholder="Password" ref={(c) => registerPassword = c}/><br />               
+                <div className="input-text">
+                    <input type={passwordShown ? "text" : "password"} id="registerP assword" placeholder="Password" className="input" ref={(c) => registerPassword = c}/><br />               
                 </div>
-                    <input type="submit" id="registerButton" className="buttons" value="Register" onClick={doRegister}/>
+                    <input type="submit" id="registerButton" className="button" value="Register" onClick={doRegister}/>
             </form>
             <span id="registerResult"></span>
         </div>
