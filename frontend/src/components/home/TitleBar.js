@@ -28,8 +28,6 @@ function HomeTitle()
         event.preventDefault();
         localStorage.removeItem("user_data");
         window.location.href = '/';
-
-        alert('logout');
     }
 
     window.onclick = function(event)
