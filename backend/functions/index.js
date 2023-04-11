@@ -104,7 +104,7 @@ app.post('/register', (req, res) => {
 });
 
 // Api endpoint that allows for login, takes an email and a password
-// Returns the userId
+// Returns the information associated with a userId
 app.post('/login', (req, res) => {
     cors(req, res, () => {
         let userInfo = req.body;
@@ -114,7 +114,14 @@ app.post('/login', (req, res) => {
         };
         fbauth.signInWithEmailAndPassword(auth, user.email, user.password)
             .then(data => {
-                return res.status(201).json({userId : data.user.uid});
+                db.collection('users').where('userId', '==', data.user.uid).get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc)=> {
+                        return res.status(202).json(doc.data());
+                    });
+                }).catch(err => {
+                    return res.status(500).json({error : err.code});
+                });
             })
             .catch(err => {
                 if(err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found')
