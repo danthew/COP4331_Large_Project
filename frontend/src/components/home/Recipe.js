@@ -16,7 +16,7 @@ function Recipe()
     {
         event.preventDefault();
 
-        alert('addRecipe()');
+        window.location.href = "/addRecipe";
     }
 
     return(
