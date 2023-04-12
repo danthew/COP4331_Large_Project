@@ -1,21 +1,14 @@
 // Setting up access to certain directories
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+var cors = require('cors')({origin:true});
+const app = require('express')();
 
-const express = require('express');
-const bodyParser = require('body-parser');
-var cors = require('cors');
-
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-
-app.use(cors({
-    origin: "https://recipeasy123.herokuapp.com",
-    methods: ["GET", "POST"],
-}));
+// app.use(cors({
+//     origin: "https://recipeasy123.herokuapp.com",
+//     methods: ["GET", "POST"],
+// }));
 admin.initializeApp();
-
 
 // Config information (may move to a private file)
 const firebaseConfig = {
@@ -61,74 +54,86 @@ app.get('/goodbyeWorld', (req, res) => {
 // Request should include email, password, username, name, and dob
 // It returns the userId
 app.post('/register', (req, res) => {
-    let userInfo = req.body;
+    cors(req, res, () => {
+        let userInfo = req.body;
 
-    const newUser = {
-        email: userInfo.email,
-        password: userInfo.password,
-        username: userInfo.username,
-        name: userInfo.name,
-        dob: userInfo.dob
-    };
-    let tk, userId;
-    // Getting the information from the database
-    db.doc(`/users/${newUser.username}`).get()
-        .then(doc => {
-            if(doc.exists) {
-                return res.status(400).json({ username: 'username is taken'});
-            }
-            else {
-                return fbauth.createUserWithEmailAndPassword(auth, newUser.email, newUser.password);
-            }
-        })
-        .then(data => {
-            userId = data.user.uid;
-            return data.user.getIdToken();
-        })
-        .then(token => {
-            tk = token;
-            const userCredentials = {
-                username: newUser.username,
-                email: newUser.email,
-                userId: userId,
-                dob: newUser.dob,
-                name: newUser.name
-            };
-            return db.doc(`/users/${newUser.username}`).set(userCredentials);            
-        })
-        .then(() => {
-            return res.status(202).json({userId : userId});
-        })
-        .catch(err => {
-            if(err.code === 'auth/email-already-in-use')
-                return res.status(400).json({ email: 'Email is already in use'});
-            else
-                return res.status(500).json({ error : err.code });
-        });
+        const newUser = {
+            email: userInfo.email,
+            password: userInfo.password,
+            username: userInfo.username,
+            name: userInfo.name,
+            dob: userInfo.dob
+        };
+        let tk, userId;
+        // Getting the information from the database
+        db.doc(`/users/${newUser.username}`).get()
+            .then(doc => {
+                if(doc.exists) {
+                    return res.status(400).json({ username: 'username is taken'});
+                }
+                else {
+                    return fbauth.createUserWithEmailAndPassword(auth, newUser.email, newUser.password);
+                }
+            })
+            .then(data => {
+                userId = data.user.uid;
+                return data.user.getIdToken();
+            })
+            .then(token => {
+                tk = token;
+                const userCredentials = {
+                    username: newUser.username,
+                    email: newUser.email,
+                    userId: userId,
+                    dob: newUser.dob,
+                    name: newUser.name
+                };
+                return db.doc(`/users/${newUser.username}`).set(userCredentials);            
+            })
+            .then(() => {
+                return res.status(202).json({userId : userId});
+            })
+            .catch(err => {
+                if(err.code === 'auth/email-already-in-use')
+                    return res.status(400).json({ email: 'Email is already in use'});
+                else
+                    return res.status(500).json({ error : err.code });
+            });
+
+    });
 });
 
 // Api endpoint that allows for login, takes an email and a password
 // Returns the userId
 app.post('/login', (req, res) => {
-    let userInfo = req.body;
-    const user = {
-        email: userInfo.email,
-        password: userInfo.password
-    };
-    fbauth.signInWithEmailAndPassword(auth, user.email, user.password)
-        .then(data => {
-            return res.status(201).json({userId : data.user.uid});
-        })
-        .catch(err => {
-            if(err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found')
-                return res.status(403).json({ general: "Wrong credentials."});
-            if (err.code === 'auth/invalid-email')
-                return res.status(401).json({general: "Invalid email."});
-            if (err.code === 'aut/missing-email')
-                return ren.status(401).json({general : "Missing email."})
-                console.log(err);
-            return res.status(500).json({ error : err.code });
-        });
+    cors(req, res, () => {
+        let userInfo = req.body;
+        const user = {
+            email: userInfo.email,
+            password: userInfo.password
+        };
+        fbauth.signInWithEmailAndPassword(auth, user.email, user.password)
+            .then(data => {
+                db.collection('users').where('userId', '==', data.user.uid).get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc)=> {
+                        return res.status(201).json(doc.data());
+                    });
+                }).catch(err => {
+                    return res.status(500).json({error : err.code});
+                });
+            })
+            .catch(err => {
+                if(err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found')
+                    return res.status(403).json({ general: "Wrong credentials."});
+                if (err.code === 'auth/invalid-email')
+                    return res.status(401).json({general: "Invalid email."});
+                if (err.code === 'aut/missing-email')
+                    return ren.status(401).json({general : "Missing email."})
+                    console.log(err);
+                return res.status(500).json({ error : err.code });
+            });
+    });
 });
 
 // Verify Email
@@ -136,181 +141,197 @@ app.post('/login', (req, res) => {
 // Add recipe
 
 app.post('/addRecipe', (req, res) => {
-    let recipeInfo = req.body;
+    cors(req, res, () => {
+        let recipeInfo = req.body;
 
-    const newRecipe = {
-        name : recipeInfo.name,
-        cuisine : recipeInfo.cuisine,
-        cookTime : recipeInfo.cookTime,
-        prepTime : recipeInfo.prepTime,
-        allowSubs : recipeInfo.allowSubs,
-        userId : recipeInfo.userId
-    };
+        const newRecipe = {
+            name : recipeInfo.name,
+            cuisine : recipeInfo.cuisine,
+            cookTime : recipeInfo.cookTime,
+            prepTime : recipeInfo.prepTime,
+            allowSubs : recipeInfo.allowSubs,
+            userId : recipeInfo.userId
+        };
 
-    db.collection("recipes").add(newRecipe)
-        .then((ref) => {
-            return res.status(201).json({ recipeId : ref.id });
-        })
-        .catch((err) => {
-            return res.status(500).json({ error : err.code });
-        });
+        db.collection("recipes").add(newRecipe)
+            .then((ref) => {
+                return res.status(201).json({ recipeId : ref.id });
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code });
+            });
+    });
 });
 
 // Remove recipe
 
 app.delete('/deleteRecipe', (req, res) => {
-    db.collection("recipes").doc(req.body.recipeId).get()
-        .then((doc) => {
-            if(doc.exists) {
-                db.collection("recipes").doc(req.body.recipeId).delete()
-                    .then(() => {
-                        return res.status(200).json({ general : "Successful Deletion!" });
-                    })
-                    .catch((err) => {
-                        return res.status(500).json({ error : err.code });
-                    })
-            }
-            else {
-                return res.status(404).json({ general : "Recipe not Found!" });
-            }
-        })
-        .catch((err) => {
-            return res.status(500).json({ error : err.code });
-        });
+    cors(req, res, () => {
+        db.collection("recipes").doc(req.body.recipeId).get()
+            .then((doc) => {
+                if(doc.exists) {
+                    db.collection("recipes").doc(req.body.recipeId).delete()
+                        .then(() => {
+                            return res.status(200).json({ general : "Successful Deletion!" });
+                        })
+                        .catch((err) => {
+                            return res.status(500).json({ error : err.code });
+                        })
+                }
+                else {
+                    return res.status(404).json({ general : "Recipe not Found!" });
+                }
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code });
+            });
+    });
 });
 
 // Get recipe
 
 app.get('/getRecipe', (req, res) => {
-    db.collection("recipes").doc(req.body.recipeId).get()
-        .then((doc) => {
-            if(doc.exists) {
-                return res.status(200).json(doc.data());
-            }
-            else {
-                return res.status(404).json({general : "Recipe not Found!" });
-            }
-        })
-        .catch((err) => {
-            return res.status(500).json({ error : err.code });
-        })
+    cors(req, res, () => {
+        db.collection("recipes").doc(req.body.recipeId).get()
+            .then((doc) => {
+                if(doc.exists) {
+                    return res.status(200).json(doc.data());
+                }
+                else {
+                    return res.status(404).json({general : "Recipe not Found!" });
+                }
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code });
+            })
+    });
 });
 
 // Edit recipe
 
 app.post('/editRecipe', (req, res) => {
-    let recipeInfo = req.body;
+    cors(req, res, () => {
+        let recipeInfo = req.body;
 
-    const newRecipe = {
-        name : recipeInfo.name,
-        cuisine : recipeInfo.cuisine,
-        cookTime : recipeInfo.cookTime,
-        prepTime : recipeInfo.prepTime,
-        allowSubs : recipeInfo.allowSubs,
-        userId : recipeInfo.userId
-    };
+        const newRecipe = {
+            name : recipeInfo.name,
+            cuisine : recipeInfo.cuisine,
+            cookTime : recipeInfo.cookTime,
+            prepTime : recipeInfo.prepTime,
+            allowSubs : recipeInfo.allowSubs,
+            userId : recipeInfo.userId
+        };
 
-    db.collection("recipes").doc(req.body.recipeId).get()
-        .then((doc) => {
-            if(doc.exists) {
-                db.collection("recipes").doc(req.body.recipeId).update(newRecipe)
-                    .then(() => {
-                        return res.status(200).json({ general : "Successful Update!" });
-                    })
-                    .catch((err) => {
-                        return res.status(500).json({ error : err.code });
-                    })
-            }
-            else {
-                return res.status(404).json({ general : "Recipe not Found!" });
-            }
-        })
-        .catch((err) => {
-            return res.status(500).json({ error : err.code });
-        });
+        db.collection("recipes").doc(req.body.recipeId).get()
+            .then((doc) => {
+                if(doc.exists) {
+                    db.collection("recipes").doc(req.body.recipeId).update(newRecipe)
+                        .then(() => {
+                            return res.status(200).json({ general : "Successful Update!" });
+                        })
+                        .catch((err) => {
+                            return res.status(500).json({ error : err.code });
+                        })
+                }
+                else {
+                    return res.status(404).json({ general : "Recipe not Found!" });
+                }
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code });
+            });
+    });
 });
 
 // Add Ingredient to Recipe
 app.post('/addIngredientToRecipe', (req, res) => {
-    let ingredientInfo = req.body;
+    cors(req, res, () => {
+        let ingredientInfo = req.body;
 
-    const newIngredient = {
-        name : ingredientInfo.name,
-        quantity : ingredientInfo.quantity,
-        recipeId : ingredientInfo.recipeId
-    };
+        const newIngredient = {
+            name : ingredientInfo.name,
+            quantity : ingredientInfo.quantity,
+            recipeId : ingredientInfo.recipeId
+        };
 
-    db.collection("recipeIngredients").add(newIngredient)
-        .then((ref) => {
-            return res.status(201).json({ ingredientId : ref.id });
-        })
-        .catch((err) => {
-            return res.status(500).json({ error : err.code });
-        });
+        db.collection("recipeIngredients").add(newIngredient)
+            .then((ref) => {
+                return res.status(201).json({ ingredientId : ref.id });
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code });
+            });
+    });
 });
 
 // Remove Ingredient from Recipe
 
 app.delete('/deleteIngredientFromRecipe', (req, res) => {
-    db.collection("recipeIngredients").doc(req.body.ingredientId).get()
-        .then((doc) => {
-            if(doc.exists) {
-                db.collection("recipeIngredients").doc(req.body.ingredientId).delete()
-                    .then(() => {
-                        return res.status(200).json({ general : "Successful Deletion!" });
-                    })
-                    .catch((err) => {
-                        return res.status(500).json({ error : err.code });
-                    })
-            }
-            else {
-                return res.status(404).json({ general : "Ingredient not Found!" });
-            }
-        })
-        .catch((err) => {
-            return res.status(500).json({ error : err.code });
-        });
+    cors(req, res, () => {
+        db.collection("recipeIngredients").doc(req.body.ingredientId).get()
+            .then((doc) => {
+                if(doc.exists) {
+                    db.collection("recipeIngredients").doc(req.body.ingredientId).delete()
+                        .then(() => {
+                            return res.status(200).json({ general : "Successful Deletion!" });
+                        })
+                        .catch((err) => {
+                            return res.status(500).json({ error : err.code });
+                        })
+                }
+                else {
+                    return res.status(404).json({ general : "Ingredient not Found!" });
+                }
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code });
+            });
+    });
 });
 
 // Add Instruction to Recipe
 app.post('/addInstruction', (req, res) => {
-    let instructionInfo = req.body;
+    cors(req, res, () => {
+        let instructionInfo = req.body;
 
-    const newInstruction = {
-        body : instructionInfo.body,
-        stepNumber : instructionInfo.stepNumber,
-        recipeId : instructionInfo.recipeId
-    };
+        const newInstruction = {
+            body : instructionInfo.body,
+            stepNumber : instructionInfo.stepNumber,
+            recipeId : instructionInfo.recipeId
+        };
 
-    db.collection("instructions").add(newInstruction)
-        .then((ref) => {
-            return res.status(201).json({ instructionId : ref.id });
-        })
-        .catch((err) => {
-            return res.status(500).json({ error : err.code });
-        });
+        db.collection("instructions").add(newInstruction)
+            .then((ref) => {
+                return res.status(201).json({ instructionId : ref.id });
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code });
+            });
+    });
 });
 
 // Delete Instruction from Recipe
 app.delete('/deleteInstruction', (req, res) => {
-    db.collection("instructions").doc(req.body.instructionId).get()
-        .then((doc) => {
-            if(doc.exists) {
-                db.collection("instructions").doc(req.body.instructionId).delete()
-                    .then(() => {
-                        return res.status(200).json({ general : "Successful Deletion!" });
-                    })
-                    .catch((err) => {
-                        return res.status(500).json({ error : err.code });
-                    })
-            }
-            else {
-                return res.status(404).json({ general : "Instruction not Found!" });
-            }
-        })
-        .catch((err) => {
-            return res.status(500).json({ error : err.code });
-        });
+    cors(req, res, () => {
+        db.collection("instructions").doc(req.body.instructionId).get()
+            .then((doc) => {
+                if(doc.exists) {
+                    db.collection("instructions").doc(req.body.instructionId).delete()
+                        .then(() => {
+                            return res.status(200).json({ general : "Successful Deletion!" });
+                        })
+                        .catch((err) => {
+                            return res.status(500).json({ error : err.code });
+                        })
+                }
+                else {
+                    return res.status(404).json({ general : "Instruction not Found!" });
+                }
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code });
+            });
+    });
 });
 
 // Add Ingredient to Pantry
