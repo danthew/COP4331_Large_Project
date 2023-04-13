@@ -22,6 +22,9 @@ const firebaseConfig = {
     measurementId: "G-9X7Z2ZH6V7"
 };
 
+app.use(cors());
+app.use(bodyParser.json());
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
