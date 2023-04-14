@@ -117,7 +117,7 @@ app.post('/login', (req, res) => {
                 db.collection('users').where('userId', '==', data.user.uid).get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc)=> {
-                        return res.status(201).json(doc.data());
+                        return res.status(202).json(doc.data());
                     });
                 }).catch(err => {
                     return res.status(500).json({error : err.code});
