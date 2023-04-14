@@ -36,7 +36,7 @@ function Login() {
                 headers: { "Content-Type": "application/json" }
             });
             var res = JSON.parse(await response.text());
-            if(response.status != 201) {
+            if(response.status != 202) {
                 setMessage('There was an error with your username/password input.');
 		        console.log(response.status);
             }
