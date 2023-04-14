@@ -388,17 +388,28 @@ app.get('/listRecipes', (req, res) => {
 // List Ingredients for Recipe
 app.get('/listRecipeIngredients', (req, res) => {
     cors(req, res, () => {
-        db.collection("recipeIngredients").where("recipeId", "==", req.body.recipeId).get()
-            .then((data) => {
-                let ingredients = [];
-                data.forEach((doc) => {
-                    ingredients.push(doc.data());
-                });
-                return res.status(200).json(ingredients);
+        db.collection("recipes").doc(req.body.recipeId).get()
+            .then((doc) => {
+                if (doc.exists) {
+                    db.collection("recipeIngredients").where("recipeId", "==", req.body.recipeId).get()
+                        .then((data) => {
+                            let ingredients = [];
+                            data.forEach((doc) => {
+                                ingredients.push(doc.data());
+                            });
+                            return res.status(200).json(ingredients);
+                        })
+                        .catch((err) => {
+                            return res.status(500).json({ error: err.code });
+                        });
+                } else {
+                    return res.status(404).json({general : "Recipe does not exist!"});
+                }
             })
             .catch((err) => {
                 return res.status(500).json({ error: err.code });
             });
+
     });
 });
 
