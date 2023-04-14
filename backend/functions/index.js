@@ -405,16 +405,26 @@ app.get('/listRecipeIngredients', (req, res) => {
 // List Instructions for Recipe (In step order)
 app.get('/listRecipeInstructions', (req, res) => {
     cors(req, res, () => {
-        db.collection("instructions").where("recipeId", "==", req.body.recipeId).get()
-            .then((data) => {
-                let instructions = [];
-                data.forEach((doc) => {
-                    instructions.push(doc.data());
-                });
-                instructions.sort((a, b) => {
-                    return a.stepNumber - b.stepNumber;
-                });
-                return res.status(200).json(instructions);
+        db.collection("recipes").doc(req.body.recipeId).get()
+            .then((doc) => {
+                if (doc.exists) {
+                    db.collection("instructions").where("recipeId", "==", req.body.recipeId).get()
+                        .then((data) => {
+                            let instructions = [];
+                            data.forEach((doc) => {
+                                instructions.push(doc.data());
+                            });
+                            instructions.sort((a, b) => {
+                                return a.stepNumber - b.stepNumber;
+                            });
+                            return res.status(200).json(instructions);
+                        })
+                        .catch((err) => {
+                            return res.status(500).json({ error: err.code });
+                        });
+                } else {
+                    return res.status(404).json({ general: "Recipe does not exist!" });
+                }
             })
             .catch((err) => {
                 return res.status(500).json({ error: err.code });
