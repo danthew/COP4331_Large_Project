@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import ShowablePassword from 'components/login/ShowablePassword';
+import { useCookies } from 'react-cookie';
 
 function Login() {
     
@@ -33,7 +34,7 @@ function Login() {
             const response = await fetch(bp.buildPath('api/login'), {
                 method: "POST",
                 body: js,
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json" }
             });
             var res = JSON.parse(await response.text());
             if(response.status != 201) {
