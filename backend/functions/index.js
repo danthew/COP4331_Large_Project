@@ -22,9 +22,6 @@ const firebaseConfig = {
     measurementId: "G-9X7Z2ZH6V7"
 };
 
-app.use(cors());
-app.use(bodyParser.json());
-
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
@@ -120,7 +117,7 @@ app.post('/login', (req, res) => {
                 db.collection('users').where('userId', '==', data.user.uid).get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc)=> {
-                        return res.status(201).json(doc.data());
+                        return res.status(202).json(doc.data());
                     });
                 }).catch(err => {
                     return res.status(500).json({error : err.code});
@@ -348,5 +345,59 @@ app.delete('/deleteInstruction', (req, res) => {
 // Make Recipe : Update Pantry based off of selected recipes
 
 // List/Sort/Filter Recipes
+app.get('/listRecipes', (req, res) => {
+    cors(req, res, () => {
+        db.collection("recipes").where("userId", "==", req.body.userId).get()
+            .then((data) => {
+                let recipes = [];
+                data.forEach((doc) => {
+                    let curRecipe = doc.data();
+                    curRecipe.recipeId = doc.id;
+                    recipes.push(curRecipe);
+                });
+                return res.status(200).json(recipes);
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code});
+            });
+    });
+});
+
+// List Ingredients for Recipe
+app.get('/listRecipeIngredients', (req, res) => {
+    cors(req, res, () => {
+        db.collection("recipeIngredients").where("recipeId", "==", req.body.recipeId).get()
+            .then((data) => {
+                let ingredients = [];
+                data.forEach((doc) => {
+                    ingredients.push(doc.data());
+                });
+                return res.status(200).json(ingredients);
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code});
+            });
+    });
+});
+
+// List Instructions for Recipe (In step order)
+app.get('/listRecipeInstructions', (req, res) => {
+    cors(req, res, () => {
+        db.collection("instructions").where("recipeId", "==", req.body.recipeId).get()
+            .then((data) => {
+                let instructions = [];
+                data.forEach((doc) => {
+                    instructions.push(doc.data());
+                });
+                instructions.sort((a, b) => {
+                    return a.stepNumber - b.stepNumber;
+                });
+                return res.status(200).json(instructions);
+            })
+            .catch((err) => {
+                return res.status(500).json({ error : err.code});
+            });
+    });
+});
 
 exports.api = functions.https.onRequest(app);
