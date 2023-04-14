@@ -369,19 +369,34 @@ app.delete('/deleteInstruction', (req, res) => {
 // List/Sort/Filter Recipes
 app.get('/listRecipes', (req, res) => {
     cors(req, res, () => {
-        db.collection("recipes").where("userId", "==", req.body.userId).get()
-            .then((data) => {
-                let recipes = [];
-                data.forEach((doc) => {
-                    let curRecipe = doc.data();
-                    curRecipe.recipeId = doc.id;
-                    recipes.push(curRecipe);
-                });
-                return res.status(200).json(recipes);
-            })
-            .catch((err) => {
-                return res.status(500).json({ error: err.code });
+        db.collection("users").where("userId", "==", req.body.userId).get()
+        .then((data) => {
+            let found = false;
+            data.forEach((doc) => {
+                found = true;
             });
+            if (found) {
+                db.collection("recipes").where("userId", "==", req.body.userId).get()
+                    .then((data) => {
+                        let recipes = [];
+                        data.forEach((doc) => {
+                            let curRecipe = doc.data();
+                            curRecipe.recipeId = doc.id;
+                            recipes.push(curRecipe);
+                        });
+                        return res.status(200).json(recipes);
+                    })
+                    .catch((err) => {
+                        return res.status(500).json({ error: err.code });
+                    });
+            } else {
+                return res.status(404).json({general : "User not found!"});
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({ error: err.code });
+        });
+
     });
 });
 
@@ -403,7 +418,7 @@ app.get('/listRecipeIngredients', (req, res) => {
                             return res.status(500).json({ error: err.code });
                         });
                 } else {
-                    return res.status(404).json({general : "Recipe does not exist!"});
+                    return res.status(404).json({ general: "Recipe does not exist!" });
                 }
             })
             .catch((err) => {
