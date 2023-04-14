@@ -246,21 +246,32 @@ app.post('/editRecipe', (req, res) => {
 // Add Ingredient to Recipe
 app.post('/addIngredientToRecipe', (req, res) => {
     cors(req, res, () => {
+
         let ingredientInfo = req.body;
+        db.collection("recipes").doc(req.body.recipeId).get()
+        .then((doc) => {
+            if(doc.exists) {
+                const newIngredient = {
+                    name : ingredientInfo.name,
+                    quantity : ingredientInfo.quantity,
+                    recipeId : ingredientInfo.recipeId
+                };
 
-        const newIngredient = {
-            name : ingredientInfo.name,
-            quantity : ingredientInfo.quantity,
-            recipeId : ingredientInfo.recipeId
-        };
-
-        db.collection("recipeIngredients").add(newIngredient)
-            .then((ref) => {
-                return res.status(201).json({ ingredientId : ref.id });
-            })
-            .catch((err) => {
-                return res.status(500).json({ error : err.code });
-            });
+                db.collection("recipeIngredients").add(newIngredient)
+                .then((ref) => {
+                    return res.status(201).json({ ingredientId : ref.id });
+                })
+                .catch((err) => {
+                    return res.status(500).json({ error : err.code });
+                });
+            } else {
+                return res.status(404).json( {general : "Recipe does not exist."});
+            }
+        })
+        .catch((err) => {
+            return res.status(500).json({ error : err.code });
+        });
+        
     });
 });
 
