@@ -190,7 +190,7 @@ app.delete('/deleteRecipe', (req, res) => {
 
 // Get recipe
 
-app.get('/getRecipe', (req, res) => {
+app.post('/getRecipe', (req, res) => {
     cors(req, res, () => {
         db.collection("recipes").doc(req.body.recipeId).get()
             .then((doc) => {
@@ -367,7 +367,7 @@ app.delete('/deleteInstruction', (req, res) => {
 // Make Recipe : Update Pantry based off of selected recipes
 
 // List/Sort/Filter Recipes
-app.get('/listRecipes', (req, res) => {
+app.post('/listRecipes', (req, res) => {
     cors(req, res, () => {
         db.collection("users").where("userId", "==", req.body.userId).get()
         .then((data) => {
@@ -401,7 +401,7 @@ app.get('/listRecipes', (req, res) => {
 });
 
 // List Ingredients for Recipe
-app.get('/listRecipeIngredients', (req, res) => {
+app.post('/listRecipeIngredients', (req, res) => {
     cors(req, res, () => {
         db.collection("recipes").doc(req.body.recipeId).get()
             .then((doc) => {
@@ -429,7 +429,7 @@ app.get('/listRecipeIngredients', (req, res) => {
 });
 
 // List Instructions for Recipe (In step order)
-app.get('/listRecipeInstructions', (req, res) => {
+app.post('/listRecipeInstructions', (req, res) => {
     cors(req, res, () => {
         db.collection("recipes").doc(req.body.recipeId).get()
             .then((doc) => {
