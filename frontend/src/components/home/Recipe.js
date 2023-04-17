@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 
+let _ud = localStorage.getItem('user_data');
+let ud = JSON.parse(_ud);
+let userId = ud.id;
+
+let bp = require("../BuildPath.js");
+
+
 function Recipe()
 {
     var recipeSearch = '';
     const [message,setMessage] = useState('');
+    const [recipeList,setRecipeList] = useState('');
 
     const doSearchRecipe = async event =>
     {
@@ -17,6 +25,44 @@ function Recipe()
         event.preventDefault();
 
         window.location.href = "/addRecipe";
+    }
+
+    const LoadRecipe = async event =>
+    {
+
+        let temp = 
+        {
+            userId: userId
+        }
+
+        let js = JSON.stringify(temp);
+        console.log(js);
+        
+        try
+        {
+            const response = await fetch(bp.buildPath('api/listRecipes'), {
+                method: "POST",
+                body: js,
+                headers: { "Content-Type": "application/json"}
+            });
+
+            var res = JSON.parse(await response.text());
+            let _results = res.results;
+            let resultText = '';
+            for ( var i=0; i<_results.length;i++)
+            {
+                if(i < _results.length - 1)
+                {
+                    resultText += ', ';
+                }
+            }
+            setRecipeList(resultText);
+        }
+        catch(e)
+        {
+            alert(e.toString());
+            return;
+        }
     }
 
     return(
@@ -34,7 +80,7 @@ function Recipe()
                     </form>
                 </div>
                 <div className="recipe-item">
-                    
+                    <LoadRecipe/>
                 </div>
             </div>
         </div>
