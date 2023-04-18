@@ -27,44 +27,7 @@ function Recipe()
         window.location.href = "/addRecipe";
     }
 
-    const LoadRecipe = async event =>
-    {
-
-        let temp = 
-        {
-            userId: userId
-        }
-
-        let js = JSON.stringify(temp);
-        console.log(js);
-        
-        try
-        {
-            const response = await fetch(bp.buildPath('api/listRecipes'), {
-                method: "POST",
-                body: js,
-                headers: { "Content-Type": "application/json"}
-            });
-
-            var res = JSON.parse(await response.text());
-            let _results = res.results;
-            let resultText = '';
-            for ( var i=0; i<_results.length;i++)
-            {
-                if(i < _results.length - 1)
-                {
-                    resultText += ', ';
-                }
-            }
-            setRecipeList(resultText);
-        }
-        catch(e)
-        {
-            alert(e.toString());
-            return;
-        }
-    }
-
+    
     return(
         <div className="recipe">
             <div className="recipe-ui">
@@ -80,7 +43,7 @@ function Recipe()
                     </form>
                 </div>
                 <div className="recipe-item">
-                    <LoadRecipe/>
+                    
                 </div>
             </div>
         </div>
