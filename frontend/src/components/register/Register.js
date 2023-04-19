@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useCookies } from 'react-cookie';
 
 function Register() {
     let registerName;
@@ -7,6 +8,7 @@ function Register() {
     let registerDOB;
     let registerEmail;
     const [message, setMessage] = useState("");
+    const [cookie, setCookie] = useCookies(['userId', 'email']);
 
     let bp = require("../BuildPath.js");
     const [passwordShown, setPasswordShown] = useState(false);
@@ -15,19 +17,19 @@ function Register() {
 
         event.preventDefault();
 
-        let obj = {
-            name: registerName.value,
-            username: registerUsername.value,
+        let obj = {  
+            email: registerEmail.value,
             password: registerPassword.value,
-            dob: registerDOB.value,
-            email: registerEmail.value
+            username: registerUsername.value,
+            name: registerName.value,
+            dob: registerDOB.value   
         }
 
         if(obj.name === "" || obj.username === "" || obj.password === "" || obj.dob === "" || obj.email === "") {
 
             setMessage("Please make sure the fields are not empty.");
             return;
-        }
+        } 
         console.log(obj);
 
         let js = JSON.stringify(obj);
@@ -49,6 +51,10 @@ function Register() {
                     id: res.id
                 };
                 localStorage.setItem('user_data', JSON.stringify(user));
+                setCookie('userId', res.userId, {path: '/'});
+                setCookie('email', registerEmail.value, {path: '/'});
+                console.log(cookie.userId);
+                console.log(cookie.email);
                 setMessage('Registered successfully');
                 window.location.href = "/";
 
@@ -86,3 +92,4 @@ function Register() {
 );
 }
 export default Register;
+
