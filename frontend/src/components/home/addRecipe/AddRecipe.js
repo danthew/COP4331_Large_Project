@@ -86,7 +86,7 @@ function AddRecipe() {
             cuisine: cuisine.value,
             cookTime: cookTime.value, 
             prepTime: prepTime.value,
-            allowSubs: allowSubs,
+            allowSubs: "false",
             userId: cookie.userId
         };
 
@@ -231,17 +231,6 @@ function AddRecipe() {
             <div class="cuisine">
                 <label>Cuisine</label>
                 <input type='text' id='cuisine' placeholder="Cuisine" ref={(c) => cuisine = c}></input> 
-            </div>
-            <div class="addsubs">
-                <label>Allow Substitutions?</label>
-                <input type="radio" name="radio" id="opt1" onChange={()=> setallowSubs(true)}></input>
-                <label for="opt1" class="label1">
-                    <span>Yes</span>
-                </label>
-                <input type="radio" name="radio" id="opt2" onChange={()=> setallowSubs(false)}></input>
-                <label for="opt2" class="label2">
-                    <span>No</span>
-                </label>
             </div>
             <div class="add-delete">                       
                 {stepsList.map((data, i)=> {
