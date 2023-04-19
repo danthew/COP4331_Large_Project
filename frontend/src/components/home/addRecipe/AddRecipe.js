@@ -86,7 +86,7 @@ function AddRecipe() {
             cuisine: cuisine.value,
             cookTime: cookTime.value, 
             prepTime: prepTime.value,
-            allowSubs: allowSubs,
+            allowSubs: "false",
             userId: cookie.userId
         };
 
@@ -113,7 +113,7 @@ function AddRecipe() {
 
 
         try {
-            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/addRecipe', {
+            const response = await fetch(buildPath('api/addRecipe'), {
                 method: "POST",
                 body: js,
                 headers: { Accept: 'application/json',
@@ -137,7 +137,7 @@ function AddRecipe() {
             return;
         }
         try {
-            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/addIngredientToRecipe', {
+            const response = await fetch(buildPath('api/addIngredientToRecipe'), {
                 method: "POST",
                 body: js2,
                 headers: { Accept: 'application/json',
@@ -161,7 +161,7 @@ function AddRecipe() {
             return;
         }
         try {
-            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/addInstruction', {
+            const response = await fetch(buildPath('api/addInstruction'), {
                 method: "POST",
                 body: js3,
                 headers: { Accept: 'application/json',
@@ -231,17 +231,6 @@ function AddRecipe() {
             <div class="cuisine">
                 <label>Cuisine</label>
                 <input type='text' id='cuisine' placeholder="Cuisine" ref={(c) => cuisine = c}></input> 
-            </div>
-            <div class="addsubs">
-                <label>Allow Substitutions?</label>
-                <input type="radio" name="radio" id="opt1" onChange={()=> setallowSubs(true)}></input>
-                <label for="opt1" class="label1">
-                    <span>Yes</span>
-                </label>
-                <input type="radio" name="radio" id="opt2" onChange={()=> setallowSubs(false)}></input>
-                <label for="opt2" class="label2">
-                    <span>No</span>
-                </label>
             </div>
             <div class="add-delete">                       
                 {stepsList.map((data, i)=> {

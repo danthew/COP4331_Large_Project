@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import ShowablePassword from 'components/login/ShowablePassword';
+import { useCookies } from 'react-cookie';
 
 function Login() {
     
@@ -7,6 +8,7 @@ function Login() {
     var loginPassword;
     const [message, setMessage] = useState("");
     const [passwordShown, setPasswordShown] = useState(false);
+    const [cookie, setCookie] = useCookies(['userId', 'email']);
 
     const doLogin = async (event) => {
 
@@ -15,7 +17,8 @@ function Login() {
         event.preventDefault();
 
         let obj = {
-            email : loginName.value,
+            email : cookie.email,
+            username: loginName.value,
             password : loginPassword.value
         };
 
@@ -46,6 +49,8 @@ function Login() {
                     id: res.userId
                 };
                 localStorage.setItem('user_data', JSON.stringify(user));
+                setCookie('userId', res.userId, {path: '/'});
+                console.log(cookie.userId);
                 setMessage('');
                 console.log(localStorage.getItem('user_data'));
                 window.location.href = "/home";
