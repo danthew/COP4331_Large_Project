@@ -12,10 +12,90 @@ function Register() {
 
     let bp = require("../BuildPath.js");
     const [passwordShown, setPasswordShown] = useState(false);
+    
+    const validate = ()=> {
+        if(registerName.value == "") {
+            setMessage("A name is required.")
+            return;
+        }
+
+        if(registerUsername.value == "") {
+            setMessage("A username is required.");
+            return;
+        }
+
+        if(registerPassword.value == "") {
+            setMessage("A password is required.");
+            return;
+        }
+
+        if(registerDOB.value == "") {
+            setMessage("A date of birth is required.");
+            return;
+        }
+
+        if(registerName.value == "") {
+            setMessage("An email is required.");
+            return;
+        }
+
+        var emailExpression = /^[a-zA-z0-9]+?@[a-zA-Z]+?\.[a-z]{3}$/;
+
+        if(!emailExpression.test(String(registerEmail.value))) {
+            setMessage('Please enter a valid email');
+            return;
+        }
+
+        let dobSlash = /^\d{2}?[\/]+\d{2}?[\/]+\d{4}$/;
+        let dobDash = /^\d{2}?[\-]+\d{2}?[\-]+\d{4}$/;
+	    let dobSpace = /^\d{2}?[\s]+\d{2}?[\s]+\d{4}$/;
+	    let dobNum = /^\d{8}?$/;
+
+        if(!dobSlash.test(registerDOB.value) && !dobDash.test(registerDOB.value) && !dobSpace.test(registerDOB.value) && !dobNum.test(registerDOB.value)) {
+            //alert("Please verify the phone number is inputed correctly.");
+            setMessage("Please enter a valid date of birth");
+            return;
+        }
+
+        if(dobSpace.test(registerDOB.value)){
+            registerDOB.value=registerDOB.value.replaceAll(" ","/");
+        }
+
+        else if(dobDash.test(registerDOB.value)){
+            registerDOB.value=registerDOB.value.replaceAll("-","/");
+        }
+
+        else if(dobNum.test(registerDOB.value)){
+            registerDOB.value=registerDOB.value.slice(0,2)+"/"+registerDOB.value.slice(2,4)+"/"+registerDOB.value.slice(4,8);
+        }
+
+        var passwordExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,}$/;
+
+        if(!passwordExpression.test(registerPassword.value)) {
+            setMessage('Passwords require a special character, number, and uppercase character.');
+            return;
+        }
+
+        var nameExpression = /^[A-Za-z ]{1,30}$/
+
+        if(!nameExpression.test(registerName.value)) {
+            setMessage('The name field should include alpha characters and spaces only.');
+            return;
+        }
+
+        var usernameExpression = /^[a-zA-Z0-9]{1,15}$/;
+
+        if(!usernameExpression.test(registerUsername.value)) {
+            setMessage('Please check the username field.');
+            return;
+        }
+    }
 
     const doRegister = async (event) => {
 
         event.preventDefault();
+        
+        validate();
 
         let obj = {  
             email: registerEmail.value,
