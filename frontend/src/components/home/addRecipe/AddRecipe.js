@@ -113,7 +113,7 @@ function AddRecipe() {
 
 
         try {
-            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/addRecipe', {
+            const response = await fetch(buildPath('api/addRecipe'), {
                 method: "POST",
                 body: js,
                 headers: { Accept: 'application/json',
@@ -137,7 +137,7 @@ function AddRecipe() {
             return;
         }
         try {
-            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/addIngredientToRecipe', {
+            const response = await fetch(buildPath('api/addIngredientToRecipe'), {
                 method: "POST",
                 body: js2,
                 headers: { Accept: 'application/json',
@@ -161,7 +161,7 @@ function AddRecipe() {
             return;
         }
         try {
-            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/addInstruction', {
+            const response = await fetch(buildPath('api/addInstruction'), {
                 method: "POST",
                 body: js3,
                 headers: { Accept: 'application/json',
