@@ -32,9 +32,7 @@ const LoginPage = () => {
             </div>
             <div className="login-div">
                 <div className="login-button" id="login-button" onClick={loginButton}>
-                    <div className="login-center">
-                        <h1 className='btnlabel'> LOGIN </h1>
-                    </div>
+                    <h1 className='btnlabel'> LOGIN </h1>
                 </div>
                 <div className="register-button" id="register-button" onClick={registerButton}>
                     <div>
