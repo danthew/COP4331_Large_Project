@@ -1,12 +1,16 @@
 import React from 'react';
 
 import AddRecipe from 'components/home/addRecipe/AddRecipe';
+import HomeTitle from '../components/home/TitleBar';
 
 const AddRecipePage = () =>
 {
     return(
         <div>
-            <AddRecipe />
+            <HomeTitle />
+            <div className="content">
+                <AddRecipe />
+            </div>
         </div>
     );
 };

@@ -50,7 +50,7 @@ function HomeTitle()
     return(
         <div className="title-bar"> 
             <div className='title-logo'>
-                <div class='logo-home'>
+                <div className='logo-home'>
                     <div className='logo'>
                         <img height="60px" width="60px" src={Logo} alt="RECIPEASY Logo"></img>                
                     </div>
