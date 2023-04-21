@@ -319,8 +319,8 @@
   background-color: #3590d5;
   height: 85%;
   width: 85%;
-  margin-left: 7.5%;
   margin-top: 50px;
+  transform: translateX(-15%);
   border-radius: 30px 30px 45px 45px;
 }
 
@@ -332,9 +332,13 @@
 }
 
 .recipe-item {
-  background-color: #3590d5;
-  height: 85%;
-  border-radius: 0px 0px 45px 45px;
+  background-color: #ffffff;
+  display: flex;
+  width: 45%;
+  float: left;
+  border-radius: 15px;
+  text-align: center;
+  float: inline-end;
 }
 
 .add-Recipe {

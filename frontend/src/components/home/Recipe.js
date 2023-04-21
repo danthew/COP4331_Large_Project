@@ -65,7 +65,6 @@ function Recipe() {
               <p>Recipe Cuisine: {recipe.cuisine}</p>
               <p>Prep Time: {recipe.prepTime}</p>
               <p>Cook Time: {recipe.cookTime}</p>
-              <p>Allow Subs?: {recipe.allowSubs}</p>
             </div>
           ))}
         </div>
