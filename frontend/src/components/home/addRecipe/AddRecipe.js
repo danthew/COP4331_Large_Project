@@ -110,6 +110,11 @@ function AddRecipe() {
 
         let js3 = JSON.stringify(obj3);
         console.log(JSON.stringify(obj3,null,2));
+	    
+	if(obj.name === "" || obj.cuisine === "" || obj.cookTime === "" || obj.prepTime === "") {
+            setMessage("Please make sure the fields are not empty.");
+            return;
+        }
 
 
         try {
