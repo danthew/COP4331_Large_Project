@@ -75,7 +75,7 @@ function Login() {
                         <input type="password" name="Password" toggleMask="true" id="loginPassword" className="input" placeholder="Password" ref={(c) => loginPassword = c} /><br />
                     </div>
                     <input type="submit" id="loginButton" className="button" value="Login" onClick={doLogin}/>
-                    </form>
+                </form>
                 <span id="loginResult">{message}</span>
             </div>
         </div>

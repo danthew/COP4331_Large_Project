@@ -30,12 +30,14 @@ const LoginPage = () => {
             <div class="logo-login">
                 <img height="200px" width="200px" src={Logo} alt="RECIPEASY Logo"></img>                
             </div>
-            <div className="login-div"> 
+            <div className="login-div">
                 <div className="login-button" id="login-button" onClick={loginButton}>
                     <h1 className='btnlabel'> LOGIN </h1>
                 </div>
                 <div className="register-button" id="register-button" onClick={registerButton}>
-                    <h1 className='btnlabel'> REGISTER </h1>
+                    <div>
+                        <h1 className='btnlabel'> REGISTER </h1>
+                    </div>
                 </div>
                 <div className="login" id="login" style={loginStyle}>
                     <Login />

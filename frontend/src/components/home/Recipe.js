@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 function Recipe()
 {
     var recipeSearch = '';
     const [message,setMessage] = useState('');
+    const [cookie, setCookie] = useCookies(['userId']);
 
     const doSearchRecipe = async event =>
     {
@@ -17,6 +19,35 @@ function Recipe()
         event.preventDefault();
 
         window.location.href = "/addRecipe";
+    }
+
+    const listRecipes = () => {
+
+        const userId = cookie.userId;
+
+        fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/listRecipes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId })
+        })
+        .then(response => response.json())
+        .then(data => {
+        if (data.length === 0) {
+            console.log('No recipes found for this user.');
+            return;
+        }
+        data.forEach(recipe => {
+        console.log('Recipe ID:', recipe.recipeId);
+        console.log('Recipe Name:', recipe.name);
+        console.log('Ingredients:', recipe.ingredients);
+        console.log('Instructions:', recipe.instructions);
+        console.log('---');
+    });
+  })
+  .catch(error => console.error(error));
+
     }
 
     return(
@@ -34,6 +65,7 @@ function Recipe()
                     </form>
                 </div>
                 <div className="recipe-item">
+                    <h1>{listRecipes()}</h1>
                     
                 </div>
             </div>

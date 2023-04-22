@@ -467,16 +467,122 @@ app.delete('/deleteInstruction', (req, res) => {
 
 // Add Ingredient to Pantry
 
+app.post('/addIngredientToPantry', (req, res) => {
+	cors(req, res, () => {
+		let ingredientInfo = req.body;
+		console.log(ingredientInfo.userId);
+		const newIngredient = {
+			name: ingredientInfo.name,
+			quantity: ingredientInfo.quantity,
+			unit: ingredientInfo.unit,
+			userId: ingredientInfo.userId,
+			brand: ingredientInfo.brand, 
+			cost: ingredientInfo.cost,
+			onList: ingredientInfo.onList
+		};
+
+		db.collection("pantryIngredients").add(newIngredient)
+			.then((ref) => {
+				return res.status(201).json({ ingredientId: ref.id });
+			})
+			.catch((err) => {
+				return res.status(500).json({ error: err.code });
+			});
+	});
+});
+
+// Remove Ingredient from Pantry
+
+app.delete('/deleteIngredientFromPantry', (req, res) => {
+	cors(req, res, () => {
+		db.collection("pantryIngredients").doc(req.body.ingredientId).get()
+			.then((doc) => {
+				if (doc.exists) {
+					db.collection("pantryIngredients").doc(req.body.ingredientId).delete()
+						.then(() => {
+							return res.status(200).json({ general: "Successful Deletion!" });
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						})
+				}
+				else {
+					return res.status(404).json({ general: "Ingredient not Found!" });
+				}
+			})
+			.catch((err) => {
+				return res.status(500).json({ error: err.code });
+			});
+	});
+});
+
+// Edit Ingredient in Pantry
+
+app.post('/editIngredientInPantry', (req, res) => {
+	cors(req, res, () => {
+		let ingredientInfo = req.body;
+
+		const newIngredient = {
+			name: ingredientInfo.name,
+			quantity: ingredientInfo.quantity,
+			unit: ingredientInfo.unit,
+			userId: ingredientInfo.userId,
+			brand: ingredientInfo.brand, 
+			cost: ingredientInfo.cost,
+			onList: ingredientInfo.onList
+		};
+
+		db.collection("pantryIngredients").doc(req.body.ingredientId).get()
+			.then((doc) => {
+				if (doc.exists) {
+					db.collection("pantryIngredients").doc(req.body.ingredientId).update(newIngredient)
+						.then(() => {
+							return res.status(200).json({ general: "Successful Update!" });
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						})
+				}
+				else {
+					return res.status(404).json({ general: "Recipe not Found!" });
+				}
+			})
+			.catch((err) => {
+				return res.status(500).json({ error: err.code });
+			});
+	});
+});
+
 // Add/Remove Ingredient to List : Toggle Boolean
-
-// Remove Ingredient from Recipe
-
-// Add Ingredient to Pantry
+app.post('/toggleIngredientOnList', (req, res) => {
+	cors(req, res, () => {
+		db.collection("pantryIngredients").doc(req.body.ingredientId).get()
+			.then((doc) => {
+				if (doc.exists) {
+					let nowOnList = !doc.data().onList;
+					db.collection("pantryIngredients").doc(req.body.ingredientId).update({ onList: nowOnList })
+						.then(() => {
+							return res.status(200).json({ general: "Successful Update!" });
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						})
+				}
+				else {
+					return res.status(404).json({ general: "Recipe not Found!" });
+				}
+			})
+			.catch((err) => {
+				return res.status(500).json({ error: err.code });
+			});
+	});
+});
 
 // Make Recipe : Update Pantry based off of selected recipes
 
 // List/Sort/Filter Recipes
 app.post('/listRecipes', (req, res) => {
+	let searchCriteria = req.body.searchCriteria;
 	cors(req, res, () => {
 		db.collection("users").where("userId", "==", req.body.userId).get()
 			.then((data) => {
@@ -490,8 +596,10 @@ app.post('/listRecipes', (req, res) => {
 							let recipes = [];
 							data.forEach((doc) => {
 								let curRecipe = doc.data();
-								curRecipe.recipeId = doc.id;
-								recipes.push(curRecipe);
+								 if(curRecipe.name.includes(searchCriteria)) {
+									curRecipe.recipeId = doc.id;
+									recipes.push(curRecipe);
+								}
 							});
 							return res.status(200).json(recipes);
 						})
@@ -564,6 +672,43 @@ app.post('/listRecipeInstructions', (req, res) => {
 			.catch((err) => {
 				return res.status(500).json({ error: err.code });
 			});
+	});
+});
+
+//list pantry Ingredients
+app.post('/listPantryIngredients', (req, res) => {
+	let searchCriteria = req.body.searchCriteria;
+	cors(req, res, () => {
+		db.collection("users").where("userId", "==", req.body.userId).get()
+			.then((data) => {
+				let found = false;
+				data.forEach((doc) => {
+					found = true;
+				});
+				if (found) {
+					db.collection("pantryIngredients").where("userId", "==", req.body.userId).get()
+						.then((data) => {
+							let ingredients = [];
+							data.forEach((doc) => {
+								let curRecipe = doc.data();
+								 if(curRecipe.name.includes(searchCriteria)) {
+									curRecipe.recipeId = doc.id;
+									ingredients.push(curRecipe);
+								}
+							});
+							return res.status(200).json(ingredients);
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						});
+				} else {
+					return res.status(404).json({general : "User not found!"});
+				}
+			})
+			.catch((err) => {
+				return res.status(500).json({ error: err.code });
+			});
+
 	});
 });
 
