@@ -11,6 +11,7 @@
   background-image: url('../src/images/table2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
 }
 
 .text {
@@ -322,6 +323,8 @@
   margin-top: 50px;
   transform: translateX(-15%);
   border-radius: 30px 30px 45px 45px;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .recipe-header {
@@ -333,12 +336,43 @@
 
 .recipe-item {
   background-color: #ffffff;
-  display: flex;
+  display: table-cell;
+  text-align: center;
   width: 45%;
+  height: 75px;
   float: left;
   border-radius: 15px;
-  text-align: center;
+  vertical-align: center;
   float: inline-end;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  margin-top: 25px;
+}
+
+.recipe-item:hover{
+  background-color: #f2f2f2;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: darkgray;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.recipe-name {
+  font-size: x-large;
 }
 
 .add-Recipe {

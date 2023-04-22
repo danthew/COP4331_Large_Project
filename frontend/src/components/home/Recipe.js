@@ -1,3 +1,4 @@
+import { getByDisplayValue } from '@testing-library/react';
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
@@ -60,11 +61,12 @@ function Recipe() {
         </div>
         <div className="recipe-items">
           {recipes.map(recipe => (
-            <div className="recipe-item" key={recipe.recipeId}>
-              <p>Recipe Name: {recipe.name}</p>
+            <div className="recipe-item">
+              <p className="recipe-name">Recipe Name: {recipe.name}</p>
               <p>Recipe Cuisine: {recipe.cuisine}</p>
-              <p>Prep Time: {recipe.prepTime}</p>
-              <p>Cook Time: {recipe.cookTime}</p>
+              <div className="times">
+                <p>Cook Time: {recipe.cookTime} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Prep Time: {recipe.prepTime}</p>
+              </div>
             </div>
           ))}
         </div>
