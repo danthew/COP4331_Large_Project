@@ -66,7 +66,8 @@ function Login() {
     const forgotPassword = async event => {
         event.preventDefault();
 
-        alert('forgot password');
+        document.getElementsByClassName("login")[0].style.setProperty("display","none");
+        document.getElementsByClassName("forgot-pass")[0].style.setProperty("display", "block");
     }
 
     return (
