@@ -76,49 +76,53 @@ app.post('/register', (req, res) => {
                 }
             })
             .then(data => {
-                userId = data.user.uid;
-                return data.user.getIdToken();
-            })
-            .then(token => {
-                tk = token;
-                const userCredentials = {
-                    username: newUser.username,
-                    email: newUser.email,
-                    userId: userId,
-                    dob: newUser.dob,
-                    name: newUser.name
-                };
-                return db.doc(`/users/${newUser.username}`).set(userCredentials);
-            })
-            .then(() => {
-                return res.status(202).json({ userId: userId });
-            })
-            .catch(err => {
-                if (err.code === 'auth/email-already-in-use')
-                    return res.status(400).json({ email: 'Email is already in use' });
-                else
-                    return res.status(500).json({ error: err.code });
-            });
+				let curUser = data.user;
+				userId = curUser.uid;
+				token = curUser.getIdToken();
+				const userCredentials = {
+					username: newUser.username,
+					email: newUser.email,
+					userId: userId,
+					dob: newUser.dob,
+					name: newUser.name
+				};
+				db.doc(`/users/${newUser.username}`).set(userCredentials);
+				fbauth.sendEmailVerification(curUser)
+				.then(() => {
+					return;
+				})
+				.catch(() => {
+					return res.status(201).json({ userId : userId, email : "Verification email not sent!"});
+				});
+			})
+			.then(() => {
+				return res.status(201).json({ userId: userId, email : "Verification email sent!" });
+			})
+			.catch(err => {
+				if (err.code === 'auth/email-already-in-use')
+					return res.status(400).json({ email: 'Email is already in use' });
+				else
+					return res.status(500).json({ error: err.code });
+			});
 
-    });
+	});
 });
 
 // Api endpoint that allows for login, takes an email and a password
 // Returns the information associated with a userId
 app.post('/login', (req, res) => {
-    cors(req, res, () => {
-        let userInfo = req.body;
-        let user = {
-            email: userInfo.email,
-            password: userInfo.password,
-			username : userInfo.username
+	cors(req, res, () => {
+		let userInfo = req.body;
+		let user = {
+			email: userInfo.email,
+			password: userInfo.password,
+			username: userInfo.username
 		};
 		if (user.email === undefined || user.email === "") {
 			db.collection("users").doc(user.username).get()
 				.then((doc) => {
 					if (doc.exists) {
 						user.email = doc.data().email;
-						console.log("hola");
 						fbauth.signInWithEmailAndPassword(auth, user.email, user.password)
 							.then(data => {
 								db.collection('users').where('userId', '==', data.user.uid).get()
@@ -133,12 +137,12 @@ app.post('/login', (req, res) => {
 							.catch(err => {
 								if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found')
 									return res.status(403).json({ general: "Wrong credentials." });
-								if (err.code === 'auth/invalid-email')
+								else if (err.code === 'auth/invalid-email')
 									return res.status(401).json({ general: "Invalid email." });
-								if (err.code === 'aut/missing-email')
+								else if (err.code === 'aut/missing-email')
 									return ren.status(401).json({ general: "Missing email." })
-								console.log(err);
-								return res.status(500).json({ error: err.code });
+								else
+									return res.status(500).json({ error: err.code });
 							});
 					}
 					else {
@@ -147,34 +151,102 @@ app.post('/login', (req, res) => {
 				})
 				.catch((err) => {
 					return res.status(500).json({ error: err.code });
-				});		
+				});
 		} else {
 			fbauth.signInWithEmailAndPassword(auth, user.email, user.password)
 				.then(data => {
-					db.collection('users').where('userId', '==', data.user.uid).get()
-						.then((querySnapshot) => {
-							querySnapshot.forEach((doc) => {
-								return res.status(202).json(doc.data());
+					if (data.user.emailVerified == false) {
+						return res.status(403).json({ general: "Email not verified." });
+					} else {
+						db.collection('users').where('userId', '==', data.user.uid).get()
+							.then((querySnapshot) => {
+								let sent = false;
+								querySnapshot.forEach((doc) => {
+									sent = true;
+									return res.status(202).json(doc.data());
+								});
+								if (!sent)
+									return res.status(404).json({ general: "User data not found!" });
+							}).catch((err) => {
+								return res.status(500).json({ error: err.code });
 							});
-						}).catch(err => {
-							return res.status(500).json({ error: err.code });
-						});
+					}
 				})
 				.catch(err => {
 					if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found')
 						return res.status(403).json({ general: "Wrong credentials." });
-					if (err.code === 'auth/invalid-email')
+					else if (err.code === 'auth/invalid-email')
 						return res.status(401).json({ general: "Invalid email." });
-					if (err.code === 'aut/missing-email')
-						return ren.status(401).json({ general: "Missing email." })
-					console.log(err);
-					return res.status(500).json({ error: err.code });
+					else if (err.code === 'aut/missing-email')
+						return res.status(401).json({ general: "Missing email." })
+					else
+						return res.status(500).json({ error: err.code });
 				});
 		}
 	});
 });
 
 // Verify Email
+
+app.post('/verifyEmail', (req, res) => {
+	cors(req, res, () => {
+		let email = req.body.email;
+		let password = req.body.password;
+		fbauth.signInWithEmailAndPassword(auth, email, password)
+			.then((user) => {
+				fbauth.sendEmailVerification(user.user)
+					.then(() => {
+						if (user.user.emailVerified == false) {
+							return res.status(200).json({ email: "Verification email sent!" });
+						} else {
+							return res.status(403).json({ general: "User already verified." });
+						}
+					})
+					.catch((err) => {
+						return res.status(500).json({ error: err.code });
+					});
+			})
+			.catch(err => {
+				if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found')
+					return res.status(403).json({ general: "User with these credentials not found." });
+				else if (err.code === 'auth/invalid-email')
+					return res.status(401).json({ general: "Invalid email." });
+				else if (err.code === 'aut/missing-email')
+					return res.status(401).json({ general: "Missing email." })
+				else
+					return res.status(500).json({ error: err.code });
+			});
+
+	});
+});
+
+app.post('/resetPassword', (req, res) => {
+	cors(req, res, () => {
+		let email = req.body.email;
+
+		db.collection("users").where('email', '==', email).get()
+			.then((querySnapshot) => {
+				let found = false;
+				querySnapshot.forEach(() => {
+					found = true;
+					fbauth.sendPasswordResetEmail(auth, email)
+						.then(() => {
+							return res.status(200).json({ email: "Password reset email sent!" });
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						});
+				});
+				if (!found) {
+					return res.status(404).json({ general: "User not found!" });
+				}
+			})
+			.catch((err) => {
+				return res.status(500).json({ error: err.code });
+			});
+
+	});
+});
 
 // Add recipe
 
@@ -345,7 +417,6 @@ app.post('/addInstruction', (req, res) => {
 
 		db.collection("recipes").doc(instructionInfo.recipeId).get()
 			.then((doc) => {
-				console.log(instructionInfo.recipeId);
 				if (doc.exists) {
 					const newInstruction = {
 						body: instructionInfo.body,
@@ -428,7 +499,7 @@ app.post('/listRecipes', (req, res) => {
 							return res.status(500).json({ error: err.code });
 						});
 				} else {
-					return res.status(404).json({general : "User not found!"});
+					return res.status(404).json({ general: "User not found!" });
 				}
 			})
 			.catch((err) => {
