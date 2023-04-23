@@ -280,6 +280,28 @@ app.delete('/deleteRecipe', (req, res) => {
 		db.collection("recipes").doc(req.body.recipeId).get()
 			.then((doc) => {
 				if (doc.exists) {
+					db.collection("recipeIngredients").where("recipeId", "==", req.body.recipeId).get()
+						.then((data) => {
+							data.forEach((doc) => {
+								doc.ref.delete();
+							});
+							console.log("Ingredients Deleted");
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						});
+
+						db.collection("recipeInstructions").where("recipeId", "==", req.body.recipeId).get()
+						.then((data) => {
+							data.forEach((doc) => {
+								doc.ref.delete();
+							});
+							console.log("Instructions Deleted");
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						});
+
 					db.collection("recipes").doc(req.body.recipeId).delete()
 						.then(() => {
 							return res.status(200).json({ general: "Successful Deletion!" });
