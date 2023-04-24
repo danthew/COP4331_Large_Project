@@ -193,15 +193,6 @@ function AddRecipe() {
 
     return (
         <div className="background">
-            <div className="title">
-                <div className="text"> 
-                    <h1 className='title'>recipeasy</h1> 
-                 
-                </div>
-                <div className ="logo">  
-                        <img height="40px" width="40px" src={Logo} alt="RECIPEASY Logo"></img>
-                </div> 
-            </div>
             <div class="add-recipe">
             <div className="rec-title">
                 <label>Recipe Title</label>
@@ -214,52 +205,44 @@ function AddRecipe() {
                         <div class="ingredients">
                                 
                                 <label>Ingredient</label>
-                                <input name="ingredient" onChange={ e =>handleinputchange(e, i)}></input> 
+                                <input className="ingredient" onChange={ e =>handleinputchange(e, i)}></input> 
                                 <label>Quantity</label>
-                                <input  name="quantity"onChange={ e =>handleinputchangeQ(e, i)}></input>
+                                <input  className="quantity" onChange={ e =>handleinputchangeQ(e, i)}></input>
                                 <button onClick={()=>handleRemove(i)}>x</button>  
                         </div>
                     );  
                 })}
+                <hr color="#337AB7" size="5" width="100%"></hr>
                 <button className="btn btn-add" onClick={()=>addField()}>Add Ingredient</button>             
             </div>
             <div class="cook-time">
-                <hr color="#337AB7" size="5" width="100%"></hr>
                 <label>Cook Time</label>
                 <input type='number' id='cookTime' placeholder="Cook Time" ref={(c) => cookTime = c}></input> 
+                <label>min</label>
             </div>
             <div class="prep-time">
-                <hr color="#337AB7" size="5" width="100%"></hr>
                 <label>Prep Time</label>
                 <input type='number' id='prepTime' placeholder="Prep Time" ref={(c) => prepTime = c}></input> 
+                <label>min</label>
             </div>
             <div class="cuisine">
                 <label>Cuisine</label>
                 <input type='text' id='cuisine' placeholder="Cuisine" ref={(c) => cuisine = c}></input> 
             </div>
-            <div class="addsubs">
-                <label>Allow Substitutions?</label>
-                <input type="radio" name="radio" id="opt1" onChange={()=> setallowSubs(true)}></input>
-                <label for="opt1" class="label1">
-                    <span>Yes</span>
-                </label>
-                <input type="radio" name="radio" id="opt2" onChange={()=> setallowSubs(false)}></input>
-                <label for="opt2" class="label2">
-                    <span>No</span>
-                </label>
-            </div>
-            <div class="add-delete">                       
+            <div class="add-delete">           
+            <hr color="#337AB7" size="5" width="100%"></hr>            
                 {stepsList.map((data, i)=> {
                     return (
                         <div class="ingredients">
-                            <div class="addStep">
+                            <div className="addStep">
                                 <label>Steps</label>
-                                <input value={data} onChange={ e =>handleStepChange(e,i)}></input>
+                                <input className="step" value={data} onChange={ e =>handleStepChange(e,i)}></input>
                                 <button onClick={()=>removeStep(i)}>x</button>  
                             </div>
                         </div>
                     );
                 })}
+                <hr color="#337AB7" size="5" width="100%"></hr>
                 <button className="btn btn-add" onClick={()=>addStep()}>Add Step</button>
             </div>
             <input type="submit" id="addRecipeButton" className="buttons" value="AddRecipe" onClick={addRecipe}/>

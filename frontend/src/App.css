@@ -369,7 +369,7 @@
   display: table-cell;
   text-align: center;
   width: 45%;
-  height: 75px;
+  height: 95px;
   float: left;
   border-radius: 15px;
   vertical-align: center;
@@ -543,11 +543,14 @@ label {
 
 #cookTime {
   text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #prepTime {
   text-align: center;
   margin-left: 10px;
+  margin-right: 10px;
 }
 
 .cuisine {

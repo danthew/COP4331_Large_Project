@@ -19,7 +19,7 @@ function Login() {
                     <div className="input-text">
                         <input type="text" placeholder="Email" className="input" ref={(c) => forgotPass = c} /><br />
 				    </div>
-                    <input type="submit" className="button" value="Forgot Password" onClick={doForgot}/>
+                    <input type="submit" className="button" value="Submit" onClick={doForgot}/>
                 </form>
                 <span>{message}</span>
             </div>

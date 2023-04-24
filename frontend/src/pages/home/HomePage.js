@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TitleBar from 'components/home/TitleBar';
+import HomeTitle from 'components/home/TitleBar';
 import PantryGrocery from 'components/home/PantryGrocery';
 import Recipe from 'components/home/Recipe';
 
@@ -8,7 +8,7 @@ const HomePage = () =>
 {
     return(
         <div className='background'>
-            <TitleBar />
+            <HomeTitle />
             <div className='content'>
                 <Recipe />
             </div>
