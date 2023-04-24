@@ -6,6 +6,18 @@ function ViewRecipe() {
     const [instructions, setInstructions] = useState([]);
     const [cookie, setCookie] = useCookies(['userId', 'recipeId', 'ingredientId', 'instructionId']);
 
+    function buildPath(route)
+	{
+		if (process.env.NODE_ENV === 'production')
+		{
+		return 'https://us-central1-recipeasy-ec759.cloudfunctions.net/' + route;
+		}
+		else
+		{
+		return 'http://localhost:5001/recipeasy-ec759/us-central1/' + route;
+		}
+	}
+
     const viewRecipes = async () => {
 
         const recipeId = cookie.recipeId;
@@ -13,7 +25,7 @@ function ViewRecipe() {
         console.log(cookie.ingredientId);
 
         try {
-            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/listRecipeIngredients', {
+            const response = await fetch(buildPath('api/listRecipeIngredients'), {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +39,7 @@ function ViewRecipe() {
             console.error(error);
         }
         try {
-            const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/listRecipeInstructions', {
+            const response = await fetch(buildPath('api/listRecipeInstructions'), {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
