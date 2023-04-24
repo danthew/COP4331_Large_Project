@@ -1,9 +1,22 @@
+import { buildPath } from 'components/BuildPath';
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
 function Recipe() {
   const [recipes, setRecipes] = useState([]);
   const [cookie, setCookie] = useCookies(['userId']);
+
+  function buildPath(route)
+	{
+		if (process.env.NODE_ENV === 'production')
+		{
+		return 'https://us-central1-recipeasy-ec759.cloudfunctions.net/' + route;
+		}
+		else
+		{
+		return 'http://localhost:5001/recipeasy-ec759/us-central1/' + route;
+		}
+	}
 
   var recipeSearch = '';
     const [message,setMessage] = useState('');
@@ -31,7 +44,7 @@ function Recipe() {
     console.log(userId);
 
     try {
-      const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/listRecipes', {
+      const response = await fetch(buildPath('api/listRecipes'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
