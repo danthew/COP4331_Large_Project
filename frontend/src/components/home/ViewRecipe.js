@@ -44,28 +44,42 @@ function ViewRecipe() {
     }    
 
     useEffect(() => {
-        viewRecipes();
-      }, []); // run once on component mount
+      viewRecipes();
+    }, []); // run once on component mount
+
+    const cancel = async (event) =>
+    {
+        event.preventDefault();
+        window.location.href = "/home";
+    }
 
     return (
         <div className="list-recipes">
-            <label>Ingredients</label>
-            {ingredients.map((ingredient, index) => (
-            <div className="list-recipeIngredients" key={ingredient.ingredientId}>
-                {ingredient.name.map((name, index) => (
-                    <p key={index}> {name} Quantity: {ingredient.quantity[index]}</p>
-                 ))}
+            <div className="list-Ingredients">
+                <label className="ingred">Ingredients</label>
+                {ingredients.map((ingredient, index) => (
+                <div className="list-recipeIngredients" key={ingredient.ingredientId}>
+                    {ingredient.name.map((name, index) => (
+                        <p key={index}> {name} Quantity: {ingredient.quantity[index]}</p>
+                    ))}
+                </div>
+                ))}
             </div>
-            ))}
-            <label>Instructions</label>
-            {instructions.map((instruction, index) => (
-            <div className="list-recipeInstructions" key={instruction.instructionId}>
-                {instruction.body.map((body, index) => (
-                    <p key={index}> Step: {instruction.stepNumber[index]} {body}</p>
-                 ))}
-                
+            <div className="list-Instructions">
+                <label className="instruct">Instructions</label>
+                {instructions.map((instruction, index) => (
+                <div className="list-recipeInstructions" key={instruction.instructionId}>
+                    {instruction.body.map((body, index) => (
+                        <p key={index}> Step {instruction.stepNumber[index]}: {body}</p>
+                    ))}
+                </div>
+                ))}
             </div>
-            ))}
+            <div className="modData">
+                <input type="submit" id="cancel" className="buttons" value="Edit Recipe" onClick={cancel} />
+                <input type="submit" id="cancel" className="buttons" value="Delete Recipe" onClick={cancel} />
+            </div>
+            <input type="submit" id="cancel" className="buttons" value="Return Home" onClick={cancel} />
         </div>
     );
 }

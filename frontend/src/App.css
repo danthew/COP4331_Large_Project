@@ -595,3 +595,20 @@ label {
 .btn-add {
   margin-top:10px;
 }
+
+.list-recipes {
+  background-color: #3498DB;
+  height: auto;
+  width: 500px;
+  text-align: center;
+  border-radius: 30px 30px 45px 45px;
+  transform: translateX(730px);
+}
+
+.list-Ingredients {
+  margin-top: 100px;
+}
+
+.list-Instructions {
+  margin-top: 15px;
+}

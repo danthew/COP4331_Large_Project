@@ -191,6 +191,12 @@ function AddRecipe() {
         }
     }
 
+    const cancel = async (event) =>
+    {
+        event.preventDefault();
+        window.location.href = "/home";
+    }
+
     return (
         <div className="background">
             <div class="add-recipe">
@@ -246,6 +252,7 @@ function AddRecipe() {
                 <button className="btn btn-add" onClick={()=>addStep()}>Add Step</button>
             </div>
             <input type="submit" id="addRecipeButton" className="buttons" value="AddRecipe" onClick={addRecipe}/>
+            <input type="submit" id="cancel" className="buttons" value="Cancel" onClick={cancel} />
             <span id="addRecipeResult">{message}</span>
             </div>
         </div>
