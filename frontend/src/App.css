@@ -182,6 +182,18 @@
   overflow: hidden;
 }
 
+.EasterEgg {
+  display: none;
+}
+
+.logo-home:hover .EasterEgg{
+  display: block;
+}
+
+.logo-home:hover .OrgLogo{
+  display: none;
+}
+
 .logo-recipe {
   background-color: #ffffff;
   transform: translate(-50%,0);
