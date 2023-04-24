@@ -56,24 +56,32 @@ function ViewRecipe() {
     return (
         <div className="list-recipes">
             <div className="list-Ingredients">
-                <label className="ingred">Ingredients</label>
-                {ingredients.map((ingredient, index) => (
-                <div className="list-recipeIngredients" key={ingredient.ingredientId}>
-                    {ingredient.name.map((name, index) => (
-                        <p key={index}> {name} Quantity: {ingredient.quantity[index]}</p>
+                <div className="ingred">
+                    <label className="ingred">Ingredients</label>
+                </div>
+                <div className="list-Ing">
+                    {ingredients.map((ingredient, index) => (
+                    <div className="list-recipeIngredients" key={ingredient.ingredientId}>
+                        {ingredient.name.map((name, index) => (
+                            <p key={index}>{ingredient.quantity[index]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {name}</p>
+                        ))}
+                    </div>  
                     ))}
                 </div>
-                ))}
             </div>
             <div className="list-Instructions">
-                <label className="instruct">Instructions</label>
+                <div className="instru">
+                    <label className="instruct">Instructions</label>
+                </div>
+                <div className="list-Ins">
                 {instructions.map((instruction, index) => (
                 <div className="list-recipeInstructions" key={instruction.instructionId}>
                     {instruction.body.map((body, index) => (
-                        <p key={index}> Step {instruction.stepNumber[index]}: {body}</p>
+                        <p key={index}> Step {instruction.stepNumber[index]}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{body}</p>
                     ))}
                 </div>
                 ))}
+                </div>
             </div>
             <div className="modData">
                 <input type="submit" id="cancel" className="buttons" value="Edit Recipe" onClick={cancel} />
@@ -83,4 +91,5 @@ function ViewRecipe() {
         </div>
     );
 }
+
 export default ViewRecipe;

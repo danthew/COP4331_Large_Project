@@ -68,6 +68,7 @@ function Login() {
 
         document.getElementsByClassName("login")[0].style.setProperty("display","none");
         document.getElementsByClassName("forgot-pass")[0].style.setProperty("display", "block");
+        document.getElementsByClassName("login-button")[0].style.setProperty("background-color","#ffffff");
     }
 
     return (

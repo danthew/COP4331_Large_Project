@@ -607,8 +607,33 @@ label {
 
 .list-Ingredients {
   margin-top: 100px;
+  width: auto;
+  height: 50%;
 }
 
 .list-Instructions {
-  margin-top: 15px;
+  width: auto;
+  height: 50%;
+}
+
+.ingred {
+  width: auto;
+  height: 10%;
+}
+
+.list-Ing {
+  height: 90%;
+  text-align: left;
+  margin-left: 15%;
+}
+
+.instru {
+  width: auto;
+  height: 10%;
+}
+
+.list-Ins {
+  height: 90%;
+  text-align: left;
+  margin-left: 15%;
 }
