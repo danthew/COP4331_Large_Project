@@ -1,4 +1,3 @@
-import { getByDisplayValue } from '@testing-library/react';
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
@@ -23,8 +22,13 @@ function Recipe() {
         window.location.href = "/addRecipe";
     }
 
+    const viewRecipe = async recipeId => {
+      window.location.href = `/viewRecipe`;
+    };
+
   const listRecipes = async () => {
     const userId = cookie.userId;
+    console.log(userId);
 
     try {
       const response = await fetch('http://localhost:5001/recipeasy-ec759/us-central1/api/listRecipes', {
@@ -35,7 +39,7 @@ function Recipe() {
         body: JSON.stringify({ userId }),
       });
       const data = await response.json();
-      setRecipes(data);
+      setRecipes(data); // update state variable with fetched data
     } catch (error) {
       console.error(error);
     }
@@ -43,7 +47,7 @@ function Recipe() {
 
   useEffect(() => {
     listRecipes();
-  }, []);
+  }, []); // run once on component mount
 
   return (
     <div className="recipe">
@@ -61,12 +65,13 @@ function Recipe() {
         </div>
         <div className="recipe-items">
           {recipes.map(recipe => (
-            <div className="recipe-item">
-              <p className="recipe-name">Recipe Name: {recipe.name}</p>
+            <div className="recipe-item" key={recipe.recipeId}>
+              <p>Recipe Name: {recipe.name}</p>
               <p>Recipe Cuisine: {recipe.cuisine}</p>
-              <div className="times">
-                <p>Cook Time: {recipe.cookTime} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Prep Time: {recipe.prepTime}</p>
-              </div>
+              <p>Prep Time: {recipe.prepTime}</p>
+              <p>Cook Time: {recipe.cookTime}</p>
+              <p>Allow Subs?: {recipe.allowSubs}</p>
+              <button onClick={() => viewRecipe(recipe.recipeId)}>View</button>
             </div>
           ))}
         </div>
