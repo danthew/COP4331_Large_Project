@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
 function ViewRecipe() {
+    const [message, setMessage] = useState("");
     const [ingredients, setIngredients] = useState([]);
     const [instructions, setInstructions] = useState([]);
     const [cookie, setCookie] = useCookies(['userId', 'recipeId', 'ingredientId', 'instructionId']);
@@ -65,6 +66,40 @@ function ViewRecipe() {
         window.location.href = "/home";
     }
 
+    const deleteRecipe = async (event) =>
+    {
+        event.preventDefault();
+
+        const recipeId = cookie.recipeId;
+        console.log(recipeId)
+
+        try{
+            const response = await fetch(buildPath('api/deleteRecipe'), {
+                method: 'DELETE',
+                body: JSON.stringify({ recipeId }),
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+            });
+
+            var res = JSON.parse(await response.text());
+
+            if(res.id <= 0)
+            {
+                setMessage('Can not delete recipe');
+            }
+            else
+            {
+                window.location.href = "/home";
+            }
+        }
+        catch(e)
+        {
+            alert(e.toString());
+            return;
+        }
+    };
+
     return (
         <div className="list-recipes">
             <div className="list-Ingredients">
@@ -97,9 +132,10 @@ function ViewRecipe() {
             </div>
             <div className="modData">
                 <input type="submit" id="cancel" className="buttons" value="Edit Recipe" onClick={cancel} />
-                <input type="submit" id="cancel" className="buttons" value="Delete Recipe" onClick={cancel} />
+                <input type="submit" id="deleteRecipe" className="buttons" value="Delete Recipe" onClick={deleteRecipe} />
             </div>
             <input type="submit" id="cancel" className="buttons" value="Return Home" onClick={cancel} />
+            <span id="loginResult">{message}</span>
         </div>
     );
 }

@@ -17,7 +17,6 @@ function Login() {
         event.preventDefault();
 
         let obj = {
-            email : cookie.email,
             username: loginName.value,
             password : loginPassword.value
         };
