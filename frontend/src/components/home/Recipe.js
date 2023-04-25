@@ -36,7 +36,8 @@ function Recipe() {
     }
 
     const viewRecipe = async recipeId => {
-      window.location.href = `/viewRecipe`;
+	setCookie('recipeId', recipeId, {path: '/'});
+      	window.location.href = `/viewRecipe`;
     };
 
   const listRecipes = async () => {
