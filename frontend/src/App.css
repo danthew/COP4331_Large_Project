@@ -369,7 +369,7 @@
   display: table-cell;
   text-align: center;
   width: 45%;
-  height: 95px;
+  height: auto;
   float: left;
   border-radius: 15px;
   vertical-align: center;
