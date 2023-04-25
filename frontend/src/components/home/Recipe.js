@@ -1,3 +1,4 @@
+
 import { buildPath } from 'components/BuildPath';
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
@@ -18,14 +19,35 @@ function Recipe() {
 		}
 	}
 
-  var recipeSearch = '';
+    var recipeSearch = '';
     const [message,setMessage] = useState('');
 
     const doSearchRecipe = async event =>
     {
         event.preventDefault();
         
-        alert('searchRecipe() ' + recipeSearch.value);
+        const userId = cookie.userId;
+        console.log(userId);
+      
+        try {
+          const response = await fetch(buildPath('api/listRecipes'), {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, searchCriteria: recipeSearch.value }),
+          });
+          const data = await response.json();
+      
+          if (recipeSearch.value === '') {
+            setRecipes(data); // update state variable with all recipes
+          } else {
+            setRecipes(data.filter(recipe => recipe.name.includes(recipeSearch.value))); // update state variable with filtered recipes
+          }
+      
+        } catch (error) {
+          console.error(error);
+        }
     };
 
     const addRecipe = async event =>
@@ -40,24 +62,30 @@ function Recipe() {
       	window.location.href = `/viewRecipe`;
     };
 
-  const listRecipes = async () => {
-    const userId = cookie.userId;
-    console.log(userId);
-
-    try {
-      const response = await fetch(buildPath('api/listRecipes'), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId }),
-      });
-      const data = await response.json();
-      setRecipes(data); // update state variable with fetched data
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    const listRecipes = async () => {
+        const userId = cookie.userId;
+        console.log(userId);
+      
+        try {
+          const response = await fetch(buildPath('api/listRecipes'), {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, searchCriteria: recipeSearch.value }),
+          });
+          const data = await response.json();
+      
+          if (recipeSearch.value === '') {
+            setRecipes(data); // update state variable with all recipes
+          } else {
+            setRecipes(data.filter(recipe => recipe.name.includes(recipeSearch.value))); // update state variable with filtered recipes
+          }
+      
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
   useEffect(() => {
     listRecipes();
