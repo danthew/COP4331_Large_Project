@@ -604,39 +604,39 @@ app.post('/toggleIngredientOnList', (req, res) => {
 
 // List/Sort/Filter Recipes
 app.post('/listRecipes', (req, res) => {
-	let searchCriteria = req.body.searchCriteria;
-	cors(req, res, () => {
-		db.collection("users").where("userId", "==", req.body.userId).get()
-			.then((data) => {
-				let found = false;
-				data.forEach((doc) => {
-					found = true;
-				});
-				if (found) {
-					db.collection("recipes").where("userId", "==", req.body.userId).get()
-						.then((data) => {
-							let recipes = [];
-							data.forEach((doc) => {
-								let curRecipe = doc.data();
-								 if(curRecipe.name.includes(searchCriteria)) {
-									curRecipe.recipeId = doc.id;
-									recipes.push(curRecipe);
-								}
-							});
-							return res.status(200).json(recipes);
-						})
-						.catch((err) => {
-							return res.status(500).json({ error: err.code });
-						});
-				} else {
-					return res.status(404).json({ general: "User not found!" });
-				}
-			})
-			.catch((err) => {
-				return res.status(500).json({ error: err.code });
-			});
+    let searchCriteria = req.body.searchCriteria;
+    cors(req, res, () => {
+        db.collection("users").where("userId", "==", req.body.userId).get()
+            .then((data) => {
+                let found = false;
+                data.forEach((doc) => {
+                    found = true;
+                });
+                if (found) {
+                    db.collection("recipes").where("userId", "==", req.body.userId).get()
+                        .then((data) => {
+                            let recipes = [];
+                            data.forEach((doc) => {
+                                let curRecipe = doc.data();
+                                if (searchCriteria === "" || curRecipe.name.includes(searchCriteria)) {
+                                    curRecipe.recipeId = doc.id;
+                                    recipes.push(curRecipe);
+                                }
+                            });
+                            return res.status(200).json(recipes);
+                        })
+                        .catch((err) => {
+                            return res.status(500).json({ error: err.code });
+                        });
+                } else {
+                    return res.status(404).json({ general: "User not found!" });
+                }
+            })
+            .catch((err) => {
+                return res.status(500).json({ error: err.code });
+            });
 
-	});
+    });
 });
 
 // List Ingredients for Recipe
