@@ -432,6 +432,35 @@ app.delete('/deleteIngredientFromRecipe', (req, res) => {
 	});
 });
 
+app.post('/editIngredientInRecipe', (req, res) => {
+	cors(req, res, () => {
+		const newIngredient = {
+			name: req.body.name,
+			quantity: req.body.quantity,
+			recipeId: req.body.recipeId
+		};
+		db.collection("recipeIngredients").doc(req.body.ingredientId).get()
+			.then((doc) => {
+				if (doc.exists) {
+					console.log(req.body.ingredientId);
+					db.collection("recipeIngredients").doc(req.body.ingredientId).update(newIngredient)
+						.then(() => {
+							return res.status(200).json({ general: "Successful Update!" });
+						})
+						.catch((err) => {
+							console.log(err);
+							return res.status(500).json({ error : err.code});
+						});
+				} else {
+					return res.status(404).json({ general : "Ingredient not found!"});
+				}
+			})
+			.catch((err) => {
+				return res.status(500).json({ error : err.code});
+			});
+	});
+});
+
 // Add Instruction to Recipe
 app.post('/addInstruction', (req, res) => {
 	cors(req, res, () => {
@@ -486,6 +515,7 @@ app.delete('/deleteInstruction', (req, res) => {
 			});
 	});
 });
+
 
 // Add Ingredient to Pantry
 
@@ -618,7 +648,7 @@ app.post('/listRecipes', (req, res) => {
 							let recipes = [];
 							data.forEach((doc) => {
 								let curRecipe = doc.data();
-								 if(curRecipe.name.includes(searchCriteria)) {
+								if(curRecipe.name.includes(searchCriteria)) {
 									curRecipe.recipeId = doc.id;
 									recipes.push(curRecipe);
 								}
@@ -713,7 +743,7 @@ app.post('/listPantryIngredients', (req, res) => {
 							let ingredients = [];
 							data.forEach((doc) => {
 								let curRecipe = doc.data();
-								 if(curRecipe.name.includes(searchCriteria)) {
+								if(curRecipe.name.includes(searchCriteria)) {
 									curRecipe.recipeId = doc.id;
 									ingredients.push(curRecipe);
 								}
