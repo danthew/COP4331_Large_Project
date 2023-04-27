@@ -516,57 +516,84 @@ app.delete('/deleteInstruction', (req, res) => {
 	});
 });
 
-
-// Add Ingredient to Pantry
-
-app.post('/addIngredientToPantry', (req, res) => {
+app.post('/editInstruction', (req, res) => {
 	cors(req, res, () => {
-		let ingredientInfo = req.body;
-		console.log(ingredientInfo.userId);
-		const newIngredient = {
-			name: ingredientInfo.name,
-			quantity: ingredientInfo.quantity,
-			unit: ingredientInfo.unit,
-			userId: ingredientInfo.userId,
-			brand: ingredientInfo.brand, 
-			cost: ingredientInfo.cost,
-			onList: ingredientInfo.onList
-		};
-
-		db.collection("pantryIngredients").add(newIngredient)
-			.then((ref) => {
-				return res.status(201).json({ ingredientId: ref.id });
-			})
+		db.collection("instructions").doc(req.body.instructionId).get()
+		.then((doc) => {
+			if (doc.exists) {
+				const newInstruction = {
+					body: req.body.body,
+					stepNumber: req.body.stepNumber,
+					recipeId: req.body.recipeId
+				};
+				db.collection("instructions").doc(req.body.instructionId).update(newInstruction)
+					.then(() => {
+						return res.status(200).json({ general : "Successful Update!"});
+					})
+					.catch((err) => {
+						return res.status(500).json({ error : err.code });
+					});
+			} else {
+				return res.status(404).json({ general : "Instruction not found!"});
+			}
+		})
 			.catch((err) => {
-				return res.status(500).json({ error: err.code });
+				return res.status(500).json({ error : err.code });
 			});
 	});
 });
 
-// Remove Ingredient from Pantry
 
-app.delete('/deleteIngredientFromPantry', (req, res) => {
-	cors(req, res, () => {
-		db.collection("pantryIngredients").doc(req.body.ingredientId).get()
-			.then((doc) => {
-				if (doc.exists) {
-					db.collection("pantryIngredients").doc(req.body.ingredientId).delete()
-						.then(() => {
-							return res.status(200).json({ general: "Successful Deletion!" });
-						})
-						.catch((err) => {
-							return res.status(500).json({ error: err.code });
-						})
-				}
-				else {
-					return res.status(404).json({ general: "Ingredient not Found!" });
-				}
-			})
-			.catch((err) => {
-				return res.status(500).json({ error: err.code });
-			});
+	// Add Ingredient to Pantry
+
+	app.post('/addIngredientToPantry', (req, res) => {
+		cors(req, res, () => {
+			let ingredientInfo = req.body;
+			console.log(ingredientInfo.userId);
+			const newIngredient = {
+				name: ingredientInfo.name,
+				quantity: ingredientInfo.quantity,
+				unit: ingredientInfo.unit,
+				userId: ingredientInfo.userId,
+				brand: ingredientInfo.brand, 
+				cost: ingredientInfo.cost,
+				onList: ingredientInfo.onList
+			};
+
+			db.collection("pantryIngredients").add(newIngredient)
+				.then((ref) => {
+					return res.status(201).json({ ingredientId: ref.id });
+				})
+				.catch((err) => {
+					return res.status(500).json({ error: err.code });
+				});
+		});
 	});
-});
+
+	// Remove Ingredient from Pantry
+
+	app.delete('/deleteIngredientFromPantry', (req, res) => {
+		cors(req, res, () => {
+			db.collection("pantryIngredients").doc(req.body.ingredientId).get()
+				.then((doc) => {
+					if (doc.exists) {
+						db.collection("pantryIngredients").doc(req.body.ingredientId).delete()
+							.then(() => {
+								return res.status(200).json({ general: "Successful Deletion!" });
+							})
+							.catch((err) => {
+								return res.status(500).json({ error: err.code });
+							})
+					}
+					else {
+						return res.status(404).json({ general: "Ingredient not Found!" });
+					}
+				})
+				.catch((err) => {
+					return res.status(500).json({ error: err.code });
+				});
+		});
+	});
 
 // Edit Ingredient in Pantry
 
