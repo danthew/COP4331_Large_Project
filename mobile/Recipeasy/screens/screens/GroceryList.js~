@@ -1,0 +1,120 @@
+import React, {useState} from 'react';
+import {
+    View, 
+    Text, 
+    StyleSheet,
+    StatusBar,
+    FlatList,
+} from 'react-native';
+
+const renderItemCard = ({ item }) => {
+    <View style={styles.card}>
+        <Text> {item} </Text>
+    </View>
+}
+
+const Item = ({item, onPress, backgroundcolor, textColor}) => (
+    <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
+
+        <Text style={[styles.title, {color: textColor}]}>
+            {item.title}
+        </Text>
+    </TouchableOpacity>
+);
+
+const Grocery = ()=> {
+
+    const [selectedId, setSelectedId] = useState();
+
+    const renderItemm = ({item}) => {
+        const backgroundColor = item.id === selectedId ?
+            '#6e3b6e' : '#f9c2ff';
+        const color = item.id === selectedId ? 'white' : 'black';
+    }
+
+    const groceryList = [
+        {
+            id: '0',
+            content: 'Hello',
+        },
+        {
+            id: '1',
+            content: ', ',
+        },
+        {
+            id: '2',
+            content: 'World!',
+        }
+    ]
+
+    /*
+    const [ groceryList, setGroceryList ] = useState(["Hello", ", ", "World!"]);
+    for (const s of groceryList) {
+        console.log(s);
+    }
+    */
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}> Grocery List Page </Text>
+            <FlatList
+                data={groceryList}
+                renderItem={renderItemCard}
+                keyExtractor={item => item.id}
+                extraData={selectedId}
+        />
+    </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: StatusBar.currentHeight,
+    },
+    flatView: {
+        backgroundColor: "green",
+        marginHorizontal: 20,
+    },
+    card: {
+        backgroundColor: 'white',
+        padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 16,
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    text: {
+        fontSize: 42,
+    },
+});
+
+/*
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        position: "absolute",
+        left: 0,
+        top: 0,
+        height: "100%",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    text: {
+        flex: 0,
+        position: "relative",
+        alignItems: "center",
+        height: "10%",
+        width: "50%",
+    }
+});
+*/
+
+export default Grocery;
