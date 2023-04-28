@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from 'images/logo.png';
+import EELogo from 'images/RickLChef2.png';
 
 function HomeTitle()
 {    
@@ -52,7 +53,8 @@ function HomeTitle()
             <div className='title-logo'>
                 <div className='logo-home'>
                     <div className='logo'>
-                        <img height="60px" width="60px" src={Logo} alt="RECIPEASY Logo"></img>                
+                        <img className="OrgLogo" height="60px" width="60px" src={Logo} alt="RECIPEASY Logo"></img>
+                        <img className="EasterEgg" height="60px" width="60px" src={EELogo} alt="RECIPEASY Easter Egg logo"></img>     
                     </div>
                 </div>
                 <div className='title'>

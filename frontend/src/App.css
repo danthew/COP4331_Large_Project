@@ -11,6 +11,7 @@
   background-image: url('../src/images/table2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
 }
 
 .text {
@@ -127,6 +128,24 @@
   display: none;
 }
 
+.forgot-pass {
+  background-color: #3590d5;
+  height: 100%;
+  width: 100%;
+  border-radius: 0px 0px 45px 45px;
+  display: none;
+}
+
+.forgot {
+  cursor: pointer;
+  margin-left: 33%;
+  border: none;
+  background-color: inherit;
+  font-size: 16px;
+  padding: 14px 0px;
+  text-decoration: underline;
+}
+
 /* Home screen css */
 
 .title-bar {
@@ -161,6 +180,18 @@
   transform: translate(-50%,0);
   border-radius: 50%;
   overflow: hidden;
+}
+
+.EasterEgg {
+  display: none;
+}
+
+.logo-home:hover .EasterEgg{
+  display: block;
+}
+
+.logo-home:hover .OrgLogo{
+  display: none;
 }
 
 .logo-recipe {
@@ -319,9 +350,11 @@
   background-color: #3590d5;
   height: 85%;
   width: 85%;
-  margin-left: 7.5%;
   margin-top: 50px;
+  transform: translateX(-15%);
   border-radius: 30px 30px 45px 45px;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .recipe-header {
@@ -332,9 +365,40 @@
 }
 
 .recipe-item {
-  background-color: #3590d5;
-  height: 85%;
-  border-radius: 0px 0px 45px 45px;
+  background-color: #ffffff;
+  display: table-cell;
+  text-align: center;
+  width: 45%;
+  height: auto;
+  float: left;
+  border-radius: 15px;
+  vertical-align: center;
+  float: inline-end;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  margin-top: 25px;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: darkgray;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.recipe-name {
+  font-size: x-large;
 }
 
 .add-Recipe {
@@ -475,11 +539,15 @@ label {
 
 #cookTime {
   text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+
 }
 
 #prepTime {
   text-align: center;
   margin-left: 10px;
+  margin-right: 10px;
 }
 
 .cuisine {
@@ -523,4 +591,46 @@ label {
 
 .btn-add {
   margin-top:10px;
+}
+
+.list-recipes {
+  background-color: #3498DB;
+  height: auto;
+  width: 500px;
+  text-align: center;
+  border-radius: 30px 30px 45px 45px;
+  transform: translateX(730px);
+}
+
+.list-Ingredients {
+  margin-top: 100px;
+  width: auto;
+  height: 50%;
+}
+
+.list-Instructions {
+  width: auto;
+  height: 50%;
+}
+
+.ingred {
+  width: auto;
+  height: 10%;
+}
+
+.list-Ing {
+  height: 90%;
+  text-align: left;
+  margin-left: 15%;
+}
+
+.instru {
+  width: auto;
+  height: 10%;
+}
+
+.list-Ins {
+  height: 90%;
+  text-align: left;
+  margin-left: 15%;
 }

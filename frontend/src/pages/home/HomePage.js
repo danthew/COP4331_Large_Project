@@ -10,7 +10,6 @@ const HomePage = () =>
         <div className='background'>
             <HomeTitle />
             <div className='content'>
-                <PantryGrocery />
                 <Recipe />
             </div>
         </div>
