@@ -244,7 +244,7 @@ function AddRecipe() {
                     <hr color="#337AB7" size="5" width="100%"></hr>
                     <button className="btn-add" onClick={()=>addStep()}>Add Step</button>
                 </div>
-                <input type="submit" id="addRecipeButton" className="buttons" value="AddRecipe" onClick={addRecipe}/>
+                <input type="submit" id="addRecipeButton" className="buttons" value="Add Recipe" onClick={addRecipe}/>
                 <input type="submit" id="cancel" className="buttons" value="Cancel" onClick={cancel} />
                 <span id="addRecipeResult">{message}</span>
             </div>

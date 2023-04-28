@@ -68,7 +68,7 @@ function Login() {
             <div className="loginText">
                 <form onSubmit={doLogin}>
                     <div className="input-text">
-                        <input type="text" id="loginName" placeholder="Username" className="input" ref={(c) => loginName = c} /><br />
+                        <input type="text" id="loginName" placeholder="Email/Username" className="input" ref={(c) => loginName = c} /><br />
 				    </div>
                     {/* <ShowablePassword/> */}
                     <div className="input-text">
