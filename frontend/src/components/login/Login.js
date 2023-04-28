@@ -85,7 +85,7 @@ function Login() {
                         <button className="forgot" onClick={forgotPassword}>Forgot Password</button>
                     </div>
                     <input type="submit" id="loginButton" className="button" value="Login" onClick={doLogin}/>
-                    </form>
+                </form>
                 <span id="loginResult">{message}</span>
             </div>
         </div>

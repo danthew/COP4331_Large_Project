@@ -51,7 +51,7 @@ function HomeTitle()
     return(
         <div className="title-bar"> 
             <div className='title-logo'>
-                <div class='logo-home'>
+                <div className='logo-home'>
                     <div className='logo'>
                         <img className="OrgLogo" height="60px" width="60px" src={Logo} alt="RECIPEASY Logo"></img>
                         <img className="EasterEgg" height="60px" width="60px" src={EELogo} alt="RECIPEASY Easter Egg logo"></img>     

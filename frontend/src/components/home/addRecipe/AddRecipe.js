@@ -1,7 +1,6 @@
 
 import React, { useState } from "react";
 import { useCookies } from 'react-cookie';
-import Logo from 'images/logo.png';
 
 function AddRecipe() {
 
@@ -18,7 +17,6 @@ function AddRecipe() {
     var cuisine;
     var prepTime;
 
-    const app_name = 'recipeasy123'
 	function buildPath(route)
 	{
 		if (process.env.NODE_ENV === 'production')
