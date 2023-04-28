@@ -125,6 +125,10 @@
   display: block;
 }
 
+#msg_text{
+  color: white;
+}
+
 .register {
   /* background-color: #3590d5; */
   /* background-image: url("images/steel_background.png"); */
@@ -163,7 +167,7 @@
 }
 
 .logo-home {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   display: flex;
   margin-left: 20px;
   transform: translate(-50%,0);
@@ -172,7 +176,7 @@
 }
 
 .logo-recipe {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   transform: translate(-50%,0);
   overflow: hidden;
 }
@@ -227,94 +231,6 @@
   height: fill;
 }
 
-/* Pantry/Grocery CSS */
-
-.pan-gro {
-  height: 100%;
-  width: 33%;
-  float: left;
-}
-
-.pan-gro-ui {
-  background-color: #3590d5;
-  height: 85%;
-  width: 85%;
-  margin-left: 7.5%;
-  margin-top: 50px;
-  border-radius: 30px 30px 45px 45px;
-}
-
-.pan-button {
-  background-color: #3590d5;
-  float: left;
-  height: 10%;
-  width: 50%;
-  border-radius: 30px 0px 0px;
-  cursor: pointer;
-}
-
-.gro-button {
-  background-color: #ffffff;
-  float: right;
-  height: 10%;
-  width: 50%;
-  border-radius: 0px 30px 0px 0px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.search {
-  height: 5%;
-  clear:left;
-}
-
-.pan-gro-item {
-  height: 85%;
-  clear: left;
-  border-radius: 0px 0px 45px 45px;
-  overflow: hidden;
-}
-
-.pan-item {
-  background-color: #3590d5;
-  height: 100%;
-  width: 100%;
-  border-radius: 0px 0px 45px 45px;
-  display: block;
-}
-
-.gro-item {
-  background-color: #3590d5;
-  height: 100%;
-  width: 100%;
-  border-radius: 0px 0px 45px 45px;
-  display: none;
-}
-
-.add-pan {
-  display: block;
-  border-radius: 50px;
-  font-size: x-large;
-  margin-right: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
-  cursor: pointer;
-}
-
-.add-gro {
-  display: none;
-  border-radius: 50px;
-  font-size: x-large;
-  margin-right: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
-  cursor: pointer;
-}
-
-.add-gro:hover, .add-pan:hover {
-  background-color: lightgray;
-}
-
 /* RECIPE CSS */
 
 .recipe {
@@ -324,7 +240,7 @@
 }
 
 .recipe-ui {
-  background-color: #3590d5;
+  background-color: url("images/steel_background.png");
   height: 85%;
   width: 85%;
   margin-left: 7.5%;
@@ -333,14 +249,14 @@
 }
 
 .recipe-header {
-  background-color: #3590d5;
+  background-image: url("images/steel_background.png");
   height: 10%;
   border-radius: 30px 30px 0px 0px;
   text-align: center;
 }
 
 .recipe-item {
-  background-color: #3590d5;
+  /* background-color: #3590d5; */
   height: 85%;
   border-radius: 0px 0px 45px 45px;
 }
@@ -448,7 +364,8 @@
 }
 
 .add-recipe {
-  background-color: #3498DB;
+  /* background-color: #3498DB; */
+  background-image: url("images/steel_background.png");
   position:absolute;
   align-content: center;
   text-align: center;
