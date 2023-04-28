@@ -24,7 +24,7 @@ function Recipe() {
 
     var recipeSearch = '';
     const [message,setMessage] = useState('');
-    const [cookie, setCookie] = useCookies(['userId']);
+//     const [cookie, setCookie] = useCookies(['userId']);
 
     const doSearchRecipe = async event =>
     {
