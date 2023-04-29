@@ -94,7 +94,7 @@ function Recipe() {
     <div className="recipe">
       <div className="recipe-ui">
         <div className="recipe-header">
-          <h1 className="label"> Recipes </h1>
+          <h1 className="label"> RECIPES </h1>
         </div>
         <div className="search">
             <form className="search">
@@ -111,7 +111,7 @@ function Recipe() {
               <p>Recipe Cuisine: {recipe.cuisine}</p>
               <p>Prep Time: {recipe.prepTime}</p>
               <p>Cook Time: {recipe.cookTime}</p>
-              <button onClick={() => viewRecipe(recipe.recipeId)}>View</button>
+              <button className="sub_buttons" onClick={() => viewRecipe(recipe.recipeId)}>View</button>
             </div>
           ))}
         </div>
