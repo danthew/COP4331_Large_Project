@@ -217,7 +217,7 @@ function AddRecipe() {
                     );  
                 })}
                 <hr color="#337AB7" size="5" width="100%"></hr>
-                <button class="sub_buttons" className="btn btn-add" onClick={()=>addField()}>Add Ingredient</button>             
+                <button className="btn btn-add sub_buttons" onClick={()=>addField()}>Add Ingredient</button>             
             </div>
             <div class="cook-time">
                 <label>Cook Time</label>
@@ -247,10 +247,10 @@ function AddRecipe() {
                     );
                 })}
                 <hr color="#337AB7" size="5" width="100%"></hr>
-                <button class="sub_buttons" className="btn btn-add" onClick={()=>addStep()}>Add Step</button>
+                <button className="btn btn-add sub_buttons" onClick={()=>addStep()}>Add Step</button>
             </div>
-            <input type="submit" id="addRecipeButton" class = "sub_buttons" value="Add Recipe" onClick={addRecipe}/>
-            <input type="submit" id="cancel" class = "sub_buttons" value="Cancel" onClick={cancel} />
+            <input type="submit" id="addRecipeButton" className = "sub_buttons" value="Add Recipe" onClick={addRecipe}/>
+            <input type="submit" id="cancel" className = "sub_buttons" value="Cancel" onClick={cancel} />
             <span id="addRecipeResult">{message}</span>
             </div>
         </div>
