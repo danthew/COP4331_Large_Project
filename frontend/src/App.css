@@ -381,7 +381,7 @@
   background-image: url("images/steel_background.png");
   display: table-cell;
   text-align: center;
-  font: "Helvetica";
+  font-family: Arial, Helvetica, sans-serif;
   width: 45%;
   height: auto;
   float: left;
