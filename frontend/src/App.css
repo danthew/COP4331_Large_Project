@@ -1,10 +1,3 @@
-button{
-  height: 100%;
-  width: 100%;
-  border-radius: 0px 0px 45px 45px;
-  display: block;
-}
-
 /* Remove the white space that was above the top div */
 * {
   margin: 0;
