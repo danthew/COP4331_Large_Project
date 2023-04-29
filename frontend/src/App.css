@@ -381,6 +381,7 @@
   background-image: url("images/steel_background.png");
   display: table-cell;
   text-align: center;
+  font: "Helvetica";
   width: 45%;
   height: auto;
   float: left;
@@ -390,6 +391,17 @@
   margin-left: 2.5%;
   margin-right: 2.5%;
   margin-top: 25px;
+}
+
+.sub_buttons{
+  /* font-size: large; */
+  margin: 10px;
+  padding: 1%;
+  border-radius: 10px 10px 10px 10px;
+  /* margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px; */
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar{
