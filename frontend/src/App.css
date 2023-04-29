@@ -220,6 +220,7 @@
 
 .welcome-user {
   margin: 0 auto;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .setting-drop{
@@ -622,6 +623,8 @@ label {
 
 .list-recipes {
   /* background-color: #3498DB; */
+  background-image: url("images/steel_background.png");
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   height: auto;
   width: 500px;
   text-align: center;
