@@ -203,7 +203,7 @@ function AddRecipe() {
                 <input className="recipe-title" id="name" placeholder="Title" ref={(c) => name = c}/>
             </div>           
             <div class="add-Ing">
-                <hr color="#337AB7" size="5" width="100%"></hr>
+                <hr size="5" width="100%"></hr>
                 {ingredientList.map((data, i)=> {
                     return(
                         <div class="ingredients">
@@ -216,7 +216,7 @@ function AddRecipe() {
                         </div>
                     );  
                 })}
-                <hr color="#337AB7" size="5" width="100%"></hr>
+                <hr size="5" width="100%"></hr>
                 <button className="btn btn-add sub_buttons" onClick={()=>addField()}>Add Ingredient</button>             
             </div>
             <div class="cook-time">
@@ -234,7 +234,7 @@ function AddRecipe() {
                 <input type='text' id='cuisine' placeholder="Cuisine" ref={(c) => cuisine = c}></input> 
             </div>
             <div class="add-delete">           
-            <hr color="#337AB7" size="5" width="100%"></hr>            
+            <hr size="5" width="100%"></hr>            
                 {stepsList.map((data, i)=> {
                     return (
                         <div class="ingredients">
@@ -246,7 +246,7 @@ function AddRecipe() {
                         </div>
                     );
                 })}
-                <hr color="#337AB7" size="5" width="100%"></hr>
+                <hr size="5" width="100%"></hr>
                 <button className="btn btn-add sub_buttons" onClick={()=>addStep()}>Add Step</button>
             </div>
             <input type="submit" id="addRecipeButton" className = "sub_buttons" value="Add Recipe" onClick={addRecipe}/>
