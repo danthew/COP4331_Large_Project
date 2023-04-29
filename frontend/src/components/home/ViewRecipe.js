@@ -131,10 +131,10 @@ function ViewRecipe() {
                 </div>
             </div>
             <div className="modData">
-                <input type="submit" id="cancel" className="buttons" value="Edit Recipe" onClick={cancel} />
-                <input type="submit" id="deleteRecipe" className="buttons" value="Delete Recipe" onClick={deleteRecipe} />
+                <input type="submit" id="cancel" className="buttons sub_buttons" value="Edit" onClick={cancel} />
+                <input type="submit" id="deleteRecipe" className="buttons sub_buttons" value="Delete" onClick={deleteRecipe} />
             </div>
-            <input type="submit" id="cancel" className="buttons" value="Return Home" onClick={cancel} />
+            <input type="submit" id="cancel" className="buttons sub_buttons" value="Return Home" onClick={cancel} />
             <span id="loginResult">{message}</span>
         </div>
     );
