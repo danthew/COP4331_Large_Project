@@ -139,6 +139,24 @@
   display: none;
 }
 
+.forgot-pass {
+  height: 100%;
+  width: 100%;
+  border-radius: 0px 0px 45px 45px;
+  display: none;
+}
+
+.forgot {
+  color: white;
+  cursor: pointer;
+  margin-left: 33%;
+  border: none;
+  background-color: inherit;
+  font-size: 16px;
+  padding: 14px 0px;
+  text-decoration: underline;
+}
+
 /* Home screen css */
 
 .title-bar {
@@ -537,4 +555,46 @@ label {
 
 .btn-add {
   margin-top:10px;
+}
+
+.list-recipes {
+  background-color: #3498DB;
+  height: auto;
+  width: 500px;
+  text-align: center;
+  border-radius: 30px 30px 45px 45px;
+  transform: translateX(730px);
+}
+
+.list-Ingredients {
+  margin-top: 100px;
+  width: auto;
+  height: 50%;
+}
+
+.list-Instructions {
+  width: auto;
+  height: 50%;
+}
+
+.ingred {
+  width: auto;
+  height: 10%;
+}
+
+.list-Ing {
+  height: 90%;
+  text-align: left;
+  margin-left: 15%;
+}
+
+.instru {
+  width: auto;
+  height: 10%;
+}
+
+.list-Ins {
+  height: 90%;
+  text-align: left;
+  margin-left: 15%;
 }

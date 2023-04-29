@@ -17,7 +17,6 @@ function Login() {
         event.preventDefault();
 
         let obj = {
-            email : cookie.email,
             username: loginName.value,
             password : loginPassword.value
         };
@@ -63,16 +62,27 @@ function Login() {
         }
     };
 
+    const forgotPassword = async event => {
+        event.preventDefault();
+
+        document.getElementsByClassName("login")[0].style.setProperty("display","none");
+        document.getElementsByClassName("forgot-pass")[0].style.setProperty("display", "block");
+        document.getElementsByClassName("login-button")[0].style.setProperty("background-color","#ffffff");
+    }
+
     return (
         <div id="loginDiv">
             <div className="loginText">
                 <form onSubmit={doLogin}>
                     <div className="input-text">
-                        <input type="text" id="loginName" placeholder="Email/Username" className="input" ref={(c) => loginName = c} /><br />
+                        <input type="text" id="loginName" placeholder="Username" className="input" ref={(c) => loginName = c} /><br />
 				    </div>
                     {/* <ShowablePassword/> */}
                     <div className="input-text">
                         <input type="password" name="Password" toggleMask="true" id="loginPassword" className="input" placeholder="Password" ref={(c) => loginPassword = c} /><br />
+                    </div>
+                    <div>
+                        <button className="forgot" onClick={forgotPassword}>Forgot Password</button>
                     </div>
                     <input type="submit" id="loginButton" className="button" value="Login" onClick={doLogin}/>
                 </form>
