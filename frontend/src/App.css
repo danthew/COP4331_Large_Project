@@ -1,3 +1,10 @@
+button{
+  height: 100%;
+  width: 100%;
+  border-radius: 0px 0px 45px 45px;
+  display: block;
+}
+
 /* Remove the white space that was above the top div */
 * {
   margin: 0;
@@ -378,6 +385,7 @@
 
 .recipe-item {
   /* background-color: #3590d5; */
+  background-image: url("images/steel_background.png");
   display: table-cell;
   text-align: center;
   width: 45%;
@@ -603,7 +611,7 @@ label {
 }
 
 .list-recipes {
-  background-color: #3498DB;
+  /* background-color: #3498DB; */
   height: auto;
   width: 500px;
   text-align: center;
