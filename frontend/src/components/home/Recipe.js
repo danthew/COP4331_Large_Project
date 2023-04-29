@@ -111,7 +111,7 @@ function Recipe() {
               <p>Recipe Cuisine: {recipe.cuisine}</p>
               <p>Prep Time: {recipe.prepTime}</p>
               <p>Cook Time: {recipe.cookTime}</p>
-              <button onClick={() => viewRecipe(recipe.recipeId)}>View</button>
+              <button class="sub_buttons" onClick={() => viewRecipe(recipe.recipeId)}>View</button>
             </div>
           ))}
         </div>

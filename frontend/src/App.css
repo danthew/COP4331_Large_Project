@@ -8,7 +8,8 @@
 
 .background {
   height: 100vh;
-  background-image: url('../src/images/table2.jpg');
+  /* background-image: url('../src/images/table2.jpg'); */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('../src/images/table2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
@@ -69,13 +70,13 @@
 /* Login/Register screen css */
 
 .logo-login {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   position: fixed;
-  top: 5%;
+  top: 10%;
   left: 50%;
   display: flex;
   transform: translate(-50%,0);
-  border-radius: 50%;
+  /* border-radius: 50%; */
   overflow: hidden;
 }
 
@@ -90,8 +91,10 @@
   overflow: hidden;
 }
 
-.login-button {
-  background-color: #3590d5;
+#login-button {
+  /* background-color: #ffffff;
+  background-image: url("images/steel_background.png"); */
+  color: #3590d5;
   float: left;
   height: 10%;
   width: 50%;
@@ -101,8 +104,10 @@
   cursor: pointer;
 }
 
-.register-button {
-  background-color: #ffffff;
+#register-button {
+  /* background-color: #ffffff;
+  background-image: none; */
+  color: #ffffff;
   float: right;
   height: 10%;
   width: 50%;
@@ -113,15 +118,21 @@
 }
 
 .login {
-  background-color: #3590d5;
+  /* background-color: #3590d5; */
+  /* background-image: url("images/steel_background.png"); */
   height: 100%;
   width: 100%;
   border-radius: 0px 0px 45px 45px;
   display: block;
 }
 
+#msg_text{
+  color: white;
+}
+
 .register {
-  background-color: #3590d5;
+  /* background-color: #3590d5; */
+  /* background-image: url("images/steel_background.png"); */
   height: 100%;
   width: 100%;
   border-radius: 0px 0px 45px 45px;
@@ -129,7 +140,6 @@
 }
 
 .forgot-pass {
-  background-color: #3590d5;
   height: 100%;
   width: 100%;
   border-radius: 0px 0px 45px 45px;
@@ -137,6 +147,7 @@
 }
 
 .forgot {
+  color: white;
   cursor: pointer;
   margin-left: 33%;
   border: none;
@@ -149,7 +160,8 @@
 /* Home screen css */
 
 .title-bar {
-  background-color: #a9a9a9;
+  /* background-color: #a9a9a9; */
+  background-image: url("images/steel_background.png");
   height: 66px;
   width: 100%;
   display: flex;
@@ -174,7 +186,7 @@
 }
 
 .logo-home {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   display: flex;
   margin-left: 20px;
   transform: translate(-50%,0);
@@ -195,7 +207,7 @@
 }
 
 .logo-recipe {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   transform: translate(-50%,0);
   overflow: hidden;
 }
@@ -347,7 +359,7 @@
 }
 
 .recipe-ui {
-  background-color: #3590d5;
+  background-color: url("images/steel_background.png");
   height: 85%;
   width: 85%;
   margin-top: 50px;
@@ -358,14 +370,15 @@
 }
 
 .recipe-header {
-  background-color: #3590d5;
+  background-image: url("images/steel_background.png");
   height: 10%;
   border-radius: 30px 30px 0px 0px;
   text-align: center;
 }
 
 .recipe-item {
-  background-color: #ffffff;
+  /* background-color: #3590d5; */
+  background-image: url("images/steel_background.png");
   display: table-cell;
   text-align: center;
   width: 45%;
@@ -377,6 +390,17 @@
   margin-left: 2.5%;
   margin-right: 2.5%;
   margin-top: 25px;
+}
+
+.sub_buttons{
+  /* font-size: large; */
+  margin: 10px;
+  padding: 1%;
+  border-radius: 10px 10px 10px 10px;
+  /* margin-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px; */
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar{
@@ -504,7 +528,8 @@
 }
 
 .add-recipe {
-  background-color: #3498DB;
+  /* background-color: #3498DB; */
+  background-image: url("images/steel_background.png");
   position:absolute;
   align-content: center;
   text-align: center;
@@ -539,15 +564,11 @@ label {
 
 #cookTime {
   text-align: center;
-  margin-left: 10px;
-  margin-right: 10px;
-
 }
 
 #prepTime {
   text-align: center;
   margin-left: 10px;
-  margin-right: 10px;
 }
 
 .cuisine {
@@ -594,7 +615,7 @@ label {
 }
 
 .list-recipes {
-  background-color: #3498DB;
+  /* background-color: #3498DB; */
   height: auto;
   width: 500px;
   text-align: center;

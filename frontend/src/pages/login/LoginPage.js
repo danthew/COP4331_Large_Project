@@ -5,16 +5,19 @@ import Register from 'components/register/Register';
 import Logo from 'images/logo.png';
 import ForgotPassword from 'components/ForgotPassword';
 
+
 console.log(Logo);
 
 const loginButton = async event =>
     {   
         event.preventDefault();
         document.getElementById("register").style.display = "none";
-        document.getElementById("login").style.display = "block";
-        document.getElementById("forgot-pass").style.display = "none";
-        document.getElementById("register-button").style.backgroundColor = "#ffffff";
-        document.getElementById("login-button").style.backgroundColor = "#3590d5";
+        document.getElementById("login").style.display    = "block";
+        // document.getElementById("register-button").style.backgroundImage = "none";
+        // document.getElementById("register-button").style.backgroundColor = "#ffffff";
+        // document.getElementById("login-button").style.backgroundImage = {Steel};
+        document.getElementById("login-button").style.color = "#3590d5";
+        document.getElementById("register-button").style.color = "#ffffff";
     };
 
 const registerButton = async event =>
@@ -22,14 +25,16 @@ const registerButton = async event =>
         event.preventDefault();
         document.getElementById("login").style.display = "none";
         document.getElementById("register").style.display = "block";
-        document.getElementById("forgot-pass").style.display = "none";
-        document.getElementById("login-button").style.backgroundColor = "#ffffff";
-        document.getElementById("register-button").style.backgroundColor = "#3590d5";
+        // document.getElementById("login-button").style.backgroundImage = "none";
+        // document.getElementById("login-button").style.backgroundColor = "#ffffff";
+        // document.getElementById("register-button").style.backgroundImage = {Steel};
+        document.getElementById("register-button").style.color = "#3590d5";
+        document.getElementById("login-button").style.color = "#ffffff";
     };
 
 const LoginPage = () => {
     return (
-        <div class="background"> 
+        <div class="background">
             <div class="logo-login">
                 <img height="200px" width="200px" src={Logo} alt="RECIPEASY Logo"></img>                
             </div>
@@ -55,5 +60,4 @@ const LoginPage = () => {
         </div>
     );
 };
-
 export default LoginPage;
