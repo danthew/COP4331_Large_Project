@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 
 function Recipe() {
   const [recipes, setRecipes] = useState([]);
-  const [cookie, setCookie] = useCookies(['userId', 'name', 'cuisine', 'prepTime', 'cookTime']);
+  const [cookie, setCookie] = useCookies(['userId', 'recipeId', 'name', 'cuisine', 'prepTime', 'cookTime']);
 
   function buildPath(route)
 	{
