@@ -57,11 +57,11 @@ function Recipe() {
     }
 
     const viewRecipe = async recipeId => {
-	setCookie('recipeId', recipeId, {path: '/'});
-	setCookie('name', recipe.name, {path: '/'});
-        setCookie('cuisine', recipe.cuisine, {path: '/'});
-        setCookie('prepTime', recipe.prepTime, {path: '/'});
-        setCookie('cookTime', recipe.cookTime, {path: '/'});
+	      setCookie('recipeId', recipeId, {path: '/'});
+	      setCookie('name', recipeId.name, {path: '/'});
+        setCookie('cuisine', recipeId.cuisine, {path: '/'});
+        setCookie('prepTime', recipeId.prepTime, {path: '/'});
+        setCookie('cookTime', recipeId.cookTime, {path: '/'});
       	window.location.href = `/viewRecipe`;
     };
 

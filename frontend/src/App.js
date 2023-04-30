@@ -7,6 +7,7 @@ import HomePage from './pages/home/HomePage';
 import LoginPage from './pages/login/LoginPage';
 import AddRecipePage from 'pages/AddRecipePage';
 import EditRecipePage from 'pages/EditRecipePage';
+import ViewRecipePage from 'components/home/ViewRecipe';
 
 function App() 
 {
