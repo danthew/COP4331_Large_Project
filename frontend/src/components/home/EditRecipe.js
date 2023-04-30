@@ -307,10 +307,10 @@ function EditRecipe() {
                     </div>
                     ))}
                     <hr size="5" width="100%" />
-                    <button className="btn-add" onClick={() => addStep()}>Add Step</button>
+                    <button className="btn-add sub_buttons" onClick={() => addStep()}>Add Step</button>
                     </div>
-                    <input type="submit" id="addRecipeButton" className="buttons" value="AddRecipe" onClick={editRecipe}/>
-                    <input type="submit" id="cancel" className="buttons" value="Cancel" onClick={cancel} />
+                    <input type="submit" id="addRecipeButton" className="buttons sub_buttons" value="Add Recipe" onClick={editRecipe}/>
+                    <input type="submit" id="cancel" className="buttons sub_buttons" value="Cancel" onClick={cancel} />
                     <span id="addRecipeResult">{message}</span>
                 </div>
             </div>
