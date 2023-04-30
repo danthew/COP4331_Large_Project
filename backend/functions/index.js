@@ -544,56 +544,56 @@ app.post('/editInstruction', (req, res) => {
 });
 
 
-	// Add Ingredient to Pantry
+// Add Ingredient to Pantry
 
-	app.post('/addIngredientToPantry', (req, res) => {
-		cors(req, res, () => {
-			let ingredientInfo = req.body;
-			console.log(ingredientInfo.userId);
-			const newIngredient = {
-				name: ingredientInfo.name,
-				quantity: ingredientInfo.quantity,
-				unit: ingredientInfo.unit,
-				userId: ingredientInfo.userId,
-				brand: ingredientInfo.brand, 
-				cost: ingredientInfo.cost,
-				onList: ingredientInfo.onList
-			};
+app.post('/addIngredientToPantry', (req, res) => {
+	cors(req, res, () => {
+		let ingredientInfo = req.body;
+		console.log(ingredientInfo.userId);
+		const newIngredient = {
+			name: ingredientInfo.name,
+			quantity: ingredientInfo.quantity,
+			unit: ingredientInfo.unit,
+			userId: ingredientInfo.userId,
+			brand: ingredientInfo.brand, 
+			cost: ingredientInfo.cost,
+			onList: ingredientInfo.onList
+		};
 
-			db.collection("pantryIngredients").add(newIngredient)
-				.then((ref) => {
-					return res.status(201).json({ ingredientId: ref.id });
-				})
-				.catch((err) => {
-					return res.status(500).json({ error: err.code });
-				});
-		});
+		db.collection("pantryIngredients").add(newIngredient)
+			.then((ref) => {
+				return res.status(201).json({ ingredientId: ref.id });
+			})
+			.catch((err) => {
+				return res.status(500).json({ error: err.code });
+			});
 	});
+});
 
-	// Remove Ingredient from Pantry
+// Remove Ingredient from Pantry
 
-	app.delete('/deleteIngredientFromPantry', (req, res) => {
-		cors(req, res, () => {
-			db.collection("pantryIngredients").doc(req.body.ingredientId).get()
-				.then((doc) => {
-					if (doc.exists) {
-						db.collection("pantryIngredients").doc(req.body.ingredientId).delete()
-							.then(() => {
-								return res.status(200).json({ general: "Successful Deletion!" });
-							})
-							.catch((err) => {
-								return res.status(500).json({ error: err.code });
-							})
-					}
-					else {
-						return res.status(404).json({ general: "Ingredient not Found!" });
-					}
-				})
-				.catch((err) => {
-					return res.status(500).json({ error: err.code });
-				});
-		});
+app.delete('/deleteIngredientFromPantry', (req, res) => {
+	cors(req, res, () => {
+		db.collection("pantryIngredients").doc(req.body.ingredientId).get()
+			.then((doc) => {
+				if (doc.exists) {
+					db.collection("pantryIngredients").doc(req.body.ingredientId).delete()
+						.then(() => {
+							return res.status(200).json({ general: "Successful Deletion!" });
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						})
+				}
+				else {
+					return res.status(404).json({ general: "Ingredient not Found!" });
+				}
+			})
+			.catch((err) => {
+				return res.status(500).json({ error: err.code });
+			});
 	});
+});
 
 // Edit Ingredient in Pantry
 
@@ -706,6 +706,10 @@ app.post('/listRecipeIngredients', (req, res) => {
 						.then((data) => {
 							let ingredients = [];
 							data.forEach((doc) => {
+								const Ingredient = {
+									ingredientId: doc.id,
+									...doc.data()
+								};
 								ingredients.push(doc.data());
 							});
 							return res.status(200).json(ingredients);
@@ -727,30 +731,36 @@ app.post('/listRecipeIngredients', (req, res) => {
 // List Instructions for Recipe (In step order)
 app.post('/listRecipeInstructions', (req, res) => {
 	cors(req, res, () => {
-		db.collection("recipes").doc(req.body.recipeId).get()
-			.then((doc) => {
-				if (doc.exists) {
-					db.collection("instructions").where("recipeId", "==", req.body.recipeId).get()
-						.then((data) => {
-							let instructions = [];
-							data.forEach((doc) => {
-								instructions.push(doc.data());
-							});
-							instructions.sort((a, b) => {
-								return a.stepNumber - b.stepNumber;
-							});
-							return res.status(200).json(instructions);
-						})
-						.catch((err) => {
-							return res.status(500).json({ error: err.code });
-						});
-				} else {
-					return res.status(404).json({ general: "Recipe does not exist!" });
-				}
-			})
-			.catch((err) => {
-				return res.status(500).json({ error: err.code });
-			});
+	  db.collection('recipes')
+		.doc(req.body.recipeId)
+		.get()
+		.then((doc) => {
+			if (doc.exists) {
+				db.collection('instructions')
+			  	.where('recipeId', '==', req.body.recipeId)
+			  	.get()
+			  	.then((data) => {
+					let instructions = [];
+					data.forEach((doc) => {
+				  	const instruction = doc.data();
+				  	instruction.instructionId = doc.id; // Add instructionId to the data object
+				  	instructions.push(instruction);
+				});
+				instructions.sort((a, b) => {
+					return a.stepNumber - b.stepNumber;
+				});
+				return res.status(200).json(instructions);
+				})
+				.catch((err) => {
+					return res.status(500).json({ error: err.code });
+			  	});
+		  	} else {
+				return res.status(404).json({ general: 'Recipe does not exist!' });
+		  	}
+		})
+		.catch((err) => {
+			return res.status(500).json({ error: err.code });
+		});
 	});
 });
 

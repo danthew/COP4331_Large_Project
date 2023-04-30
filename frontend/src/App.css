@@ -370,10 +370,19 @@
 }
 
 .recipe-header {
-  background-image: url("images/steel_background.png");
+  /*background-image: url("images/steel_background.png");*/
   height: 10%;
   border-radius: 30px 30px 0px 0px;
   text-align: center;
+}
+
+.recipe-background {
+  background-image: url("images/steel_background.png");
+  width: 40%;
+  height: 100%;
+  text-align: center;
+  transform: translateX(73%);
+  border-radius: 15px 15px;
 }
 
 .recipe-item {
@@ -401,6 +410,10 @@
   padding-left: 10px;
   padding-right: 10px; */
   cursor: pointer;
+}
+
+.sub_buttons:hover {
+  background-color: lightgray;
 }
 
 ::-webkit-scrollbar{
@@ -616,6 +629,7 @@ label {
 
 .list-recipes {
   /* background-color: #3498DB; */
+  background-image: url("images/steel_background.png");
   height: auto;
   width: 500px;
   text-align: center;
@@ -623,8 +637,12 @@ label {
   transform: translateX(730px);
 }
 
-.list-Ingredients {
+.list-name {
   margin-top: 100px;
+  font-size: xx-large;
+}
+
+.list-Ingredients {
   width: auto;
   height: 50%;
 }
