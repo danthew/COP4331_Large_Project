@@ -5,7 +5,7 @@ function ViewRecipe() {
     const [message, setMessage] = useState("");
     const [ingredients, setIngredients] = useState([]);
     const [instructions, setInstructions] = useState([]);
-    const [cookie, setCookie] = useCookies(['userId', 'recipeId', 'ingredientId', 'instructionId']);
+    const [cookie, setCookie] = useCookies(['userId', 'recipeId', 'ingredientId', 'instructionId', 'name', 'cuisine', 'prepTime', 'cookTime']);
 
     function buildPath(route)
 	{
@@ -59,6 +59,10 @@ function ViewRecipe() {
     useEffect(() => {
       viewRecipes();
     }, []); // run once on component mount
+    
+    const edit = async  => {
+        window.location.href = "/editRecipe"
+    }
 
     const cancel = async (event) =>
     {
@@ -102,6 +106,9 @@ function ViewRecipe() {
 
     return (
         <div className="list-recipes">
+	<div className="list-name">
+        	<p>{cookie.name}</p>
+       	</div>
             <div className="list-Ingredients">
                 <div className="ingred">
                     <label className="ingred">Ingredients</label>
@@ -131,7 +138,7 @@ function ViewRecipe() {
                 </div>
             </div>
             <div className="modData">
-                <input type="submit" id="cancel" className="buttons" value="Edit Recipe" onClick={cancel} />
+                <input type="submit" id="cancel" className="buttons" value="Edit Recipe" onClick={edit} />
                 <input type="submit" id="deleteRecipe" className="buttons" value="Delete Recipe" onClick={deleteRecipe} />
             </div>
             <input type="submit" id="cancel" className="buttons" value="Return Home" onClick={cancel} />
