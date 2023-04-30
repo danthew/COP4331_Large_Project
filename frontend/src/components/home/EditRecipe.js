@@ -267,7 +267,7 @@ function EditRecipe() {
                                     size="15"
                                     onChange={(e) => handleInputChange(e, i, 'name')}
                                 ></input>
-                                <button className="X" onClick={() => handleRemove(i)}>
+                                <button className="sub_buttons" onClick={() => handleRemove(i)}>
                                 x
                                 </button>
                             </form>
@@ -275,7 +275,7 @@ function EditRecipe() {
                     );
                     })}
                     <hr size="5" width="100%"></hr>
-                    <button className="btn btn-add" onClick={()=>addField()}>Add Ingredient</button>             
+                    <button className="btn btn-add sub_buttons" onClick={()=>addField()}>Add Ingredient</button>             
                 </div>
                 <div className="cook-time">
                     <label className="cook">Cook Time :</label>
@@ -302,7 +302,7 @@ function EditRecipe() {
                                 value={step}
                                 onChange={(e) => handleStepChange(e, i)}
                             />
-                             <button className="X" onClick={() => removeStep(i)}>x</button>
+                             <button className="sub_buttons" onClick={() => removeStep(i)}>x</button>
                         </div>
                     </div>
                     ))}
