@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 
 function Recipe() {
   const [recipes, setRecipes] = useState([]);
-  const [cookie, setCookie] = useCookies(['userId']);
+  const [cookie, setCookie] = useCookies(['userId', 'name', 'cuisine', 'prepTime', 'cookTime']);
 
   function buildPath(route)
 	{
@@ -53,12 +53,15 @@ function Recipe() {
     const addRecipe = async event =>
     {
         event.preventDefault();
-
         window.location.href = "/addRecipe";
     }
 
     const viewRecipe = async recipeId => {
 	setCookie('recipeId', recipeId, {path: '/'});
+	setCookie('name', recipe.name, {path: '/'});
+        setCookie('cuisine', recipe.cuisine, {path: '/'});
+        setCookie('prepTime', recipe.prepTime, {path: '/'});
+        setCookie('cookTime', recipe.cookTime, {path: '/'});
       	window.location.href = `/viewRecipe`;
     };
 
