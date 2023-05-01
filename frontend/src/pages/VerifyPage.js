@@ -7,7 +7,6 @@ const VerifyPage = () =>
 {
     return(
         <div className="background">
-            <HomeTitle />
             <div className="content">
                 <VPage />
             </div>
