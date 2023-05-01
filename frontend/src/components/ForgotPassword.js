@@ -45,7 +45,7 @@ function Login() {
             }
             else
             {
-                window.location.href = "/VerificationPage";
+                window.location.href = "/user";
             }
         }
         catch(e)

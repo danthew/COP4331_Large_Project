@@ -6,6 +6,7 @@ function VPage(){
 
     var vCode;
     var nPassword;
+    var actionCode;
 
     const [message, setMessage] = useState("");
 
@@ -24,7 +25,7 @@ function VPage(){
     const doVerifyEmail = async (event) => {
 
         let obj = {
-            code: vCode.value,
+            code: actionCode.value,
         };
 
         console.log("Verifying email...");
@@ -67,7 +68,7 @@ function VPage(){
     const doResetPassword = async (event) => {
 
         let obj = {
-            code: vCode.value,
+            code: actionCode.value,
             newPassword : nPassword.value
         };
 
@@ -114,10 +115,12 @@ function VPage(){
 
     document.addEventListener('DOMContentLoaded', () => {
 
+        const params = new URLSearchParams(window.location.pathname);
+
         // Get the action to complete.
-        const mode = getParameterByName('mode');
+        const mode = params.get("mode");
         // Get the one-time code from the query parameter.
-        const actionCode = getParameterByName('oobCode');
+        actionCode = params.get("oobCode");
       
         // Handle the user management action.
         switch (mode) {
@@ -127,30 +130,20 @@ function VPage(){
             return(
             <div className="vpage-content">
                 <form onSubmit={doResetPassword}>
-                    <div className="verification-code">
-                        <input type="text" placeholder='Verification Code' ref={(c) => vCode = c} /><br />
-                    </div>
                     <div className="reset-password">
                         Enter new password: <input type="text" ref={(c) => nPassword = c} /><button className="sub_buttons" onClick={doResetPassword}>Submit</button><br />
                     </div>
                 </form>
             </div>
             );
-            break;
           case 'verifyEmail':
             // Display email verification handler and UI.
             // Call verify email web api
+            return(
             <div className="vpage-content">
-                <form onSubmit={doVerifyEmail}>
-                    <div className="verification-code">
-                        Enter verification code: <input type="text" placeholder='Verification Code' ref={(c) => vCode = c} /><br />
-                    </div>
-                    <div className="verify-email">
-                        <button className="sub_buttons" onClick={doVerifyEmail}>Submit Code</button>
-                    </div>
-                </form>
+                <form onSubmit={doVerifyEmail}></form>
             </div>
-            break;
+            );
           default:
             // Error: invalid mode.
             return(

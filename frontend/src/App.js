@@ -20,7 +20,7 @@ function App()
         <Route path="/addRecipe" index element={<AddRecipePage />} />
         <Route path="/viewRecipe" index element={<ViewRecipePage />} />
         <Route path="/editRecipe" index element={<EditRecipePage />} />
-        <Route path="/VerificationPage" index element={<VPage />} />
+        <Route path="/user" index element={<VPage />} />
       </Routes>
     </BrowserRouter>
   );
