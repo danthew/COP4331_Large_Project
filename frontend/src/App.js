@@ -8,7 +8,7 @@ import LoginPage from './pages/login/LoginPage';
 import AddRecipePage from 'pages/AddRecipePage';
 import ViewRecipePage from 'pages/ViewRecipePage';
 import EditRecipePage from 'pages/EditRecipePage';
-import VPage from 'VerificationPage';
+import VPage from 'pages/VerifyPage';
 
 function App() 
 {
