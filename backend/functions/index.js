@@ -268,6 +268,42 @@ app.post('/resetPassword', (req, res) => {
 	});
 });
 
+app.post('/resetPasswordWeb', (req, res) => {
+	cors(req, res, () => {
+		fbauth.verifyPasswordResetCode(auth, req.body.code)
+		.then(() => {
+			fbauth.confirmPasswordReset(auth, req.body.code, req.body.newPassword)
+			.then(() => {
+				return res.status(200).json({general : "Password reset success!"});
+			})
+			.catch((err) => {
+				if (err.code === 'auth/expired-action-code') {
+					return res.status(404).json({general : "Action code expired!"});
+				} else if (err.code === 'auth/invalid-action-code') {
+					return res.status(400).json({general : "Invalid action code!"});
+				} else if (err.code === 'auth/user-not-found') {
+					return res.status(404).json({general : "User not found!"});
+				} else if (err.code === 'auth/weak-password') {
+					return res.status(401).json({general : "Password too weak!"})
+				} else {
+					return res.status(500).json({error : err.code});
+				} 
+			});
+		})
+		.catch((err) => {
+			if (err.code === 'auth/expired-action-code') {
+				return res.status(404).json({general : "Action code expired!"});
+			} else if (err.code === 'auth/invalid-action-code') {
+				return res.status(400).json({general : "Invalid action code!"});
+			} else if (err.code === 'auth/user-not-found') {
+				return res.status(404).json({general : "User not found!"});
+			} else {
+				return res.status(500).json({error : err.code});
+			}
+		});
+	});
+});
+
 // Add recipe
 
 app.post('/addRecipe', (req, res) => {
