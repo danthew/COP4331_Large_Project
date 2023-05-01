@@ -104,6 +104,10 @@
   cursor: pointer;
 }
 
+#loginResult {
+  color: white;
+}
+
 #register-button {
   /* background-color: #ffffff;
   background-image: none; */
