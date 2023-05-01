@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import { useCookies } from 'react-cookie';
-// import { setMaxIdleHTTPParsers } from "http";
 
 function VPage(){
 
-    var vCode;
     var nPassword;
     var actionCode;
 
@@ -113,7 +111,7 @@ function VPage(){
         }
     };
 
-    document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', () => {
 
         const params = new URLSearchParams(window.location.pathname);
 
