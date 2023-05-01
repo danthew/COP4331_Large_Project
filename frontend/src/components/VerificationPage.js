@@ -121,6 +121,8 @@ function VPage(){
         const mode = params.get("mode");
         // Get the one-time code from the query parameter.
         actionCode = params.get("oobCode");
+
+        console.log(mode + ", " + actionCode);
       
         // Handle the user management action.
         switch (mode) {
