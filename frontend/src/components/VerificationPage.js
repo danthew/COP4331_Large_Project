@@ -111,7 +111,8 @@ function VPage(){
         }
     };
 
-    window.addEventListener('DOMContentLoaded', () => {
+    return(
+    document.addEventListener('DOMContentLoaded', () => {
 
         const params = new URLSearchParams(window.location.pathname);
 
@@ -152,7 +153,8 @@ function VPage(){
                 </div>
             );
         }
-      }, false);
+      }, false)
+    );
 }
 
 export default VPage;
