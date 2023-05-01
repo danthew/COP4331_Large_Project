@@ -9,6 +9,18 @@ function VPage(){
 
     const [message, setMessage] = useState("");
 
+    function buildPath(route)
+	{
+		if (process.env.NODE_ENV === 'production')
+		{
+		return 'https://us-central1-recipeasy-ec759.cloudfunctions.net/' + route;
+		}
+		else
+		{
+		return 'http://localhost:5001/recipeasy-ec759/us-central1/' + route;
+		}
+	}
+
     const doVerifyEmail = async (event) => {
 
         let obj = {
@@ -19,13 +31,11 @@ function VPage(){
 
         event.preventDefault();
 
-        let bp = require("../BuildPath.js");
-
         let js = JSON.stringify(obj);
         console.log(JSON.stringify(obj,null,2));
         
         try {
-            const response = await fetch(bp.buildPath('api/verifyEmailWeb'), {
+            const response = await fetch(buildPath('api/verifyEmailWeb'), {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json" }
@@ -65,13 +75,11 @@ function VPage(){
 
         event.preventDefault();
 
-        let bp = require("../BuildPath.js");
-
         let js = JSON.stringify(obj);
         console.log(JSON.stringify(obj,null,2));
         
         try {
-            const response = await fetch(bp.buildPath('api/resetPasswordWeb'), {
+            const response = await fetch(buildPath('api/resetPasswordWeb'), {
                 method: "POST",
                 body: js,
                 headers: { "Content-Type": "application/json" }
