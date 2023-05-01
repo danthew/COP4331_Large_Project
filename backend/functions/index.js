@@ -220,6 +220,26 @@ app.post('/verifyEmail', (req, res) => {
 	});
 });
 
+app.post('/verifyEmailWeb', (req, res) => {
+	cors(req, res, () => {
+		fbauth.applyActionCode(auth, req.body.code)
+		.then(() => {
+			return res.status(200).json({ general : "Email address verified!"});
+		})
+		.catch((err) => {
+			if (err.code === 'auth/expired-action-code') {
+				return res.status(404).json({general : "Action code expired!"});
+			} else if (err.code == 'auth/invalid-action-code') {
+				return res.status(400).json({general : "Invalid action code!"});
+			} else if (err.code == 'user-not-found') {
+				return res.status(404).json({general : "User not found!"});
+			} else {
+				return res.status(500).json({error : err.code});
+			}
+		});
+	});
+});
+
 app.post('/resetPassword', (req, res) => {
 	cors(req, res, () => {
 		let email = req.body.email;
