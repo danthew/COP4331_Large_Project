@@ -111,52 +111,45 @@ function VPage(){
         }
     };
 
-    function doEverything() {
+    const params = new URLSearchParams(window.location.pathname);
+
+    // Get the action to complete.
+    const mode = params.get("mode");
+    // Get the one-time code from the query parameter.
+    actionCode = params.get("oobCode");
+
+    console.log(mode + ", " + actionCode);
     
-        const params = new URLSearchParams(window.location.pathname);
-
-        // Get the action to complete.
-        const mode = params.get("mode");
-        // Get the one-time code from the query parameter.
-        actionCode = params.get("oobCode");
-
-        console.log(mode + ", " + actionCode);
-      
-        // Handle the user management action.
-        switch (mode) {
-          case 'resetPassword':
-            // Display reset password handler and UI.
-            // Call reset password web api
-            return(
-            <div className="vpage-content">
-                <form onSubmit={doResetPassword}>
-                    <div className="reset-password">
-                        Enter new password: <input type="text" ref={(c) => nPassword = c} /><button className="sub_buttons" onClick={doResetPassword}>Submit</button><br />
-                    </div>
-                </form>
-            </div>
-            );
-          case 'verifyEmail':
-            // Display email verification handler and UI.
-            // Call verify email web api
-            return(
-            <div className="vpage-content">
-                <form onSubmit={doVerifyEmail}></form>
-            </div>
-            );
-          default:
-            // Error: invalid mode.
-            return(
-                <div className="v-error">
-                    Error: invalid code.
+    // Handle the user management action.
+    switch (mode) {
+        case 'resetPassword':
+        // Display reset password handler and UI.
+        // Call reset password web api
+        return(
+        <div className="vpage-content">
+            <form onSubmit={doResetPassword}>
+                <div className="reset-password">
+                    Enter new password: <input type="text" ref={(c) => nPassword = c} /><button className="sub_buttons" onClick={doResetPassword}>Submit</button><br />
                 </div>
-            );
-        }
+            </form>
+        </div>
+        );
+        case 'verifyEmail':
+        // Display email verification handler and UI.
+        // Call verify email web api
+        return(
+        <div className="vpage-content">
+            <form onSubmit={doVerifyEmail}></form>
+        </div>
+        );
+        default:
+        // Error: invalid mode.
+        return(
+            <div className="v-error">
+                Error: invalid code.
+            </div>
+        );
     }
-
-      return(
-        <div onLoad={doEverything}></div>
-      );
 }
 
 export default VPage;
