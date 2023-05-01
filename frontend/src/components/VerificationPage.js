@@ -157,7 +157,7 @@ function VPage(){
     }
 
       return(
-        document.addEventListener('DOMContentLoaded', {doEverything})
+        window.addEventListener('load', {doEverything})
       );
 }
 
