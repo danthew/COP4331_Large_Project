@@ -5,6 +5,7 @@ function VPage(){
 
     var nPassword;
     var actionCode;
+    var mode;
 
     const [message, setMessage] = useState("");
 
@@ -111,10 +112,10 @@ function VPage(){
         }
     };
 
-    const params = new URLSearchParams(window.location.pathname);
+    const params = new URLSearchParams(window.location.search);
 
     // Get the action to complete.
-    const mode = params.get("mode");
+    mode = params.get("mode");
     // Get the one-time code from the query parameter.
     actionCode = params.get("oobCode");
 
