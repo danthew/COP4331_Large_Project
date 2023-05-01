@@ -112,8 +112,7 @@ function VPage(){
     };
 
     function doEverything() {
-    document.addEventListener('DOMContentLoaded', () => {
-
+    
         const params = new URLSearchParams(window.location.pathname);
 
         // Get the action to complete.
@@ -153,11 +152,10 @@ function VPage(){
                 </div>
             );
         }
-      }, false);
     }
 
       return(
-        window.addEventListener('load', {doEverything})
+        <div onLoad={doEverything}></div>
       );
 }
 
