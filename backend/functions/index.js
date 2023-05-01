@@ -12,25 +12,25 @@ admin.initializeApp();
 
 // Config information (may move to a private file)
 const firebaseConfig = {
-    apiKey: "AIzaSyCLxtVg_Ad5YNVGQHuecjYdIYXyzm4RrUg",
-    authDomain: "recipeasy-ec759.firebaseapp.com",
-    databaseURL: "https://recipeasy-ec759-default-rtdb.firebaseio.com",
-    projectId: "recipeasy-ec759",
-    storageBucket: "recipeasy-ec759.appspot.com",
-    messagingSenderId: "292406285745",
-    appId: "1:292406285745:web:022fe474eb1ad249035990",
-    measurementId: "G-9X7Z2ZH6V7"
+	apiKey: "AIzaSyCLxtVg_Ad5YNVGQHuecjYdIYXyzm4RrUg",
+	authDomain: "recipeasy-ec759.firebaseapp.com",
+	databaseURL: "https://recipeasy-ec759-default-rtdb.firebaseio.com",
+	projectId: "recipeasy-ec759",
+	storageBucket: "recipeasy-ec759.appspot.com",
+	messagingSenderId: "292406285745",
+	appId: "1:292406285745:web:022fe474eb1ad249035990",
+	measurementId: "G-9X7Z2ZH6V7"
 };
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET, POST, PATCH, DELETE, OPTIONS');
-    next();
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+	res.setHeader(
+		'Access-Control-Allow-Methods',
+		'GET, POST, PATCH, DELETE, OPTIONS');
+	next();
 });
 
 const fb = require('firebase/app');
@@ -45,7 +45,7 @@ const db = admin.firestore();
 
 // Tester to make sure that the api is working
 app.get('/goodbyeWorld', (req, res) => {
-    res.send("Goodbye World ); !")
+	res.send("Goodbye World ); !")
 });
 
 // If token is desired instead of userId, refer to Full Stack Video #5
@@ -54,28 +54,28 @@ app.get('/goodbyeWorld', (req, res) => {
 // Request should include email, password, username, name, and dob
 // It returns the userId
 app.post('/register', (req, res) => {
-    cors(req, res, () => {
-        let userInfo = req.body;
+	cors(req, res, () => {
+		let userInfo = req.body;
 
-        const newUser = {
-            email: userInfo.email,
-            password: userInfo.password,
-            username: userInfo.username,
-            name: userInfo.name,
-            dob: userInfo.dob
-        };
-        let tk, userId;
-        // Getting the information from the database
-        db.doc(`/users/${newUser.username}`).get()
-            .then(doc => {
-                if (doc.exists) {
-                    return res.status(400).json({ username: 'username is taken' });
-                }
-                else {
-                    return fbauth.createUserWithEmailAndPassword(auth, newUser.email, newUser.password);
-                }
-            })
-            .then(data => {
+		const newUser = {
+			email: userInfo.email,
+			password: userInfo.password,
+			username: userInfo.username,
+			name: userInfo.name,
+			dob: userInfo.dob
+		};
+		let tk, userId;
+		// Getting the information from the database
+		db.doc(`/users/${newUser.username}`).get()
+			.then(doc => {
+				if (doc.exists) {
+					return res.status(400).json({ username: 'username is taken' });
+				}
+				else {
+					return fbauth.createUserWithEmailAndPassword(auth, newUser.email, newUser.password);
+				}
+			})
+			.then(data => {
 				let curUser = data.user;
 				userId = curUser.uid;
 				token = curUser.getIdToken();
@@ -88,15 +88,15 @@ app.post('/register', (req, res) => {
 				};
 				db.doc(`/users/${newUser.username}`).set(userCredentials);
 				fbauth.sendEmailVerification(curUser)
-				.then(() => {
-					return;
-				})
-				.catch(() => {
-					return res.status(201).json({ userId : userId, email : "Verification email not sent!"});
-				});
+					.then(() => {
+						return;
+					})
+					.catch(() => {
+						return res.status(201).json({ userId: userId, email: "Verification email not sent!" });
+					});
 			})
 			.then(() => {
-				return res.status(201).json({ userId: userId, email : "Verification email sent!" });
+				return res.status(201).json({ userId: userId, email: "Verification email sent!" });
 			})
 			.catch(err => {
 				if (err.code === 'auth/email-already-in-use')
@@ -125,14 +125,18 @@ app.post('/login', (req, res) => {
 						user.email = doc.data().email;
 						fbauth.signInWithEmailAndPassword(auth, user.email, user.password)
 							.then(data => {
-								db.collection('users').where('userId', '==', data.user.uid).get()
-									.then((querySnapshot) => {
-										querySnapshot.forEach((doc) => {
-											return res.status(202).json(doc.data());
+								if (data.user.emailVerified == false) {
+									return res.status(403).json({ general: "Email not verified." });
+								} else {
+									db.collection('users').where('userId', '==', data.user.uid).get()
+										.then((querySnapshot) => {
+											querySnapshot.forEach((doc) => {
+												return res.status(202).json(doc.data());
+											});
+										}).catch(err => {
+											return res.status(500).json({ error: err.code });
 										});
-									}).catch(err => {
-										return res.status(500).json({ error: err.code });
-									});
+								}
 							})
 							.catch(err => {
 								if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found')
@@ -223,20 +227,20 @@ app.post('/verifyEmail', (req, res) => {
 app.post('/verifyEmailWeb', (req, res) => {
 	cors(req, res, () => {
 		fbauth.applyActionCode(auth, req.body.code)
-		.then(() => {
-			return res.status(200).json({ general : "Email address verified!"});
-		})
-		.catch((err) => {
-			if (err.code === 'auth/expired-action-code') {
-				return res.status(404).json({general : "Action code expired!"});
-			} else if (err.code == 'auth/invalid-action-code') {
-				return res.status(400).json({general : "Invalid action code!"});
-			} else if (err.code == 'user-not-found') {
-				return res.status(404).json({general : "User not found!"});
-			} else {
-				return res.status(500).json({error : err.code});
-			}
-		});
+			.then(() => {
+				return res.status(200).json({ general: "Email address verified!" });
+			})
+			.catch((err) => {
+				if (err.code === 'auth/expired-action-code') {
+					return res.status(404).json({ general: "Action code expired!" });
+				} else if (err.code == 'auth/invalid-action-code') {
+					return res.status(400).json({ general: "Invalid action code!" });
+				} else if (err.code == 'user-not-found') {
+					return res.status(404).json({ general: "User not found!" });
+				} else {
+					return res.status(500).json({ error: err.code });
+				}
+			});
 	});
 });
 
@@ -271,36 +275,36 @@ app.post('/resetPassword', (req, res) => {
 app.post('/resetPasswordWeb', (req, res) => {
 	cors(req, res, () => {
 		fbauth.verifyPasswordResetCode(auth, req.body.code)
-		.then(() => {
-			fbauth.confirmPasswordReset(auth, req.body.code, req.body.newPassword)
 			.then(() => {
-				return res.status(200).json({general : "Password reset success!"});
+				fbauth.confirmPasswordReset(auth, req.body.code, req.body.newPassword)
+					.then(() => {
+						return res.status(200).json({ general: "Password reset success!" });
+					})
+					.catch((err) => {
+						if (err.code === 'auth/expired-action-code') {
+							return res.status(404).json({ general: "Action code expired!" });
+						} else if (err.code === 'auth/invalid-action-code') {
+							return res.status(400).json({ general: "Invalid action code!" });
+						} else if (err.code === 'auth/user-not-found') {
+							return res.status(404).json({ general: "User not found!" });
+						} else if (err.code === 'auth/weak-password') {
+							return res.status(401).json({ general: "Password too weak!" })
+						} else {
+							return res.status(500).json({ error: err.code });
+						}
+					});
 			})
 			.catch((err) => {
 				if (err.code === 'auth/expired-action-code') {
-					return res.status(404).json({general : "Action code expired!"});
+					return res.status(404).json({ general: "Action code expired!" });
 				} else if (err.code === 'auth/invalid-action-code') {
-					return res.status(400).json({general : "Invalid action code!"});
+					return res.status(400).json({ general: "Invalid action code!" });
 				} else if (err.code === 'auth/user-not-found') {
-					return res.status(404).json({general : "User not found!"});
-				} else if (err.code === 'auth/weak-password') {
-					return res.status(401).json({general : "Password too weak!"})
+					return res.status(404).json({ general: "User not found!" });
 				} else {
-					return res.status(500).json({error : err.code});
-				} 
+					return res.status(500).json({ error: err.code });
+				}
 			});
-		})
-		.catch((err) => {
-			if (err.code === 'auth/expired-action-code') {
-				return res.status(404).json({general : "Action code expired!"});
-			} else if (err.code === 'auth/invalid-action-code') {
-				return res.status(400).json({general : "Invalid action code!"});
-			} else if (err.code === 'auth/user-not-found') {
-				return res.status(404).json({general : "User not found!"});
-			} else {
-				return res.status(500).json({error : err.code});
-			}
-		});
 	});
 });
 
@@ -347,7 +351,7 @@ app.delete('/deleteRecipe', (req, res) => {
 							return res.status(500).json({ error: err.code });
 						});
 
-						db.collection("recipeInstructions").where("recipeId", "==", req.body.recipeId).get()
+					db.collection("recipeInstructions").where("recipeId", "==", req.body.recipeId).get()
 						.then((data) => {
 							data.forEach((doc) => {
 								doc.ref.delete();
@@ -505,14 +509,14 @@ app.post('/editIngredientInRecipe', (req, res) => {
 						})
 						.catch((err) => {
 							console.log(err);
-							return res.status(500).json({ error : err.code});
+							return res.status(500).json({ error: err.code });
 						});
 				} else {
-					return res.status(404).json({ general : "Ingredient not found!"});
+					return res.status(404).json({ general: "Ingredient not found!" });
 				}
 			})
 			.catch((err) => {
-				return res.status(500).json({ error : err.code});
+				return res.status(500).json({ error: err.code });
 			});
 	});
 });
@@ -575,26 +579,26 @@ app.delete('/deleteInstruction', (req, res) => {
 app.post('/editInstruction', (req, res) => {
 	cors(req, res, () => {
 		db.collection("instructions").doc(req.body.instructionId).get()
-		.then((doc) => {
-			if (doc.exists) {
-				const newInstruction = {
-					body: req.body.body,
-					stepNumber: req.body.stepNumber,
-					recipeId: req.body.recipeId
-				};
-				db.collection("instructions").doc(req.body.instructionId).update(newInstruction)
-					.then(() => {
-						return res.status(200).json({ general : "Successful Update!"});
-					})
-					.catch((err) => {
-						return res.status(500).json({ error : err.code });
-					});
-			} else {
-				return res.status(404).json({ general : "Instruction not found!"});
-			}
-		})
+			.then((doc) => {
+				if (doc.exists) {
+					const newInstruction = {
+						body: req.body.body,
+						stepNumber: req.body.stepNumber,
+						recipeId: req.body.recipeId
+					};
+					db.collection("instructions").doc(req.body.instructionId).update(newInstruction)
+						.then(() => {
+							return res.status(200).json({ general: "Successful Update!" });
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						});
+				} else {
+					return res.status(404).json({ general: "Instruction not found!" });
+				}
+			})
 			.catch((err) => {
-				return res.status(500).json({ error : err.code });
+				return res.status(500).json({ error: err.code });
 			});
 	});
 });
@@ -611,7 +615,7 @@ app.post('/addIngredientToPantry', (req, res) => {
 			quantity: ingredientInfo.quantity,
 			unit: ingredientInfo.unit,
 			userId: ingredientInfo.userId,
-			brand: ingredientInfo.brand, 
+			brand: ingredientInfo.brand,
 			cost: ingredientInfo.cost,
 			onList: ingredientInfo.onList
 		};
@@ -662,7 +666,7 @@ app.post('/editIngredientInPantry', (req, res) => {
 			quantity: ingredientInfo.quantity,
 			unit: ingredientInfo.unit,
 			userId: ingredientInfo.userId,
-			brand: ingredientInfo.brand, 
+			brand: ingredientInfo.brand,
 			cost: ingredientInfo.cost,
 			onList: ingredientInfo.onList
 		};
@@ -731,7 +735,7 @@ app.post('/listRecipes', (req, res) => {
 							let recipes = [];
 							data.forEach((doc) => {
 								let curRecipe = doc.data();
-								if(curRecipe.name.includes(searchCriteria)) {
+								if (curRecipe.name.includes(searchCriteria)) {
 									curRecipe.recipeId = doc.id;
 									recipes.push(curRecipe);
 								}
@@ -787,36 +791,36 @@ app.post('/listRecipeIngredients', (req, res) => {
 // List Instructions for Recipe (In step order)
 app.post('/listRecipeInstructions', (req, res) => {
 	cors(req, res, () => {
-	  db.collection('recipes')
-		.doc(req.body.recipeId)
-		.get()
-		.then((doc) => {
-			if (doc.exists) {
-				db.collection('instructions')
-			  	.where('recipeId', '==', req.body.recipeId)
-			  	.get()
-			  	.then((data) => {
-					let instructions = [];
-					data.forEach((doc) => {
-				  	const instruction = doc.data();
-				  	instruction.instructionId = doc.id; // Add instructionId to the data object
-				  	instructions.push(instruction);
-				});
-				instructions.sort((a, b) => {
-					return a.stepNumber - b.stepNumber;
-				});
-				return res.status(200).json(instructions);
-				})
-				.catch((err) => {
-					return res.status(500).json({ error: err.code });
-			  	});
-		  	} else {
-				return res.status(404).json({ general: 'Recipe does not exist!' });
-		  	}
-		})
-		.catch((err) => {
-			return res.status(500).json({ error: err.code });
-		});
+		db.collection('recipes')
+			.doc(req.body.recipeId)
+			.get()
+			.then((doc) => {
+				if (doc.exists) {
+					db.collection('instructions')
+						.where('recipeId', '==', req.body.recipeId)
+						.get()
+						.then((data) => {
+							let instructions = [];
+							data.forEach((doc) => {
+								const instruction = doc.data();
+								instruction.instructionId = doc.id; // Add instructionId to the data object
+								instructions.push(instruction);
+							});
+							instructions.sort((a, b) => {
+								return a.stepNumber - b.stepNumber;
+							});
+							return res.status(200).json(instructions);
+						})
+						.catch((err) => {
+							return res.status(500).json({ error: err.code });
+						});
+				} else {
+					return res.status(404).json({ general: 'Recipe does not exist!' });
+				}
+			})
+			.catch((err) => {
+				return res.status(500).json({ error: err.code });
+			});
 	});
 });
 
@@ -836,7 +840,7 @@ app.post('/listPantryIngredients', (req, res) => {
 							let ingredients = [];
 							data.forEach((doc) => {
 								let curRecipe = doc.data();
-								if(curRecipe.name.includes(searchCriteria)) {
+								if (curRecipe.name.includes(searchCriteria)) {
 									curRecipe.recipeId = doc.id;
 									ingredients.push(curRecipe);
 								}
@@ -847,7 +851,7 @@ app.post('/listPantryIngredients', (req, res) => {
 							return res.status(500).json({ error: err.code });
 						});
 				} else {
-					return res.status(404).json({general : "User not found!"});
+					return res.status(404).json({ general: "User not found!" });
 				}
 			})
 			.catch((err) => {
