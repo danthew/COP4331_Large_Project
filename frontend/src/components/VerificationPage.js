@@ -24,7 +24,7 @@ function VPage(){
     const doVerifyEmail = async (event) => {
 
         let obj = {
-            code: actionCode.value,
+            code: actionCode,
         };
 
         console.log("Verifying email...");
@@ -67,7 +67,7 @@ function VPage(){
     const doResetPassword = async (event) => {
 
         let obj = {
-            code: actionCode.value,
+            code: actionCode,
             newPassword : nPassword.value
         };
 
