@@ -130,7 +130,7 @@ function VPage(){
         <div className="vpage-content">
             <form onSubmit={doResetPassword}>
                 <div className="reset-password">
-                    Enter new password: <input type="text" ref={(c) => nPassword = c} /><button className="sub_buttons" onClick={doResetPassword}>Submit</button><br />
+                    Enter new password: <input type="text" ref={(c) => nPassword = c} /><button className="sub_buttons" onClick={doResetPassword}>SUBMIT</button><br />
                 </div>
             </form>
         </div>
@@ -140,7 +140,7 @@ function VPage(){
         // Call verify email web api
         return(
         <div className="vpage-content">
-            <form onSubmit={doVerifyEmail}></form>
+            <button onClick={doVerifyEmail} className='sub_buttons'>VERIFY</button>
         </div>
         );
         default:
