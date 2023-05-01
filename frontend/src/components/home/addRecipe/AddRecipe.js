@@ -216,7 +216,7 @@ function AddRecipe() {
                     );  
                 })}
                 <hr size="5" width="100%"></hr>
-                <button class="sub_buttons" className="btn btn-add" onClick={()=>addField()}>Add Ingredient</button>             
+                <button  className="btn btn-add sub_buttons" onClick={()=>addField()}>Add Ingredient</button>             
             </div>
             <div class="cook-time">
                 <label>Cook Time</label>
