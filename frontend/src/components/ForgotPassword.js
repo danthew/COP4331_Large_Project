@@ -45,7 +45,7 @@ function Login() {
             }
             else
             {
-                window.location.href = "/user";
+                window.location.href = "/";
             }
         }
         catch(e)
