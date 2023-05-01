@@ -111,6 +111,7 @@ function VPage(){
         }
     };
 
+    function doEverything() {
     document.addEventListener('DOMContentLoaded', () => {
 
         const params = new URLSearchParams(window.location.pathname);
@@ -153,12 +154,11 @@ function VPage(){
             );
         }
       }, false);
+    }
 
       return(
-        <div>
-            <h1 color='white'>HEYA</h1>
-        </div>
-      )
+        document.addEventListener('DOMContentLoaded', {doEverything})
+      );
 }
 
 export default VPage;
