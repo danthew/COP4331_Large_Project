@@ -65,11 +65,7 @@ function HomeTitle()
                 <span className="welcome-User">Welcome {name}</span><br/>
             </div>
             <div className="setting-button">
-                <button onClick={dropdown} className="setting-drop">SETTINGS</button>
-                <div id="dropdown-content" className='dropdown-content'>
-                    <button onClick={profile} className="drop-button" id="profile">Profile</button>
-                    <button onClick={logout} className="drop-button" id="logout">Logout</button>
-                </div>
+                <button onClick={logout} class="search-button" margin="5px">Logout</button>
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ function ViewRecipe() {
     const [message, setMessage] = useState("");
     const [ingredients, setIngredients] = useState([]);
     const [instructions, setInstructions] = useState([]);
-    const [cookie, setCookie] = useCookies(['userId', 'recipeId', 'ingredientId', 'instructionId']);
+    const [cookie, setCookie] = useCookies(['userId', 'recipeId', 'ingredientId', 'instructionId', 'name', 'cuisine', 'prepTime', 'cookTime']);
 
     function buildPath(route)
 	{
@@ -57,8 +57,13 @@ function ViewRecipe() {
     }    
 
     useEffect(() => {
-      viewRecipes();
+        viewRecipes();
     }, []); // run once on component mount
+
+    const edit = async =>
+    {
+        window.location.href = "/editRecipe"
+    }
 
     const cancel = async (event) =>
     {
@@ -102,6 +107,9 @@ function ViewRecipe() {
 
     return (
         <div className="list-recipes">
+            <div className="list-name">
+                <h>{cookie.name}</h>
+            </div>
             <div className="list-Ingredients">
                 <div className="ingred">
                     <label className="ingred">Ingredients</label>
@@ -121,18 +129,18 @@ function ViewRecipe() {
                     <label className="instruct">Instructions</label>
                 </div>
                 <div className="list-Ins">
-                {instructions.map((instruction, index) => (
-                <div className="list-recipeInstructions" key={instruction.instructionId}>
-                    {instruction.body.map((body, index) => (
-                        <p key={index}> Step {instruction.stepNumber[index]}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{body}</p>
-                    ))}
-                </div>
+                    {instructions.map((instruction, index) => (
+                    <div className="list-recipeInstructions" key={instruction.instructionId}>
+                        {instruction.body.map((body, index) => (
+                            <p key={index}> Step {instruction.stepNumber[index]}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{body}</p>
+                        ))}
+                    </div>
                 ))}
                 </div>
             </div>
             <div className="modData">
-                <input type="submit" id="cancel" className="buttons sub_buttons" value="Edit" onClick={cancel} />
-                <input type="submit" id="deleteRecipe" className="buttons sub_buttons" value="Delete" onClick={deleteRecipe} />
+                <input type="submit" id="cancel" class="buttons sub_buttons" value="Edit Recipe" onClick={edit} />
+                <input type="submit" id="deleteRecipe" className="buttons sub_buttons" value="Delete Recipe" onClick={deleteRecipe} />
             </div>
             <input type="submit" id="cancel" className="buttons sub_buttons" value="Return Home" onClick={cancel} />
             <span id="loginResult">{message}</span>

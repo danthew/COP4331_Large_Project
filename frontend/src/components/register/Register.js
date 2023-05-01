@@ -136,7 +136,7 @@ function Register() {
                 console.log(cookie.userId);
                 console.log(cookie.email);
                 setMessage('Registered successfully');
-                window.location.href = "/";
+                window.location.href = "/user";
 
             }
         }

@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 
 function Recipe() {
   const [recipes, setRecipes] = useState([]);
-  const [cookie, setCookie] = useCookies(['userId']);
+  const [cookie, setCookie] = useCookies(['userId', 'recipeId', 'name', 'cuisine', 'prepTime', 'cookTime']);
 
   function buildPath(route)
 	{
@@ -52,12 +52,15 @@ function Recipe() {
     const addRecipe = async event =>
     {
         event.preventDefault();
-
         window.location.href = "/addRecipe";
     }
 
-    const viewRecipe = async recipeId => {
+    const viewRecipe = async (recipeId, recipe) => {
 	setCookie('recipeId', recipeId, {path: '/'});
+        setCookie('name', recipe.name, {path: '/'});
+        setCookie('cuisine', recipe.cuisine, {path: '/'});
+        setCookie('prepTime', recipe.prepTime, {path: '/'});
+        setCookie('cookTime', recipe.cookTime, {path: '/'});
       	window.location.href = `/viewRecipe`;
     };
 
@@ -94,7 +97,9 @@ function Recipe() {
     <div className="recipe">
       <div className="recipe-ui">
         <div className="recipe-header">
-          <h1 className="label"> RECIPES </h1>
+          <div className="recipe-background">
+            <h1 className="label"> Recipes </h1>
+          </div>
         </div>
         <div className="search">
             <form className="search">
@@ -111,7 +116,7 @@ function Recipe() {
               <p>Recipe Cuisine: {recipe.cuisine}</p>
               <p>Prep Time: {recipe.prepTime}</p>
               <p>Cook Time: {recipe.cookTime}</p>
-              <button className="sub_buttons" onClick={() => viewRecipe(recipe.recipeId)}>View</button>
+              <button class="sub_buttons" onClick={() => viewRecipe(recipe.recipeId, recipe)}>View</button>
             </div>
           ))}
         </div>
