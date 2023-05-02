@@ -756,7 +756,7 @@ app.post('/listRecipes', (req, res) => {
 	});
 });
 
-// List Ingredients for Recipe
+//lists recipe ingredients
 app.post('/listRecipeIngredients', (req, res) => {
 	cors(req, res, () => {
 		db.collection("recipes").doc(req.body.recipeId).get()
@@ -770,7 +770,7 @@ app.post('/listRecipeIngredients', (req, res) => {
 									ingredientId: doc.id,
 									...doc.data()
 								};
-								ingredients.push(doc.data());
+								ingredients.push(Ingredient);
 							});
 							return res.status(200).json(ingredients);
 						})

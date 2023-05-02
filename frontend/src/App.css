@@ -544,6 +544,24 @@
   text-align: center;
 }
 
+.edit-recipe-block {
+  /* background-color: #3498DB; */
+  background-image: url("images/steel_background.png");
+  position:absolute;
+  align-content: center;
+  text-align: center;
+  width: 40%;
+  margin-left: 35%;
+  transform: translateY(100px);
+  border-radius: 30px 30px 45px 45px;
+}
+
+.edit-recipe {
+  max-height: 700px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
 .add-recipe {
   /* background-color: #3498DB; */
   background-image: url("images/steel_background.png");
@@ -551,7 +569,7 @@
   align-content: center;
   text-align: center;
   width: 40%;
-  margin-left: 30%;
+  margin-left: 35%;
   transform: translateY(100px);
   border-radius: 30px 30px 45px 45px;
 }
@@ -631,18 +649,23 @@ label {
   margin-top:10px;
 }
 
-.list-recipes {
+.view-recipe-block {
   /* background-color: #3498DB; */
   background-image: url("images/steel_background.png");
-  height: auto;
-  width: 500px;
+  width: 600px;
   text-align: center;
   border-radius: 30px 30px 45px 45px;
   transform: translateX(730px);
 }
 
+.list-recipes {
+  max-height: 700px;
+  margin-top: 10%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
 .list-name {
-  margin-top: 100px;
   font-size: xx-large;
 }
 

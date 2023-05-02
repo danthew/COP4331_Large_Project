@@ -144,7 +144,7 @@ function EditRecipe() {
                 headers: { Accept: 'application/json',
                     "Content-Type": "application/json" },
             });
-            if(response.status != 201) {
+            if(response.status != 200) {
                 setMessage('There was an error with your recipe input.');
 		        console.log(response.status);
             }
@@ -200,8 +200,8 @@ function EditRecipe() {
 
         let obj3 = {
             instructionId: cookie.instructionId,
-            body: instructions,
-            stepNumber: stepsList,
+            body: instructions.map(instruction => instruction.body),
+            stepNumber: stepsList.map(step => step.body),
             recipeId: cookie.recipeId
         }
 
@@ -241,8 +241,8 @@ function EditRecipe() {
 
     return (
 
-        <div className="background">
-            <div class="add-recipe">
+        <div className="edit-recipe-block">
+            <div className="edit-recipe">
                 <div className="rec-title">
                     <label>Recipe Title</label>
                     <input className="recipe-title" size="10" id="name" defaultValue={cookie.name} ref={(c) => name = c}/>
@@ -291,7 +291,6 @@ function EditRecipe() {
                     <label>Cuisine :</label>
                     <input type='text' id='cuisine' defaultValue={cookie.cuisine} ref={(c) => cuisine = c}></input> 
                 </div>
-
                 <div className="add-delete">
                     <hr size="5" width="100%" />
                     {instructions.map((step, i) => (
@@ -308,12 +307,12 @@ function EditRecipe() {
                     ))}
                     <hr size="5" width="100%" />
                     <button className="btn-add sub_buttons" onClick={() => addStep()}>Add Step</button>
-                    </div>
-                    <input type="submit" id="addRecipeButton" className="buttons sub_buttons" value="Update Recipe" onClick={editRecipe}/>
-                    <input type="submit" id="cancel" className="buttons sub_buttons" value="Cancel" onClick={cancel} />
-                    <span id="addRecipeResult">{message}</span>
                 </div>
+                <input type="submit" id="addRecipeButton" className="buttons sub_buttons" value="Update Recipe" onClick={editRecipe}/>
+                <input type="submit" id="cancel" className="buttons sub_buttons" value="Cancel" onClick={cancel} />
+                <span id="addRecipeResult">{message}</span>
             </div>
+        </div>
     )
 }
 
