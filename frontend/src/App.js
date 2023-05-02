@@ -8,6 +8,7 @@ import LoginPage from './pages/login/LoginPage';
 import AddRecipePage from 'pages/AddRecipePage';
 import ViewRecipePage from 'pages/ViewRecipePage';
 import EditRecipePage from 'pages/EditRecipePage';
+import VerifyPage from 'pages/VerifyPage';
 
 function App() 
 {
@@ -19,6 +20,7 @@ function App()
         <Route path="/addRecipe" index element={<AddRecipePage />} />
         <Route path="/viewRecipe" index element={<ViewRecipePage />} />
         <Route path="/editRecipe" index element={<EditRecipePage />} />
+        <Route path="/user" index element={<VerifyPage />} />
       </Routes>
     </BrowserRouter>
   );
