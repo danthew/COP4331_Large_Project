@@ -200,8 +200,8 @@ function EditRecipe() {
 
         let obj3 = {
             instructionId: cookie.instructionId,
-            body: instructions.map(instruction => instruction.body),
-            stepNumber: stepsList.map(step => step.body),
+            body: instructions,
+            stepNumber: stepsList,
             recipeId: cookie.recipeId
         }
 
