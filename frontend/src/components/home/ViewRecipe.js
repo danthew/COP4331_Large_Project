@@ -106,44 +106,46 @@ function ViewRecipe() {
     };
 
     return (
-        <div className="list-recipes">
-            <div className="list-name">
-                <h>{cookie.name}</h>
-            </div>
-            <div className="list-Ingredients">
-                <div className="ingred">
-                    <label className="ingred">Ingredients</label>
+        <div className="view-recipe-block">
+            <div className="list-recipes">
+                <div className="list-name">
+                    <h>{cookie.name}</h>
                 </div>
-                <div className="list-Ing">
-                    {ingredients.map((ingredient, index) => (
-                    <div className="list-recipeIngredients" key={ingredient.ingredientId}>
-                        {ingredient.name.map((name, index) => (
-                            <p key={index}>{ingredient.quantity[index]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {name}</p>
-                        ))}
-                    </div>  
-                    ))}
-                </div>
-            </div>
-            <div className="list-Instructions">
-                <div className="instru">
-                    <label className="instruct">Instructions</label>
-                </div>
-                <div className="list-Ins">
-                    {instructions.map((instruction, index) => (
-                    <div className="list-recipeInstructions" key={instruction.instructionId}>
-                        {instruction.body.map((body, index) => (
-                            <p key={index}> Step {instruction.stepNumber[index]}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{body}</p>
+                <div className="list-Ingredients">
+                    <div className="ingred">
+                        <label className="ingred">Ingredients</label>
+                    </div>
+                    <div className="list-Ing">
+                        {ingredients.map((ingredient, index) => (
+                        <div className="list-recipeIngredients" key={ingredient.ingredientId}>
+                            {ingredient.name.map((name, index) => (
+                                <p key={index}>{ingredient.quantity[index]} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {name}</p>
+                            ))}
+                        </div>  
                         ))}
                     </div>
-                ))}
                 </div>
+                <div className="list-Instructions">
+                    <div className="instru">
+                        <label className="instruct">Instructions</label>
+                    </div>
+                    <div className="list-Ins">
+                        {instructions.map((instruction, index) => (
+                        <div className="list-recipeInstructions" key={instruction.instructionId}>
+                            {instruction.body.map((body, index) => (
+                                <p key={index}> Step {instruction.stepNumber[index]}: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{body}</p>
+                            ))}
+                        </div>
+                    ))}
+                    </div>
+                </div>
+                <div className="modData">
+                    <input type="submit" id="cancel" class="buttons sub_buttons" value="Edit Recipe" onClick={edit} />
+                    <input type="submit" id="deleteRecipe" className="buttons sub_buttons" value="Delete Recipe" onClick={deleteRecipe} />
+                </div>
+                <input type="submit" id="cancel" className="buttons sub_buttons" value="Return Home" onClick={cancel} />
+                <span id="loginResult">{message}</span>
             </div>
-            <div className="modData">
-                <input type="submit" id="cancel" class="buttons sub_buttons" value="Edit Recipe" onClick={edit} />
-                <input type="submit" id="deleteRecipe" className="buttons sub_buttons" value="Delete Recipe" onClick={deleteRecipe} />
-            </div>
-            <input type="submit" id="cancel" className="buttons sub_buttons" value="Return Home" onClick={cancel} />
-            <span id="loginResult">{message}</span>
         </div>
     );
 }

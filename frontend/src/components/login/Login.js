@@ -81,10 +81,10 @@ function Login() {
                     <div className="input-text">
                         <input type="password" name="Password" toggleMask="true" id="loginPassword" className="input" placeholder="Password" ref={(c) => loginPassword = c} /><br />
                     </div>
+                    <input type="submit" id="loginButton" className="button" value="Login" onClick={doLogin}/>
                     <div>
                         <button className="forgot" onClick={forgotPassword}>Forgot Password</button>
                     </div>
-                    <input type="submit" id="loginButton" className="button" value="Login" onClick={doLogin}/>
                 </form>
                 <span id="loginResult">{message}</span>
             </div>

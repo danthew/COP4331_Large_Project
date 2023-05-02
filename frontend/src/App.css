@@ -631,18 +631,23 @@ label {
   margin-top:10px;
 }
 
-.list-recipes {
+.view-recipe-block {
   /* background-color: #3498DB; */
   background-image: url("images/steel_background.png");
-  height: auto;
-  width: 500px;
+  width: 600px;
   text-align: center;
   border-radius: 30px 30px 45px 45px;
   transform: translateX(730px);
 }
 
+.list-recipes {
+  max-height: 700px;
+  margin-top: 10%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
 .list-name {
-  margin-top: 100px;
   font-size: xx-large;
 }
 
