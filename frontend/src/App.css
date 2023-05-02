@@ -655,8 +655,7 @@ label {
   width: 600px;
   text-align: center;
   border-radius: 30px 30px 45px 45px;
-  transform: translateX(730px);
-  margin: auto;
+  transform: translateX(430px);
 }
 
 .list-recipes {
