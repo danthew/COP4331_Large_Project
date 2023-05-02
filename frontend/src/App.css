@@ -562,6 +562,18 @@
   overflow-x: hidden;
 }
 
+.add-recipe {
+  /* background-color: #3498DB; */
+  background-image: url("images/steel_background.png");
+  position:absolute;
+  align-content: center;
+  text-align: center;
+  width: 40%;
+  margin-left: 35%;
+  transform: translateY(100px);
+  border-radius: 30px 30px 45px 45px;
+}
+
 label {
   font-size: 20px;
 }
