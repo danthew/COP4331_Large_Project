@@ -9,7 +9,7 @@ function EditRecipe() {
     const[stepsList, setstepsList] = useState([]);
     const[number, setNumber] = useState([]);
     const [message, setMessage] = useState("");
-    const [cookie, setCookie] = useCookies(['userId', 'recipeId', 'ingredientId', 'name', 'cuisine', 'prepTime', 'cookTime']);
+    const [cookie, setCookie, removeCookie] = useCookies(['userId', 'recipeId', 'ingredientId', 'instructionId', 'name', 'cuisine', 'prepTime', 'cookTime']);
     const [recipes, setRecipes] = useState([]);
     const [ingredients, setIngredients] = useState([]);
     const [instructions, setInstructions] = useState([]);
@@ -50,7 +50,7 @@ function EditRecipe() {
 
     const addStep=()=>{
         setInstructions([...instructions, '']);
-        setstepsList([...stepsList, instructions.length + 1]);
+        setstepsList([...stepsList, stepsList.length + 1]);
     }
     const removeStep=(index)=>{
         const list = [...instructions];
@@ -78,11 +78,13 @@ function EditRecipe() {
                 body: JSON.stringify({ recipeId }),
             });
             const data = await response.json();
+            console.dir(JSON.stringify(data));
             const names = data.map(step => step.name).flat();
             const quantities = data.map(step => step.quantity).flat();
             const newIngredients = names.map((name, index) => ({ name, quantity: quantities[index] }));
             setIngredients(newIngredients);
-            const ingredientId = data[0].ingredientId;
+            const ingredient = data.find(item => item.ingredientId);
+            const ingredientId = ingredient ? ingredient.ingredientId : null;
             console.log(ingredientId);
             setCookie('ingredientId', ingredientId, { path: '/' });
         } catch (error) {
@@ -98,16 +100,17 @@ function EditRecipe() {
                 body: JSON.stringify({ recipeId }),
             });
             const data = await response.json();
+            console.dir(JSON.stringify(data));
 
             const bodyArray = data.map(step => step.body).flat();
             setInstructions(bodyArray);
 
-            const instructionId = data[0].instructionId;
-            setCookie('instructionId', instructionId, { path: '/' });
+            const instruction = data.find(item => item.instructionId);
+            const instructionId = instruction ? instruction.instructionId : null;
+            console.log(instructionId);
     
-            // Additional code to display the instructionId in the console
-            console.log(`instructionId: ${instructionId}`);
-            
+            setCookie('instructionId', instructionId, { path: '/' });
+            console.log(cookie.instructionId);
             
         } catch (error) {
             console.error(error);
@@ -144,7 +147,7 @@ function EditRecipe() {
                 headers: { Accept: 'application/json',
                     "Content-Type": "application/json" },
             });
-            if(response.status != 200) {
+            if(response.status != 201) {
                 setMessage('There was an error with your recipe input.');
 		        console.log(response.status);
             }
@@ -160,10 +163,6 @@ function EditRecipe() {
             console.log(e);
             return;
         }
-
-        console.dir(ingredients);
-
-        
 
         let obj2 = {
             ingredientId: cookie.ingredientId,
@@ -201,7 +200,7 @@ function EditRecipe() {
         let obj3 = {
             instructionId: cookie.instructionId,
             body: instructions,
-            stepNumber: stepsList,
+            stepNumber: 0,
             recipeId: cookie.recipeId
         }
 
@@ -222,6 +221,13 @@ function EditRecipe() {
             else {
                 var res3 = JSON.parse(await response.text());
                 setMessage('');
+                removeCookie("cookTime");
+                removeCookie("prepTime");
+                removeCookie("name");
+                removeCookie("cuisine");
+                removeCookie("recipeId");
+                removeCookie("instructionId");
+                removeCookie("ingredientId");
                 window.location.href = "/home";
             }
         }
@@ -241,8 +247,8 @@ function EditRecipe() {
 
     return (
 
-        <div className="edit-recipe-block">
-            <div className="edit-recipe">
+        <div className="background">
+            <div class="add-recipe">
                 <div className="rec-title">
                     <label>Recipe Title</label>
                     <input className="recipe-title" size="10" id="name" defaultValue={cookie.name} ref={(c) => name = c}/>
@@ -291,6 +297,7 @@ function EditRecipe() {
                     <label>Cuisine :</label>
                     <input type='text' id='cuisine' defaultValue={cookie.cuisine} ref={(c) => cuisine = c}></input> 
                 </div>
+
                 <div className="add-delete">
                     <hr size="5" width="100%" />
                     {instructions.map((step, i) => (
@@ -307,12 +314,12 @@ function EditRecipe() {
                     ))}
                     <hr size="5" width="100%" />
                     <button className="btn-add sub_buttons" onClick={() => addStep()}>Add Step</button>
+                    </div>
+                    <input type="submit" id="addRecipeButton" className="buttons sub_buttons" value="Update Recipe" onClick={editRecipe}/>
+                    <input type="submit" id="cancel" className="buttons sub_buttons" value="Cancel" onClick={cancel} />
+                    <span id="addRecipeResult">{message}</span>
                 </div>
-                <input type="submit" id="addRecipeButton" className="buttons sub_buttons" value="Update Recipe" onClick={editRecipe}/>
-                <input type="submit" id="cancel" className="buttons sub_buttons" value="Cancel" onClick={cancel} />
-                <span id="addRecipeResult">{message}</span>
             </div>
-        </div>
     )
 }
 
