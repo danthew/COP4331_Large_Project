@@ -144,7 +144,7 @@ function EditRecipe() {
                 headers: { Accept: 'application/json',
                     "Content-Type": "application/json" },
             });
-            if(response.status != 201) {
+            if(response.status != 200) {
                 setMessage('There was an error with your recipe input.');
 		        console.log(response.status);
             }
