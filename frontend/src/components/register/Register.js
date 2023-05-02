@@ -113,7 +113,6 @@ function Register() {
         console.log(obj);
 
         let js = JSON.stringify(obj);
-        const headers = {"Content-Type": "application/json"}
 
         try {
             const response = await fetch(bp.buildPath('api/register'), {
